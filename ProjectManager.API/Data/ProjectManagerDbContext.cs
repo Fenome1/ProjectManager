@@ -26,8 +26,6 @@ public partial class ProjectManagerDbContext : DbContext
 
     public virtual DbSet<Objective> Objectives { get; set; }
 
-    public virtual DbSet<ObjectiveAssignment> ObjectiveAssignments { get; set; }
-
     public virtual DbSet<Priority> Priorities { get; set; }
 
     public virtual DbSet<Project> Projects { get; set; }
@@ -37,7 +35,8 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ProjectManager");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=ProjectManager;User Id=sa;Password=Fenome1Password!;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -116,23 +115,22 @@ public partial class ProjectManagerDbContext : DbContext
                 .HasForeignKey(d => d.IdPriority)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Objective_Priority");
-        });
 
-        modelBuilder.Entity<ObjectiveAssignment>(entity =>
-        {
-            entity.HasKey(e => e.IdAssignment).HasName("PK_TaskAssign");
-
-            entity.ToTable("ObjectiveAssignment");
-
-            entity.HasIndex(e => new { e.IdObjective, e.IdAssigneel }, "UQ_Task_Assigneel").IsUnique();
-
-            entity.HasOne(d => d.IdAssigneelNavigation).WithMany(p => p.ObjectiveAssignments)
-                .HasForeignKey(d => d.IdAssigneel)
-                .HasConstraintName("FK_ObjectiveAssignment_User");
-
-            entity.HasOne(d => d.IdObjectiveNavigation).WithMany(p => p.ObjectiveAssignments)
-                .HasForeignKey(d => d.IdObjective)
-                .HasConstraintName("FK_ObjectiveAssign_Objective");
+            entity.HasMany(d => d.IdUsers).WithMany(p => p.IdObjectives)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ObjectiveUser",
+                    r => r.HasOne<User>().WithMany()
+                        .HasForeignKey("IdUser")
+                        .HasConstraintName("FK_ObjectiveUser_User"),
+                    l => l.HasOne<Objective>().WithMany()
+                        .HasForeignKey("IdObjective")
+                        .HasConstraintName("FK_ObjectiveUser_Objective"),
+                    j =>
+                    {
+                        j.HasKey("IdObjective", "IdUser");
+                        j.ToTable("ObjectiveUser");
+                        j.HasIndex(new[] { "IdObjective", "IdUser" }, "UQ_Objective_User").IsUnique();
+                    });
         });
 
         modelBuilder.Entity<Priority>(entity =>

@@ -23,5 +23,5 @@ public partial class Objective
 
     public virtual Priority? IdPriorityNavigation { get; set; }
 
-    public virtual ICollection<ObjectiveAssignment> ObjectiveAssignments { get; set; } = new List<ObjectiveAssignment>();
+    public virtual ICollection<User> IdUsers { get; set; } = new List<User>();
 }

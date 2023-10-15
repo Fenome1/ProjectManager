@@ -17,5 +17,5 @@ public partial class User
 
     public virtual Role IdRoleNavigation { get; set; } = null!;
 
-    public virtual ICollection<ObjectiveAssignment> ObjectiveAssignments { get; set; } = new List<ObjectiveAssignment>();
+    public virtual ICollection<Objective> IdObjectives { get; set; } = new List<Objective>();
 }
