@@ -45,6 +45,8 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.ToTable("Agency");
 
+            entity.HasIndex(e => e.Name, "UQ_Agency").IsUnique();
+
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
@@ -53,6 +55,8 @@ public partial class ProjectManagerDbContext : DbContext
             entity.HasKey(e => e.IdBoard);
 
             entity.ToTable("Board");
+
+            entity.HasIndex(e => e.Name, "UQ_Board").IsUnique();
 
             entity.Property(e => e.EndDate).HasColumnType("date");
             entity.Property(e => e.Name).HasMaxLength(100);
@@ -84,6 +88,8 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.ToTable("Column");
 
+            entity.HasIndex(e => e.Name, "UQ_Column");
+
             entity.Property(e => e.IdColor).HasDefaultValueSql("((1))");
             entity.Property(e => e.Name).HasMaxLength(100);
 
@@ -98,9 +104,11 @@ public partial class ProjectManagerDbContext : DbContext
 
         modelBuilder.Entity<Objective>(entity =>
         {
-            entity.HasKey(e => e.IdObjective).HasName("PK_Task");
+            entity.HasKey(e => e.IdObjective);
 
             entity.ToTable("Objective");
+
+            entity.HasIndex(e => e.Name, "UQ_Objective");
 
             entity.Property(e => e.Deadline).HasColumnType("date");
             entity.Property(e => e.Name).HasMaxLength(100);
@@ -146,6 +154,8 @@ public partial class ProjectManagerDbContext : DbContext
             entity.HasKey(e => e.IdProject);
 
             entity.ToTable("Project");
+
+            entity.HasIndex(e => e.Name, "UQ_Project");
 
             entity.Property(e => e.Name).HasMaxLength(100);
 

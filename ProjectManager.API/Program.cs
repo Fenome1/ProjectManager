@@ -1,3 +1,5 @@
+using MediatR;
+using ProjectManager.API;
 using ProjectManager.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
+
+builder.Services.AddMediatR(typeof(Startup));
 
 builder.Services.AddSignalR();
 
