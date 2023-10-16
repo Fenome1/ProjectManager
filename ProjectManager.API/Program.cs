@@ -1,6 +1,6 @@
 using MediatR;
-using ProjectManager.API;
-using ProjectManager.API.Data;
+using ProjectManager.API.Modules;
+using ProjectManager.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddMediatR(typeof(Startup));
+builder.Services.AddMediatR(typeof(ApiModule));
 
 builder.Services.AddSignalR();
 

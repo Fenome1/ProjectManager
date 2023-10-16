@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProjectManager.API.Features.Agency.Commands;
-using ProjectManager.API.Features.Agency.Queries;
+using ProjectManager.Application.Features.Agency.Commands;
+using ProjectManager.Application.Features.Agency.Queries;
+using ProjectManager.Core.Models;
 
 namespace ProjectManager.API.Controllers
 {
@@ -26,7 +27,7 @@ namespace ProjectManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Models.Agency>>> Get()
+        public async Task<ActionResult<List<Agency>>> Get()
         {
             var query = new ListAgenciesQuery();
             var agencies = await _mediator.Send(query);
@@ -37,6 +38,7 @@ namespace ProjectManager.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateAgencyCommand command)
         {
             var result = await _mediator.Send(command);
+
             return CreatedAtAction(nameof(Get), new { id = result.IdAgency }, result);
         }
 
