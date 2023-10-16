@@ -1,6 +1,8 @@
 using MediatR;
+using ProjectManager.Core.Models;
 
-namespace ProjectManager.Application.Features.Agency.Queries
+namespace ProjectManager.Application.Features.Agencies.Queries;
+
+public class ListAgenciesQuery : IRequest<List<Agency>>
 {
-    public class ListAgenciesQuery : IRequest<List<Core.Models.Agency>> { };
 }

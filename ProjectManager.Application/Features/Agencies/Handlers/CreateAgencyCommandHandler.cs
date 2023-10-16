@@ -1,10 +1,11 @@
 using MediatR;
-using ProjectManager.Application.Features.Agency.Commands;
+using ProjectManager.Application.Features.Agencies.Commands;
+using ProjectManager.Core.Models;
 using ProjectManager.Persistence.Context;
 
-namespace ProjectManager.Application.Features.Agency.Handlers;
+namespace ProjectManager.Application.Features.Agencies.Handlers;
 
-public class CreateAgencyCommandHandler : IRequestHandler<CreateAgencyCommand, Core.Models.Agency>
+public class CreateAgencyCommandHandler : IRequestHandler<CreateAgencyCommand, Agency>
 {
     private readonly ProjectManagerDbContext _context;
 
@@ -13,9 +14,9 @@ public class CreateAgencyCommandHandler : IRequestHandler<CreateAgencyCommand, C
         _context = context;
     }
 
-    public async Task<Core.Models.Agency> Handle(CreateAgencyCommand request, CancellationToken cancellationToken)
+    public async Task<Agency> Handle(CreateAgencyCommand request, CancellationToken cancellationToken)
     {
-        var agency = new Core.Models.Agency
+        var agency = new Agency
         {
             Name = request.Name,
             Description = request.Description

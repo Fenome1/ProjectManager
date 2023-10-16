@@ -1,6 +1,6 @@
 ﻿namespace ProjectManager.Core.Models;
 
-public partial class Agency
+public class Agency
 {
     public int IdAgency { get; set; }
 

@@ -1,14 +1,13 @@
-﻿using MediatR;
-using System.Reflection;
+﻿using System.Reflection;
+using MediatR;
 
-namespace ProjectManager.API.Modules
+namespace ProjectManager.API.Modules;
+
+public class ApiModule
 {
-    public class ApiModule
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddControllers();
-        }
+        services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddControllers();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ProjectManager.Core.Models;
 
-public partial class Role
+public class Role
 {
     public int IdRole { get; set; }
 

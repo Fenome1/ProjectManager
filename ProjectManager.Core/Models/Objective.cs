@@ -1,6 +1,6 @@
 ﻿namespace ProjectManager.Core.Models;
 
-public partial class Objective
+public class Objective
 {
     public int IdObjective { get; set; }
 

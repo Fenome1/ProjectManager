@@ -1,38 +1,36 @@
 using MediatR;
-using ProjectManager.Application.Features.Agency.Commands;
+using ProjectManager.Application.Features.Agencies.Commands;
+using ProjectManager.Core.Models;
 using ProjectManager.Persistence.Context;
 
-namespace ProjectManager.Application.Features.Agency.Handlers
+namespace ProjectManager.Application.Features.Agencies.Handlers;
+
+public class UpdateAgencyCommandHandler : IRequestHandler<UpdateAgencyCommand, Agency>
 {
-    public class UpdateAgencyCommandHandler : IRequestHandler<UpdateAgencyCommand, Core.Models.Agency>
+    private readonly ProjectManagerDbContext _context;
+
+    public UpdateAgencyCommandHandler(ProjectManagerDbContext context)
     {
-        private readonly ProjectManagerDbContext _context;
+        _context = context;
+    }
 
-        public UpdateAgencyCommandHandler(ProjectManagerDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<Agency> Handle(UpdateAgencyCommand request, CancellationToken cancellationToken)
+    {
+        var agency = await _context.Agencies.FindAsync(request.IdAgency);
 
-        public async Task<Core.Models.Agency> Handle(UpdateAgencyCommand request, CancellationToken cancellationToken)
-        {
-            var agency = await _context.Agencies.FindAsync(request.IdAgency);
+        if (agency is null)
+            //Валидация
+            return null;
 
-            if (agency is null)
-            {
-                //Валидация
-                return null;
-            }
+        if (!string.IsNullOrWhiteSpace(request.Name))
+            agency.Name = request.Name;
 
-            if (!string.IsNullOrWhiteSpace(request.Name))
-                agency.Name = request.Name;
+        if (request.Description is not null || request.Description?.Trim() == "")
+            agency.Description = request.Description;
 
-            if (request.Description is not null || request.Description?.Trim() == "")
-                agency.Description = request.Description;
+        await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-
-            //Валидация мб
-            return agency;
-        }
+        //Валидация мб
+        return agency;
     }
 }

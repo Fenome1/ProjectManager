@@ -33,7 +33,9 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ProjectManager");
+    {
+        optionsBuilder.UseSqlServer("Name=ProjectManager");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

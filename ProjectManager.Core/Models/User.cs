@@ -1,6 +1,6 @@
 ﻿namespace ProjectManager.Core.Models;
 
-public partial class User
+public class User
 {
     public int IdUser { get; set; }
 
