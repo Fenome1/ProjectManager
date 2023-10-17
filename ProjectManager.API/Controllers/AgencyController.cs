@@ -1,43 +1,34 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using ProjectManager.Application.Features.Agencies.Commands;
-using ProjectManager.Application.Features.Agencies.Queries;
-using ProjectManager.Core.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjectManager.API.Features.Agencies.Commands;
+using ProjectManager.API.Features.Agencies.Queries;
+using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AgencyController : ControllerBase
+public class AgencyController : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public AgencyController(IMediator mediator)
+    [HttpGet]
+    public async Task<ActionResult<List<Agency>>> Get()
     {
-        _mediator = mediator;
+        var query = new ListAgenciesQuery();
+        var agencies = await Mediator.Send(query);
+
+        return agencies.Any() ? Ok(agencies) : NotFound();
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
         var query = new GetAgencyQuery { IdAgency = id };
-        var result = await _mediator.Send(query);
+        var result = await Mediator.Send(query);
 
         return Ok(result);
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<List<Agency>>> Get()
-    {
-        var query = new ListAgenciesQuery();
-        var agencies = await _mediator.Send(query);
-        return Ok(agencies);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateAgencyCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
 
         return CreatedAtAction(nameof(Get), new { id = result.IdAgency }, result);
     }
@@ -45,7 +36,8 @@ public class AgencyController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateAgencyCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
+
         return Ok(result);
     }
 
@@ -53,8 +45,8 @@ public class AgencyController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var command = new DeleteAgencyCommand { IdAgency = id };
-        await _mediator.Send(command);
-        // Валидация
+        await Mediator.Send(command);
+
         return NoContent();
     }
 }

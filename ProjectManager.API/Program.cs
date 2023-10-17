@@ -1,6 +1,9 @@
-using MediatR;
-using ProjectManager.API.Modules;
-using ProjectManager.Persistence.Context;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using MediatR.Extensions.Autofac.DependencyInjection;
+using MediatR.Extensions.Autofac.DependencyInjection.Builder;
+using ProjectManager.API.Context;
+using ProjectManager.API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +21,16 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddMediatR(typeof(ApiModule));
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterMediatR(MediatRConfigurationBuilder
+        .Create(typeof(Program).Assembly)
+        .WithAllOpenGenericHandlerTypesRegistered()
+        .WithRegistrationScope(RegistrationScope.Scoped) // currently only supported values are `Transient` and `Scoped`
+        .Build());
+});
 
 builder.Services.AddSignalR();
 
@@ -32,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
+
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
@@ -43,5 +57,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<NotifyHub>("/notifyHub");
 
 app.Run();
