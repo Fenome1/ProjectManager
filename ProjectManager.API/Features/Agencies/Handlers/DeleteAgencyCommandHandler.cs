@@ -2,22 +2,18 @@ using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using ProjectManager.API.Context;
 using ProjectManager.API.Features.Agencies.Commands;
+using ProjectManager.API.Features.Base;
 using ProjectManager.API.Hubs;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Agencies.Handlers;
 
-public class DeleteAgencyCommandHandler : IRequestHandler<DeleteAgencyCommand, Agency>
+public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<DeleteAgencyCommand, Agency>
 {
-    private readonly ProjectManagerDbContext _context;
-    private readonly IHubContext<NotifyHub> _hubContext;
-
-    public DeleteAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext1)
+    public DeleteAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext)
     {
-        _context = context;
-        _hubContext = hubContext1;
-    }
 
+    }
     public async Task<Agency> Handle(DeleteAgencyCommand request, CancellationToken cancellationToken)
     {
         var agency = await _context.Agencies.FindAsync(request.IdAgency);
@@ -26,7 +22,7 @@ public class DeleteAgencyCommandHandler : IRequestHandler<DeleteAgencyCommand, A
             return null;
 
         _context.Agencies.Remove(agency);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
         await _hubContext.Clients.All.SendAsync("ReceiveAgencyUpdate", agency.IdAgency);
 

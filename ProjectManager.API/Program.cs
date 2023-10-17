@@ -32,6 +32,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         .Build());
 });
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<ProjectManagerDbContext>();

@@ -1,6 +1,8 @@
-﻿namespace ProjectManager.API.Models;
+﻿using MediatR;
 
-public class Project
+namespace ProjectManager.API.Models;
+
+public class Project : IRequest
 {
     public int IdProject { get; set; }
 
