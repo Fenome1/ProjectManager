@@ -4,11 +4,11 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Projects.Queries
 {
-    public class GetProjectQueryCommand : IRequestHandler<GetProjectQuery, Project>
+    public class GetProjectQueryHandler : IRequestHandler<GetProjectQuery, Project>
     {
         private readonly ProjectManagerDbContext _context;
 
-        public GetProjectQueryCommand(ProjectManagerDbContext context)
+        public GetProjectQueryHandler(ProjectManagerDbContext context)
         {
             _context = context;
         }

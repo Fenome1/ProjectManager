@@ -1,6 +1,9 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Priority
+namespace ProjectManager.API.Models;
+
+public partial class Priority
 {
     public int IdPrioriy { get; set; }
 

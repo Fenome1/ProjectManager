@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Context;
@@ -33,9 +35,7 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Name=ProjectManager");
-    }
+        => optionsBuilder.UseSqlServer("Name=ProjectManager");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,7 +64,6 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasOne(d => d.IdPriorityNavigation).WithMany(p => p.Boards)
                 .HasForeignKey(d => d.IdPriority)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Priority_Board");
 
             entity.HasOne(d => d.IdProjectNavigation).WithMany(p => p.Boards)
@@ -99,6 +98,7 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasOne(d => d.IdColorNavigation).WithMany(p => p.Columns)
                 .HasForeignKey(d => d.IdColor)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Color_Column");
         });
 
@@ -115,12 +115,10 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasOne(d => d.IdColumnNavigation).WithMany(p => p.Objectives)
                 .HasForeignKey(d => d.IdColumn)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Objective_Column");
 
             entity.HasOne(d => d.IdPriorityNavigation).WithMany(p => p.Objectives)
                 .HasForeignKey(d => d.IdPriority)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Objective_Priority");
 
             entity.HasMany(d => d.IdUsers).WithMany(p => p.IdObjectives)

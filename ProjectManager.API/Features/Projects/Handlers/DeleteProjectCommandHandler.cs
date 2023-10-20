@@ -24,7 +24,7 @@ namespace ProjectManager.API.Features.Projects.Handlers
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync(cancellationToken);
 
-            await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdProject);
+            await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
 
             return project;
         }

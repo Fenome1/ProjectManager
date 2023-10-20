@@ -1,6 +1,9 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Role
+namespace ProjectManager.API.Models;
+
+public partial class Role
 {
     public int IdRole { get; set; }
 

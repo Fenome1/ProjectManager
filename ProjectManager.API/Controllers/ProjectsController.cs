@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.API.Features.Projects.Commands;
 using ProjectManager.API.Features.Projects.Queries;
+using ProjectManager.API.Features.Projects.Queries.ByAgency;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Controllers
@@ -8,7 +9,7 @@ namespace ProjectManager.API.Controllers
     public class ProjectsController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Project>>> Get()
+        public async Task<IActionResult> Get()
         {
             var query = new ListProjectsQuery();
             var projects = await Mediator.Send(query);
@@ -20,6 +21,15 @@ namespace ProjectManager.API.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var query = new GetProjectQuery { IdProject = id };
+            var result = await Mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpGet("agency/{idAgency}")]
+        public async Task<IActionResult> GetByAgencyId(int idAgency)
+        {
+            var query = new ListProjectsByAgencyQuery { IdAgency = idAgency };
             var result = await Mediator.Send(query);
 
             return Ok(result);

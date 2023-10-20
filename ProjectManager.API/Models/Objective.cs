@@ -1,6 +1,9 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Objective
+namespace ProjectManager.API.Models;
+
+public partial class Objective
 {
     public int IdObjective { get; set; }
 

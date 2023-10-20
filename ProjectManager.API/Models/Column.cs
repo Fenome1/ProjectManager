@@ -1,6 +1,9 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Column
+namespace ProjectManager.API.Models;
+
+public partial class Column
 {
     public int IdColumn { get; set; }
 

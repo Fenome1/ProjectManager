@@ -1,6 +1,9 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Color
+namespace ProjectManager.API.Models;
+
+public partial class Color
 {
     public int IdColor { get; set; }
 

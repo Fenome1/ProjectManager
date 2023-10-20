@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection;
@@ -31,6 +32,11 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         .WithRegistrationScope(RegistrationScope.Scoped) // currently only supported values are `Transient` and `Scoped`
         .Build());
 });
+
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
 builder.Services.AddAutoMapper(typeof(Program));
 
