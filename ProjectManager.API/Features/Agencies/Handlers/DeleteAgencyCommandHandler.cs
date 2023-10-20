@@ -8,18 +8,20 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Agencies.Handlers;
 
-public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<DeleteAgencyCommand, Agency>
+public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<DeleteAgencyCommand, Agency>
 {
-    public DeleteAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext)
+    public DeleteAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(
+        context, hubContext)
     {
-
     }
+
     public async Task<Agency> Handle(DeleteAgencyCommand request, CancellationToken cancellationToken)
     {
         var agency = await _context.Agencies.FindAsync(request.IdAgency);
 
-        if (agency == null)
-            return null;
+        if (agency is null)
+            throw new Exception("Агенство не найдено");
 
         _context.Agencies.Remove(agency);
         await _context.SaveChangesAsync(cancellationToken);

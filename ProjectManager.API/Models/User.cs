@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ProjectManager.API.Models;
 
-namespace ProjectManager.API.Models;
-
-public partial class User
+public class User
 {
     public int IdUser { get; set; }
 

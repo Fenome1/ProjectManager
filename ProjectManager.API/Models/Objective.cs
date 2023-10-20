@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class Objective
+public class Objective
 {
     public int IdObjective { get; set; }
 
@@ -18,9 +17,9 @@ public partial class Objective
     public DateTime? Deadline { get; set; }
 
     public bool Status { get; set; }
-
+    [JsonIgnore]
     public virtual Column IdColumnNavigation { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual Priority? IdPriorityNavigation { get; set; }
 
     public virtual ICollection<User> IdUsers { get; set; } = new List<User>();

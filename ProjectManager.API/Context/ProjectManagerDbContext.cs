@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Context;
@@ -35,7 +33,9 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ProjectManager");
+    {
+        optionsBuilder.UseSqlServer("Name=ProjectManager");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,9 +58,8 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasIndex(e => e.Name, "UQ_Board").IsUnique();
 
-            entity.Property(e => e.EndDate).HasColumnType("date");
+            entity.Property(e => e.Deadline).HasColumnType("date");
             entity.Property(e => e.Name).HasMaxLength(100);
-            entity.Property(e => e.StartDate).HasColumnType("date");
 
             entity.HasOne(d => d.IdPriorityNavigation).WithMany(p => p.Boards)
                 .HasForeignKey(d => d.IdPriority)

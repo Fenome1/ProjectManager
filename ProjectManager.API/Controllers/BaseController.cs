@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProjectManager.API.Controllers
+namespace ProjectManager.API.Controllers;
+
+[ApiController]
+[Route("/api/[controller]")]
+public abstract class BaseController : ControllerBase
 {
-    [ApiController]
-    [Route("/api/[controller]")]
-    public abstract class BaseController : ControllerBase
-    {
-        protected IMediator Mediator => HttpContext.RequestServices.GetRequiredService<IMediator>();
-    }
+    protected IMediator Mediator => HttpContext.RequestServices.GetRequiredService<IMediator>();
 }

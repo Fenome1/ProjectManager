@@ -13,6 +13,7 @@ public class ListProjectsQueryHandler : IRequestHandler<ListProjectsQuery, List<
     {
         _context = context;
     }
+
     public async Task<List<Project>> Handle(ListProjectsQuery request, CancellationToken cancellationToken)
     {
         var projects = await _context.Projects.ToListAsync();

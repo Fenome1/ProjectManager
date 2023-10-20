@@ -13,7 +13,7 @@ internal static class ProjectService
     {
         using var httpClient = new HttpClient();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Projects/agency/{idAgency}");
+        var response = await httpClient.GetAsync($"{BaseApiUrl}/Project/agency/{idAgency}");
 
         if (!response.IsSuccessStatusCode) return null;
 

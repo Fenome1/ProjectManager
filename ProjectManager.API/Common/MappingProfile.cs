@@ -3,14 +3,13 @@ using ProjectManager.API.Features.Agencies.Commands;
 using ProjectManager.API.Features.Projects.Commands;
 using ProjectManager.API.Models;
 
-namespace ProjectManager.API.Common
+namespace ProjectManager.API.Common;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<CreateAgencyCommand, Agency>();
-            CreateMap<CreateProjectCommand, Project>();
-        }
+        CreateMap<CreateAgencyCommand, Agency>();
+        CreateMap<CreateProjectCommand, Project>();
     }
 }

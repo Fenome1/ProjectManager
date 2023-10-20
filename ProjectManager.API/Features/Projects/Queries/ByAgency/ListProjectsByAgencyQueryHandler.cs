@@ -10,6 +10,7 @@ public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAg
 {
     private readonly ProjectManagerDbContext _context;
     private readonly IMapper _mapper;
+
     public ListProjectsByAgencyQueryHandler(ProjectManagerDbContext context, IMapper mapper)
     {
         _context = context;
@@ -23,7 +24,7 @@ public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAg
 
         var projects = await _context.Projects
             .Where(p => p.IdAgency == request.IdAgency)
-            .ToListAsync(cancellationToken: cancellationToken);
+            .ToListAsync(cancellationToken);
 
         if (!projects.Any())
             throw new Exception("ѕроектов по заданному агенству не найдено");

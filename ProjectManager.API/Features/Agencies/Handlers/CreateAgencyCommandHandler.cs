@@ -9,11 +9,13 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Agencies.Handlers;
 
-public class CreateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<CreateAgencyCommand, Agency>
+public class CreateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<CreateAgencyCommand, Agency>
 {
     private readonly IMapper _mapper;
 
-    public CreateAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext, IMapper mapper) : base(context, hubContext)
+    public CreateAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext,
+        IMapper mapper) : base(context, hubContext)
     {
         _mapper = mapper;
     }

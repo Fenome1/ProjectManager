@@ -8,9 +8,11 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Agencies.Handlers;
 
-public class UpdateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<UpdateAgencyCommand, Agency>
+public class UpdateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<UpdateAgencyCommand, Agency>
 {
-    public UpdateAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext)
+    public UpdateAgencyCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(
+        context, hubContext)
     {
     }
 
@@ -32,5 +34,4 @@ public class UpdateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
         await _hubContext.Clients.All.SendAsync("ReceiveAgencyUpdate", agency.IdAgency);
         return agency;
     }
-    
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class Board
+public class Board
 {
     public int IdBoard { get; set; }
 
@@ -13,13 +12,11 @@ public partial class Board
 
     public int? IdPriority { get; set; }
 
-    public DateTime? StartDate { get; set; }
-
-    public DateTime? EndDate { get; set; }
+    public DateTime? Deadline { get; set; }
 
     public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
-
+    [JsonIgnore]
     public virtual Priority? IdPriorityNavigation { get; set; }
-
+    [JsonIgnore]
     public virtual Project IdProjectNavigation { get; set; } = null!;
 }

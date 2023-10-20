@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class Column
+public class Column
 {
     public int IdColumn { get; set; }
 
@@ -13,8 +12,9 @@ public partial class Column
 
     public int IdColor { get; set; }
 
+    [JsonIgnore]
     public virtual Board IdBoardNavigation { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual Color IdColorNavigation { get; set; } = null!;
 
     public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();

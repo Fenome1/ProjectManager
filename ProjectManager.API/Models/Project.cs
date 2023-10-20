@@ -2,7 +2,7 @@
 
 namespace ProjectManager.API.Models;
 
-public partial class Project
+public class Project
 {
     public int IdProject { get; set; }
 
@@ -11,7 +11,6 @@ public partial class Project
     public int IdAgency { get; set; }
 
     public virtual ICollection<Board> Boards { get; set; } = new List<Board>();
-
     [JsonIgnore]
     public virtual Agency IdAgencyNavigation { get; set; } = null!;
 }
