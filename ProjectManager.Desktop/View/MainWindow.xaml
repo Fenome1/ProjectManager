@@ -24,13 +24,21 @@
                     <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
                         <TextBlock Text="{Binding Name}" />
                         <HierarchicalDataTemplate.ItemTemplate>
-                            <DataTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Boards}">
                                 <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
                         </HierarchicalDataTemplate.ItemTemplate>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
+
+
+
         </Grid>
     </Grid>
 </Window>

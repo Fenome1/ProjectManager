@@ -17,7 +17,7 @@ public class SignalRClient
 
         _hubConnection.On<int>("ReceiveAgencyUpdate", async _ => { Instance.LoadAgenciesAsync(); });
         _hubConnection.On<int>("ReceiveProjectUpdate", async idAgency => { Instance.LoadProjectsAsync(idAgency); });
-        _hubConnection.On<int>("ReceiveBoardUpdate", async idProject => { });
+        _hubConnection.On<int>("ReceiveBoardUpdate", async idProject => { Instance.LoadBoardsAsync(idProject); });
     }
 
     public async Task Start()

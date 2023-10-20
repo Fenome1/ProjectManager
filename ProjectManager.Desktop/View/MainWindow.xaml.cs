@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Models;
@@ -30,8 +29,17 @@ public partial class MainWindow : Window
 
     private async void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        var agency = ((TreeView)sender).SelectedItem;
-        await MainWindowViewModel.Instance.Agencies.First(a => a.IdAgency == ((Agency)agency).IdAgency)
-            .LoadProjectsAsync();
+        var selectedItem = ((TreeView)sender).SelectedItem;
+
+        if (selectedItem is Agency agency)
+        {
+            await agency.LoadProjectsAsync();
+        }
+
+        if (selectedItem is Project project)
+        {
+            await project.LoadBoardsAsync();
+        }
+
     }
 }
