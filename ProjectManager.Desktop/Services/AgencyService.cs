@@ -13,7 +13,7 @@ public static class AgencyService
     {
         using var httpClient = new HttpClient();
 
-        var response = await httpClient.GetAsync($"{BaseUrl}/Agency");
+        var response = await httpClient.GetAsync($"{BaseApiUrl}/Agency");
 
         if (!response.IsSuccessStatusCode) return null;
 

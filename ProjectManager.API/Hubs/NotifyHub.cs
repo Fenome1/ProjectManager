@@ -8,8 +8,13 @@ public class NotifyHub : Hub
     {
         await Clients.All.SendAsync("ReceiveAgencyUpdate", agencyId);
     }
-    public async Task SendProjectUpdateNotification(int projectId)
+    public async Task SendProjectUpdateNotification(int idAgency)
     {
-        await Clients.All.SendAsync("ReceiveProjectUpdate", projectId);
+        await Clients.All.SendAsync("ReceiveProjectUpdate", idAgency);
     }
+    public async Task SendBoardUpdateNotification(int idProject)
+    {
+        await Clients.All.SendAsync("ReceiveBoardUpdate", idProject);
+    }
+}
 }

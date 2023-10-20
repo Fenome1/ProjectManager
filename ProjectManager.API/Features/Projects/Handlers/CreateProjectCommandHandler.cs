@@ -20,12 +20,12 @@ namespace ProjectManager.API.Features.Projects.Handlers
 
         public async Task<Project> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            var project = _mapper.Map<Project>(request);
-
-            if (await _context.Agencies.FindAsync(project.IdAgency) is null)
+            if (await _context.Agencies.FindAsync(request.IdAgency) is null)
             {
                 throw new Exception("Агенство не найдено");
             }
+
+            var project = _mapper.Map<Project>(request);
 
             _context.Projects.Add(project);
 
