@@ -27,7 +27,7 @@ public class DeleteBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", board.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
 
         return board;
     }

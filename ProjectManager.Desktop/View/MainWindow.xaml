@@ -4,41 +4,134 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        Loaded="MainWindow_OnLoaded">
+        Title="MainWindow"
+        Height="600"
+        Width="850"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        Loaded="MainWindow_OnLoaded"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Common/ProjectManagerWindowResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*" />
-            <ColumnDefinition Width="45*" />
-        </Grid.ColumnDefinitions>
 
-        <Grid>
+        <Border
+            CornerRadius="20" MouseLeftButtonDown="DragWindow">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFA297EF" Offset="1" />
+                    <GradientStop Color="#FFE4C1F5" Offset="0" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="8*" />
-            </Grid.RowDefinitions>
+        <Grid Margin="10">
 
-            <TreeView Grid.Row="1" ItemsSource="{Binding Agencies}" MouseDoubleClick="Control_OnMouseDoubleClick">
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
-                        <TextBlock Text="{Binding Name}" />
-                        <HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Boards}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="8*" />
+                </Grid.RowDefinitions>
+
+                <TreeView Grid.Row="1"
+                          ItemsSource="{Binding Agencies}"
+                          MouseDoubleClick="Control_OnMouseDoubleClick"
+                          BorderBrush="Transparent"
+                          Style="{DynamicResource TreeViewStyle}">
+
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                            <TextBlock Text="{Binding Name}" />
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+
+                </TreeView>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="50*" />
+                </Grid.RowDefinitions>
+
+                <TabControl x:Name="BoardsTabControl"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Visibility="Hidden"
+                            DataContext="{Binding SelectedProject}"
+                            SelectedIndex="0"
+                            Style="{DynamicResource TabControlStyle}"
+                            ItemContainerStyle="{DynamicResource TabItemStyle}">
+
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
                                 <TextBlock Text="{Binding Name}" />
-                                <HierarchicalDataTemplate.ItemTemplate>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+
+                    <TabControl.ItemsSource>
+                        <Binding Path="Boards" Mode="OneWay" />
+                    </TabControl.ItemsSource>
+
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+
+                            <TabControl ItemsSource="{Binding Columns}">
+                                <TabControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" />
+                                        <Grid>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </Grid>
                                     </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
+                                </TabControl.ItemTemplate>
 
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate>
+                                        <!-- Здесь вы можете добавить отображение задач -->
+                                        <ItemsControl ItemsSource="{Binding Tasks}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <!-- Здесь вы можете добавить отображение задачи -->
+                                                    <Border BorderBrush="Black" BorderThickness="1">
+                                                        <TextBlock Text="{Binding TaskName}" />
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            </TabControl>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
 
+                </TabControl>
 
+            </Grid>
         </Grid>
+
     </Grid>
 </Window>

@@ -7,11 +7,10 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Agency : ObservableObject
 {
+    [ObservableProperty] private List<Project> _projects;
     public int IdAgency { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
-
-    [ObservableProperty] private List<Project> _projects;
 
     public async Task LoadProjectsAsync()
     {

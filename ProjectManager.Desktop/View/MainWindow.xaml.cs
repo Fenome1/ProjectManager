@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Models;
@@ -18,10 +19,6 @@ public partial class MainWindow : Window
         sq.Start();
     }
 
-    private async void AgencyTree_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
-    {
-    }
-
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         await MainWindowViewModel.Instance.LoadAgenciesAsync();
@@ -34,12 +31,34 @@ public partial class MainWindow : Window
         if (selectedItem is Agency agency)
         {
             await agency.LoadProjectsAsync();
+
+            TabControlVisibilityHider(BoardsTabControl);
         }
 
         if (selectedItem is Project project)
         {
             await project.LoadBoardsAsync();
-        }
 
+            if (project.Boards is null || !project.Boards.Any())
+            {
+                TabControlVisibilityHider(BoardsTabControl);
+                return;
+            }
+
+            MainWindowViewModel.Instance.SelectedProject = project;
+            BoardsTabControl.SelectedIndex = 0;
+            BoardsTabControl.Visibility = Visibility.Visible;
+        }
+    }
+
+    private void TabControlVisibilityHider(TabControl control)
+    {
+        if (control.Visibility == Visibility.Visible)
+            control.Visibility = Visibility.Collapsed;
+    }
+
+    private void DragWindow(object sender, MouseButtonEventArgs e)
+    {
+        DragMove();
     }
 }

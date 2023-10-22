@@ -33,9 +33,8 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Name=ProjectManager");
-    }
+        => optionsBuilder.UseSqlServer(
+            "Name=ProjectManager");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,12 +57,7 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasIndex(e => e.Name, "UQ_Board").IsUnique();
 
-            entity.Property(e => e.Deadline).HasColumnType("date");
             entity.Property(e => e.Name).HasMaxLength(100);
-
-            entity.HasOne(d => d.IdPriorityNavigation).WithMany(p => p.Boards)
-                .HasForeignKey(d => d.IdPriority)
-                .HasConstraintName("FK_Priority_Board");
 
             entity.HasOne(d => d.IdProjectNavigation).WithMany(p => p.Boards)
                 .HasForeignKey(d => d.IdProject)

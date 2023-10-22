@@ -23,21 +23,12 @@ public class UpdateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
         if (board is null)
             throw new Exception("Доска не найдена");
 
-        if (request.IsDeadlineReset)
-            board.Deadline = null;
-
         if (!string.IsNullOrWhiteSpace(request.Name))
             board.Name = request.Name;
 
-        if (request.IdPriority is not null)
-            board.IdPriority = request.IdPriority;
-
-        if (request.DeadLine is not null)
-            board.Deadline = request.DeadLine;
-
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", board.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
 
         return board;
     }

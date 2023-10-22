@@ -11,7 +11,6 @@ public class Column
     public int IdBoard { get; set; }
 
     public int IdColor { get; set; }
-
     [JsonIgnore]
     public virtual Board IdBoardNavigation { get; set; } = null!;
     [JsonIgnore]

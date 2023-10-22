@@ -10,6 +10,7 @@ namespace ProjectManager.Desktop.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private List<Agency> _agencies = new();
+    [ObservableProperty] private Project _selectedProject;
 
     public MainWindowViewModel()
     {
