@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:convertors="clr-namespace:ProjectManager.Desktop.Convertors"
+        xmlns:viewModels="clr-namespace:ProjectManager.Desktop.ViewModels"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="600"
-        Width="850"
+
+        MinWidth="800"
+        MinHeight="450"
+
+        MaxWidth="1920"
+        MaxHeight="1080"
+
+        Width="970"
+        Height="470"
+
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
@@ -16,16 +27,19 @@
 
     <Window.Resources>
         <ResourceDictionary>
+            <convertors:IdColorToColorConverter x:Key="ColorConverter" />
+            <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Common/ProjectManagerWindowResourceDictionary.xaml" />
+                <ResourceDictionary Source="../Common/ProjectManagerWindowResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Window.Resources>
 
     <Grid>
-
         <Border
-            CornerRadius="20" MouseLeftButtonDown="DragWindow">
+            CornerRadius="20"
+            MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFA297EF" Offset="1" />
@@ -34,103 +48,196 @@
             </Border.Background>
         </Border>
 
-        <Grid Margin="10">
+        <Grid x:Name="MainGrid">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="50*" />
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto"
+                    MaxHeight="30"
+                    MinHeight="30" />
+                <RowDefinition Height="50*" />
+            </Grid.RowDefinitions>
 
-            <Grid>
+            <!--Граница приложения с иконками-->
+            <Border Grid.Row="0" Background="#FFB692CA"
+                    Height="50"
+                    CornerRadius="20,20,0,0" MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="8*" />
-                </Grid.RowDefinitions>
+                <WrapPanel Orientation="Horizontal"
+                           Margin="0,0,25,20"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center">
 
-                <TreeView Grid.Row="1"
-                          ItemsSource="{Binding Agencies}"
-                          MouseDoubleClick="Control_OnMouseDoubleClick"
-                          BorderBrush="Transparent"
-                          Style="{DynamicResource TreeViewStyle}">
+                    <Image Source="/Assets/hide.png"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
+                           Width="29"
+                           Margin="0,0,15,0" />
 
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
-                            <TextBlock Text="{Binding Name}" />
-                            <HierarchicalDataTemplate.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" />
-                                </DataTemplate>
-                            </HierarchicalDataTemplate.ItemTemplate>
-                        </HierarchicalDataTemplate>
-                    </TreeView.ItemTemplate>
+                    <Image Source="../Assets/fullScreen.png"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
+                           Width="29"
+                           Margin="0,0,15,0" />
 
-                </TreeView>
+                    <Image Source="../Assets/xCross.png"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Height="23"
+                           Width="29"
+                           MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown" />
 
+                </WrapPanel>
+            </Border>
+
+
+            <Grid
+                x:Name="ContentGrid"
+                Grid.Row="1"
+                Margin="10,0,10,10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="7*" />
+                    </Grid.RowDefinitions>
+                    <!--Вывод агенств и проектов-->
+                    <TreeView Grid.Row="1"
+                              ItemsSource="{Binding Agencies}"
+                              MouseDoubleClick="Control_OnMouseDoubleClick"
+                              BorderBrush="Transparent"
+                              Style="{DynamicResource TreeViewStyle}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                                <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}"
+                                           ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}" />
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+
+                    </TreeView>
+
+                </Grid>
+
+
+                <Grid Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Вывод досок, колонок и задач-->
+                    <TabControl x:Name="BoardsTabControl"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Visibility="Hidden"
+                                DataContext="{Binding SelectedProject}"
+                                Style="{DynamicResource TabControlStyle}"
+                                ItemContainerStyle="{DynamicResource TabItemStyle}"
+                                SelectionChanged="BoardsTabControl_OnSelectionChanged"
+                                TabStripPlacement="Top">
+
+                        <!--Вывод досок-->
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+
+                        <TabControl.ItemsSource>
+                            <Binding Path="Boards" Mode="OneWay" />
+                        </TabControl.ItemsSource>
+
+                        <!--Вывод колонок и задач-->
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Auto"
+                                              CanContentScroll="True"
+                                              HorizontalContentAlignment="Stretch"
+                                              VerticalContentAlignment="Stretch"
+                                              HorizontalAlignment="Stretch">
+                                    <ItemsControl ItemsSource="{Binding Columns}"
+                                                  HorizontalAlignment="Left"
+                                                  HorizontalContentAlignment="Left"
+                                                  VerticalAlignment="Top"
+                                                  VerticalContentAlignment="Top">
+
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel HorizontalAlignment="Left"
+                                                            VerticalAlignment="Top"
+                                                            Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderBrush="#FF8D83DA"
+                                                        BorderThickness="2"
+                                                        CornerRadius="5"
+                                                        Padding="5"
+                                                        Margin="10"
+                                                        Width="Auto"
+                                                        MaxWidth="350"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top">
+
+                                                    <StackPanel VerticalAlignment="Top"
+                                                                HorizontalAlignment="Left"
+                                                                MinWidth="200"
+                                                                Margin="5">
+
+                                                        <TextBlock Text="{Binding Name}"
+                                                                   Style="{DynamicResource DefaultTextStyle}" />
+
+                                                        <Border Height="5"
+                                                                CornerRadius="2">
+                                                            <Border.Background>
+                                                                <SolidColorBrush
+                                                                    Color="{Binding IdColor, Converter={StaticResource ColorConverter}}" />
+                                                            </Border.Background>
+                                                        </Border>
+
+                                                        <StackPanel HorizontalAlignment="Stretch"
+                                                                    VerticalAlignment="Stretch">
+                                                            <TextBlock Text="Задача"
+                                                                       Style="{DynamicResource DefaultTextStyle}" />
+                                                        </StackPanel>
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+
+                    </TabControl>
+
+                </Grid>
             </Grid>
 
-            <Grid Grid.Column="1">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5*" />
-                    <RowDefinition Height="50*" />
-                </Grid.RowDefinitions>
-
-                <TabControl x:Name="BoardsTabControl"
-                            Grid.Row="0"
-                            Grid.RowSpan="2"
-                            Visibility="Hidden"
-                            DataContext="{Binding SelectedProject}"
-                            SelectedIndex="0"
-                            Style="{DynamicResource TabControlStyle}"
-                            ItemContainerStyle="{DynamicResource TabItemStyle}">
-
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
-
-                    <TabControl.ItemsSource>
-                        <Binding Path="Boards" Mode="OneWay" />
-                    </TabControl.ItemsSource>
-
-                    <TabControl.ContentTemplate>
-                        <DataTemplate>
-
-                            <TabControl ItemsSource="{Binding Columns}">
-                                <TabControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Text="{Binding Name}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </TabControl.ItemTemplate>
-
-                                <TabControl.ContentTemplate>
-                                    <DataTemplate>
-                                        <!-- Здесь вы можете добавить отображение задач -->
-                                        <ItemsControl ItemsSource="{Binding Tasks}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <!-- Здесь вы можете добавить отображение задачи -->
-                                                    <Border BorderBrush="Black" BorderThickness="1">
-                                                        <TextBlock Text="{Binding TaskName}" />
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </DataTemplate>
-                                </TabControl.ContentTemplate>
-                            </TabControl>
-                        </DataTemplate>
-                    </TabControl.ContentTemplate>
-
-                </TabControl>
-
-            </Grid>
         </Grid>
 
     </Grid>

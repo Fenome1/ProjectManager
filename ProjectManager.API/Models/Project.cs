@@ -12,6 +12,5 @@ public class Project
 
     public virtual ICollection<Board> Boards { get; set; } = new List<Board>();
 
-    [JsonIgnore]
-    public virtual Agency IdAgencyNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Agency IdAgencyNavigation { get; set; } = null!;
 }

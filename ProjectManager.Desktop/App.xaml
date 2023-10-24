@@ -1,8 +1,10 @@
 ﻿<Application x:Class="ProjectManager.Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:convertors="clr-namespace:ProjectManager.Desktop.Convertors"
              StartupUri="/View/MainWindow.xaml">
     <Application.Resources>
 
+        <convertors:IdColorToColorConverter x:Key="IdColorToColorConverter" />
     </Application.Resources>
 </Application>

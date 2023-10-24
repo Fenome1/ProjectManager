@@ -8,6 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Assets\fullScreen.png" />
+		<None Remove="Assets\hide.png" />
+		<None Remove="Assets\xCross.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.12" />
@@ -16,6 +22,22 @@
 
 	<ItemGroup>
 		<Folder Include="Common\" />
+		<Folder Include="Convertors\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Assets\hide.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\xCross.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\fullScreen.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 </Project>

@@ -9,12 +9,10 @@ namespace ProjectManager.API.Features.Projects.Queries.ByAgency;
 public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAgencyQuery, List<Project>>
 {
     private readonly ProjectManagerDbContext _context;
-    private readonly IMapper _mapper;
 
     public ListProjectsByAgencyQueryHandler(ProjectManagerDbContext context, IMapper mapper)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<List<Project>> Handle(ListProjectsByAgencyQuery request, CancellationToken cancellationToken)

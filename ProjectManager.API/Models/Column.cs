@@ -11,10 +11,10 @@ public class Column
     public int IdBoard { get; set; }
 
     public int IdColor { get; set; }
-    [JsonIgnore]
-    public virtual Board IdBoardNavigation { get; set; } = null!;
-    [JsonIgnore]
-    public virtual Color IdColorNavigation { get; set; } = null!;
+
+    [JsonIgnore] public virtual Board IdBoardNavigation { get; set; } = null!;
+
+    [JsonIgnore] public virtual Color IdColorNavigation { get; set; } = null!;
 
     public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
 }

@@ -7,7 +7,7 @@ using static ProjectManager.Desktop.Common.URL;
 
 namespace ProjectManager.Desktop.Services;
 
-public static class BoardsService
+public static class BoardService
 {
     public static async Task<List<Board>> GetBoardsByProjectIdAsync(int idProject)
     {

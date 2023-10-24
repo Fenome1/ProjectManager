@@ -14,7 +14,7 @@ public partial class Project : ObservableObject
 
     public async Task LoadBoardsAsync()
     {
-        var boards = await BoardsService.GetBoardsByProjectIdAsync(IdProject);
+        var boards = await BoardService.GetBoardsByProjectIdAsync(IdProject);
         Boards = boards;
     }
 }

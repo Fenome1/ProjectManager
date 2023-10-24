@@ -15,8 +15,7 @@ public partial class MainWindow : Window
 
         DataContext = MainWindowViewModel.Instance;
 
-        var sq = new SignalRClient();
-        sq.Start();
+        var _ = new SignalRClient().Start();
     }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -51,14 +50,36 @@ public partial class MainWindow : Window
         }
     }
 
-    private void TabControlVisibilityHider(TabControl control)
+    private static void TabControlVisibilityHider(TabControl control)
     {
         if (control.Visibility == Visibility.Visible)
             control.Visibility = Visibility.Collapsed;
     }
 
-    private void DragWindow(object sender, MouseButtonEventArgs e)
+    private async void BoardsTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedItem = ((TabControl)sender).SelectedItem;
+
+        if (selectedItem is Board board) await board.LoadColumnsAsync();
+    }
+
+    private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        Close();
+    }
+
+    private void HideWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+
+    private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         DragMove();
+    }
+
+    private void WindowSizeChange_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
 }

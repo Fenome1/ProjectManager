@@ -18,4 +18,9 @@ public class NotifyHub : Hub
     {
         await Clients.All.SendAsync("ReceiveBoardUpdate", idProject);
     }
+
+    public async Task SendColumnUpdateNotification(int idBoard)
+    {
+        await Clients.All.SendAsync("ReceiveColumnUpdate", idBoard);
+    }
 }

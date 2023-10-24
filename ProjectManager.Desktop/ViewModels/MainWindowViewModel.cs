@@ -36,7 +36,18 @@ public partial class MainWindowViewModel : ViewModelBase
     public async Task LoadBoardsAsync(int idProject)
     {
         var project = Agencies.SelectMany(a => a.Projects).First(p => p.IdProject == idProject);
-        var boards = await BoardsService.GetBoardsByProjectIdAsync(idProject);
+        var boards = await BoardService.GetBoardsByProjectIdAsync(idProject);
         project.Boards = boards;
+    }
+
+    public async Task LoadColumnsAsync(int idBoard)
+    {
+        var board = Agencies
+            .SelectMany(a => a.Projects)
+            .SelectMany(p => p.Boards)
+            .First(b => b.IdBoard == idBoard);
+
+        var columns = await ColumnService.GetColumnsByBoardIdAsync(idBoard);
+        board.Columns = columns;
     }
 }
