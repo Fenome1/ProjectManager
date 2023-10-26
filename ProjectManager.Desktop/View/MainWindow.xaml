@@ -7,16 +7,16 @@
         xmlns:viewModels="clr-namespace:ProjectManager.Desktop.ViewModels"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="ProjectManager"
 
-        MinWidth="800"
-        MinHeight="450"
+        MinWidth="950"
+        MinHeight="500"
 
         MaxWidth="1920"
         MaxHeight="1080"
 
-        Width="970"
-        Height="470"
+        Width="1280"
+        Height="720"
 
         WindowStyle="None"
         AllowsTransparency="True"
@@ -27,7 +27,6 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <convertors:IdColorToColorConverter x:Key="ColorConverter" />
             <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Common/ProjectManagerWindowResourceDictionary.xaml" />
@@ -47,7 +46,6 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-
         <Grid x:Name="MainGrid">
 
             <Grid.RowDefinitions>
@@ -55,7 +53,7 @@
                     Height="Auto"
                     MaxHeight="30"
                     MinHeight="30" />
-                <RowDefinition Height="50*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
             <!--Граница приложения с иконками-->
@@ -92,7 +90,7 @@
                 </WrapPanel>
             </Border>
 
-
+            <!--Основной контент приложения-->
             <Grid
                 x:Name="ContentGrid"
                 Grid.Row="1"
@@ -103,61 +101,116 @@
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid>
+                <!--Пользователь и проекты-->
+                <Grid Grid.Column="0"
+                      Margin="0,10,10,10">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="7*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
+                    <!--Вывод фото и имени пользователя-->
+                    <Grid Grid.Row="0"
+                          Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Content="Фото"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="1"
+                                   Text="Имя 
+                                   пользователя"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                        <Button Grid.Column="2" Content="X"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                    </Grid>
+
                     <!--Вывод агенств и проектов-->
-                    <TreeView Grid.Row="1"
-                              ItemsSource="{Binding Agencies}"
-                              MouseDoubleClick="Control_OnMouseDoubleClick"
-                              BorderBrush="Transparent"
-                              Style="{DynamicResource TreeViewStyle}">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
-                                <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}"
-                                           ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}" />
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
+                    <Grid
+                        Grid.Row="1"
+                        Margin="0,15,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    </TreeView>
+                        <!--Хеддер Агентств и проектов-->
+                        <Border Grid.Row="0"
+                                BorderBrush="AliceBlue"
+                                BorderThickness="1"
+                                Padding="5"
+                                CornerRadius="15">
+                            <TextBlock
+                                Text="Агентства"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                        </Border>
 
+                        <Border Grid.Row="1"
+                                BorderThickness="1"
+                                BorderBrush="White"
+                                CornerRadius="15"
+                                Margin="0,10,0,0">
+                            <TreeView
+                                MouseDoubleClick="Control_OnMouseDoubleClick"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                ItemsSource="{Binding Agencies}">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                                        <TextBlock
+                                            Text="{Binding Name}"
+                                            TextWrapping="Wrap"
+                                            ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
+                                        <HierarchicalDataTemplate.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Text="{Binding Name}"
+                                                    TextWrapping="Wrap" />
+                                            </DataTemplate>
+                                        </HierarchicalDataTemplate.ItemTemplate>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Border>
+                    </Grid>
                 </Grid>
-
 
                 <Grid Grid.Column="1">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="50*" />
                     </Grid.RowDefinitions>
 
                     <!--Вывод досок, колонок и задач-->
                     <TabControl x:Name="BoardsTabControl"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
+                                TabStripPlacement="Top"
                                 Grid.Row="0"
                                 Grid.RowSpan="2"
-                                Visibility="Hidden"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Visibility="Visible"
+                                Background="Transparent"
+                                BorderThickness="1"
+                                BorderBrush="White"
                                 DataContext="{Binding SelectedProject}"
-                                Style="{DynamicResource TabControlStyle}"
-                                ItemContainerStyle="{DynamicResource TabItemStyle}"
-                                SelectionChanged="BoardsTabControl_OnSelectionChanged"
-                                TabStripPlacement="Top">
+                                ItemContainerStyle="{DynamicResource TabItemStyle}">
 
                         <!--Вывод досок-->
                         <TabControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" Style="{DynamicResource DefaultTextStyle}" />
-                                </StackPanel>
+                                <Grid>
+                                    <TextBlock Text="{Binding Name}" />
+                                </Grid>
                             </DataTemplate>
                         </TabControl.ItemTemplate>
 
@@ -178,7 +231,8 @@
                                                   HorizontalAlignment="Left"
                                                   HorizontalContentAlignment="Left"
                                                   VerticalAlignment="Top"
-                                                  VerticalContentAlignment="Top">
+                                                  VerticalContentAlignment="Top"
+                                                  x:Name="ColumnItemsControl">
 
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -200,36 +254,47 @@
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Top">
 
-                                                    <StackPanel VerticalAlignment="Top"
-                                                                HorizontalAlignment="Left"
-                                                                MinWidth="200"
-                                                                Margin="5">
+                                                    <Grid VerticalAlignment="Top"
+                                                          HorizontalAlignment="Left"
+                                                          MinWidth="200"
+                                                          Margin="5">
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition />
+                                                            <RowDefinition />
+                                                            <RowDefinition />
+                                                        </Grid.RowDefinitions>
 
                                                         <TextBlock Text="{Binding Name}"
-                                                                   Style="{DynamicResource DefaultTextStyle}" />
+                                                                   TextWrapping="WrapWithOverflow"
+                                                                   Grid.Row="0"
+                                                                   Grid.Column="0" />
 
-                                                        <Border Height="5"
-                                                                CornerRadius="2">
-                                                            <Border.Background>
-                                                                <SolidColorBrush
-                                                                    Color="{Binding IdColor, Converter={StaticResource ColorConverter}}" />
-                                                            </Border.Background>
-                                                        </Border>
+                                                        <Separator Grid.Row="1" />
 
-                                                        <StackPanel HorizontalAlignment="Stretch"
-                                                                    VerticalAlignment="Stretch">
-                                                            <TextBlock Text="Задача"
-                                                                       Style="{DynamicResource DefaultTextStyle}" />
-                                                        </StackPanel>
-
-                                                    </StackPanel>
+                                                        <ScrollViewer Grid.Row="2"
+                                                                      VerticalAlignment="Stretch"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      CanContentScroll="True"
+                                                                      HorizontalScrollBarVisibility="Auto"
+                                                                      VerticalScrollBarVisibility="Auto">
+                                                            <ItemsControl
+                                                                ItemsSource="{Binding Objectives}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding Name}"
+                                                                            TextWrapping="WrapWithOverflow" />
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </ScrollViewer>
+                                                    </Grid>
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
 
                                 </ScrollViewer>
-
                             </DataTemplate>
                         </TabControl.ContentTemplate>
 
@@ -239,6 +304,5 @@
             </Grid>
 
         </Grid>
-
     </Grid>
 </Window>

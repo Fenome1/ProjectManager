@@ -10,6 +10,7 @@ namespace ProjectManager.Desktop.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private List<Agency> _agencies = new();
+
     [ObservableProperty] private Project _selectedProject;
 
     public MainWindowViewModel()
@@ -49,5 +50,37 @@ public partial class MainWindowViewModel : ViewModelBase
 
         var columns = await ColumnService.GetColumnsByBoardIdAsync(idBoard);
         board.Columns = columns;
+    }
+
+    public async Task LoadObjectivesAsync(int idColumn)
+    {
+        var column = Agencies
+            .SelectMany(a => a.Projects)
+            .SelectMany(p => p.Boards)
+            .SelectMany(c => c.Columns)
+            .First(c => c.IdColumn == idColumn);
+
+        var objectives = await ObjectiveService.GetObjectivesByColumnIdAsync(idColumn);
+        column.Objectives = objectives;
+    }
+
+    public static async Task LoadProjectTree(Project project)
+    {
+        var boards = project.Boards;
+
+        if (boards is null || !boards.Any())
+            return;
+
+        foreach (var board in boards)
+        {
+            await board.LoadColumnsAsync();
+
+            var columns = board.Columns;
+
+            if (columns is null || !columns.Any())
+                return;
+
+            foreach (var column in board.Columns) await column.LoadObjectivesAsync();
+        }
     }
 }

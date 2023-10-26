@@ -38,8 +38,9 @@
     <Folder Include="Features\Colors\Queries\" />
     <Folder Include="Features\Columns\Handlers\" />
     <Folder Include="Features\Columns\Queries\Get\" />
-    <Folder Include="Features\Columns\Queries\List\ByBoard\" />
-    <Folder Include="Features\Columns\Queries\List\" />
+    <Folder Include="Features\Objectives\Commands\" />
+    <Folder Include="Features\Objectives\Handlers\" />
+    <Folder Include="Features\Objectives\Queries\Get\" />
   </ItemGroup>
 
 </Project>

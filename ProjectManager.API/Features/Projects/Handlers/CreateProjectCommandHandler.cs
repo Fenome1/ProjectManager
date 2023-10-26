@@ -26,12 +26,25 @@ public class CreateProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
 
         var project = _mapper.Map<Project>(request);
 
-        _context.Projects.Add(project);
+        await _context.Projects.AddAsync(project);
 
         await _context.SaveChangesAsync(cancellationToken);
-
         await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
 
+        await _context.CreateNewBoardForProject(project.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", project.IdProject);
+
         return project;
+    }
+}
+
+public static class CreationService
+{
+    public static async Task<Board> CreateNewBoardForProject(this ProjectManagerDbContext context, int idProject)
+    {
+        var newBoard = new Board { Name = "Новая доска", IdProject = idProject };
+        await context.Boards.AddAsync(newBoard);
+        await context.SaveChangesAsync();
+        return newBoard;
     }
 }
