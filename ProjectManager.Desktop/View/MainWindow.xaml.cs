@@ -46,12 +46,12 @@ public partial class MainWindow : Window
 
             Instance.SelectedProject = project;
             BoardsTabControl.SelectedIndex = 0;
-            BoardsTabControl.Visibility = Visibility.Visible;
 
             await LoadProjectTree(project);
+
+            BoardsTabControl.Visibility = Visibility.Visible;
         }
     }
-
 
     private static void TabControlVisibilityHider(TabControl control)
     {

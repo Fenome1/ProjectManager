@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Title="ProjectManager"
 
-        MinWidth="950"
-        MinHeight="500"
+        MinWidth="955"
+        MinHeight="590"
 
         MaxWidth="1920"
         MaxHeight="1080"
@@ -28,8 +28,10 @@
     <Window.Resources>
         <ResourceDictionary>
             <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
+            <convertors:TabControlHeightConverter x:Key="TabControlHeightConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Common/ProjectManagerWindowResourceDictionary.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -184,18 +186,12 @@
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Column="1">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="50*" />
-                    </Grid.RowDefinitions>
+                <Grid Grid.Column="1" x:Name="TabControlContentGrid">
 
                     <!--Вывод досок, колонок и задач-->
                     <TabControl x:Name="BoardsTabControl"
                                 TabStripPlacement="Top"
                                 Grid.Row="0"
-                                Grid.RowSpan="2"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
                                 Visibility="Visible"
@@ -222,7 +218,7 @@
                         <TabControl.ContentTemplate>
                             <DataTemplate>
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                              VerticalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Hidden"
                                               CanContentScroll="True"
                                               HorizontalContentAlignment="Stretch"
                                               VerticalContentAlignment="Stretch"
@@ -277,15 +273,19 @@
                                                                       HorizontalAlignment="Stretch"
                                                                       CanContentScroll="True"
                                                                       HorizontalScrollBarVisibility="Auto"
-                                                                      VerticalScrollBarVisibility="Auto">
+                                                                      VerticalScrollBarVisibility="Auto"
+                                                                      Margin="0,0,0,5"
+                                                                      MaxHeight="{Binding ElementName=TabControlContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}">
                                                             <ItemsControl
                                                                 ItemsSource="{Binding Objectives}">
+
                                                                 <ItemsControl.ItemTemplate>
                                                                     <DataTemplate>
                                                                         <TextBlock Text="{Binding Name}"
                                                                             TextWrapping="WrapWithOverflow" />
                                                                     </DataTemplate>
                                                                 </ItemsControl.ItemTemplate>
+
                                                             </ItemsControl>
                                                         </ScrollViewer>
                                                     </Grid>
