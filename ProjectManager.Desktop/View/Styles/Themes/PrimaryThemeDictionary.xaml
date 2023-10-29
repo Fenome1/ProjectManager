@@ -6,7 +6,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="WindowStyle" TargetType="Window">
-        <Setter Property="Background" Value="{DynamicResource SecondaryColorPrimaryTheme}"/>
+        <Setter Property="Background" Value="{DynamicResource SecondaryColorPrimaryTheme}" />
     </Style>
 
     <Style x:Key="MainWindowStyle" TargetType="Border">

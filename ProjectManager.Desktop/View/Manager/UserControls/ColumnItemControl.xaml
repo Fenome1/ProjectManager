@@ -6,7 +6,7 @@
              xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Manager.Convertors"
              xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
              mc:Ignorable="d"
-             d:DesignHeight="450" 
+             d:DesignHeight="450"
              d:DesignWidth="800">
 
     <UserControl.Resources>
@@ -14,15 +14,15 @@
     </UserControl.Resources>
 
     <Border BorderBrush="White"
-                BorderThickness="2"
-                Background="{Binding Color.HexCode}"
-                CornerRadius="5"
-                Padding="5"
-                Margin="10"
-                Width="Auto"
-                MaxWidth="350"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+            BorderThickness="2"
+            Background="{Binding Color.HexCode}"
+            CornerRadius="5"
+            Padding="5"
+            Margin="10"
+            Width="Auto"
+            MaxWidth="350"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
 
         <Grid VerticalAlignment="Top"
               HorizontalAlignment="Left"
