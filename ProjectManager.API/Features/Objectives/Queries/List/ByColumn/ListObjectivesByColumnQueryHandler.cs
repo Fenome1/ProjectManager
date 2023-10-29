@@ -19,6 +19,7 @@ public class ListObjectivesByColumnQueryHandler : IRequestHandler<ListObjectives
         var objectives = await _context.Objectives
             .Include(o => o.IdColumnNavigation)
             .Where(o => o.IdColumn == request.IdColumn)
+            .Include(o => o.IdPriorityNavigation)
             .ToListAsync();
 
         if (!objectives.Any())

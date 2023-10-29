@@ -21,6 +21,7 @@ public class ListColumnsByBoardsQueryHandler : IRequestHandler<ListColumnsByBoar
 
         var columns = await _context.Columns
             .Where(c => c.IdBoard == request.IdBoard)
+            .Include(c => c.IdColorNavigation)
             .ToListAsync(cancellationToken);
 
         if (!columns.Any())

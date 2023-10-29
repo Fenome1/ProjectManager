@@ -59,14 +59,14 @@ public partial class MainWindow : Window
             control.Visibility = Visibility.Collapsed;
     }
 
+    private void TestThemeSwitchButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        ChangeTheme();
+    }
+
     private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         Close();
-    }
-
-    private void HideWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
     }
 
     private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -77,5 +77,10 @@ public partial class MainWindow : Window
     private void WindowSizeChange_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+    }
+
+    private void HideWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
     }
 }

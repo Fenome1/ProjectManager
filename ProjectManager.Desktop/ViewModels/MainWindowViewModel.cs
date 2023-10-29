@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
@@ -10,6 +12,8 @@ namespace ProjectManager.Desktop.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private List<Agency> _agencies = new();
+
+    private bool _isPrimaryTheme = true;
 
     [ObservableProperty] private Project _selectedProject;
 
@@ -37,6 +41,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public async Task LoadBoardsAsync(int idProject)
     {
         var project = Agencies.SelectMany(a => a.Projects).First(p => p.IdProject == idProject);
+
         var boards = await BoardService.GetBoardsByProjectIdAsync(idProject);
         project.Boards = boards;
     }
@@ -82,5 +87,25 @@ public partial class MainWindowViewModel : ViewModelBase
 
             foreach (var column in board.Columns) await column.LoadObjectivesAsync();
         }
+    }
+
+    public static void ChangeTheme()
+    {
+        var path = "/View/Styles/Themes";
+
+        if (Instance._isPrimaryTheme)
+        {
+            path += "/SecondaryThemeDictionary.xaml";
+            Instance._isPrimaryTheme = false;
+        }
+        else
+        {
+            path += "/PrimaryThemeDictionary.xaml";
+            Instance._isPrimaryTheme = true;
+        }
+
+        var resourceDict = Application.LoadComponent(new Uri(path, UriKind.Relative)) as ResourceDictionary;
+        Application.Current.Resources.MergedDictionaries.Clear();
+        Application.Current.Resources.MergedDictionaries.Add(resourceDict);
     }
 }

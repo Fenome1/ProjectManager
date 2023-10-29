@@ -16,7 +16,9 @@ public class ListColumnsQueryHandler : IRequestHandler<ListColumnsQuery, List<Co
 
     public async Task<List<Column>> Handle(ListColumnsQuery request, CancellationToken cancellationToken)
     {
-        var columns = await _context.Columns.ToListAsync(cancellationToken);
+        var columns = await _context.Columns
+            .Include(c => c.IdColorNavigation)
+            .ToListAsync(cancellationToken);
 
         if (!columns.Any())
             throw new Exception("Колонки не найдены");

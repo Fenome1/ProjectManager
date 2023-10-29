@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
 public class DescriptionToToolTipTextConverter : IValueConverter
 {

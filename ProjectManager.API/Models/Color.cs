@@ -1,4 +1,6 @@
-﻿namespace ProjectManager.API.Models;
+﻿using Newtonsoft.Json;
+
+namespace ProjectManager.API.Models;
 
 public class Color
 {
@@ -8,5 +10,5 @@ public class Color
 
     public string HexCode { get; set; } = null!;
 
-    public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
+    [JsonIgnore] public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
 }

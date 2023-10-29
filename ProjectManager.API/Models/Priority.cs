@@ -1,10 +1,14 @@
-﻿namespace ProjectManager.API.Models;
+﻿using Newtonsoft.Json;
+
+namespace ProjectManager.API.Models;
 
 public class Priority
 {
-    public int IdPrioriy { get; set; }
+    public int IdPriority { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
+    public string HexCode { get; set; } = null!;
+
+    [JsonIgnore] public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
 }

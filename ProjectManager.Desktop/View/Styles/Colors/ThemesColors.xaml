@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="PrimaryColorPrimaryTheme">#485935</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryColorPrimaryTheme">#CADBB7</SolidColorBrush>
+    <SolidColorBrush x:Key="TertiaryColorPrimaryTheme">#FBFBFB</SolidColorBrush>
+
+    <SolidColorBrush x:Key="QuaternaryColorPrimaryTheme">#93A267</SolidColorBrush>
+    <SolidColorBrush x:Key="FivefoldColorPrimaryTheme">#93A267</SolidColorBrush>
+
+    <SolidColorBrush x:Key="PrimaryTextColorPrimaryTheme">#D3B0BD</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryTextColorPrimaryTheme">#000000</SolidColorBrush>
+
+    <SolidColorBrush x:Key="PrimaryColorSecondaryTheme">#17181C</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryColorSecondaryTheme">#232937</SolidColorBrush>
+    <SolidColorBrush x:Key="TertiaryColorSecondaryTheme">#4c566d</SolidColorBrush>
+
+    <SolidColorBrush x:Key="QuaternaryColorSecondaryTheme">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="FivefoldColorSecondaryTheme">#FFFFFF</SolidColorBrush>
+
+    <SolidColorBrush x:Key="PrimaryTextColorSecondaryTheme">#FFFFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryTextColorSecondaryTheme">#7d818b</SolidColorBrush>
+</ResourceDictionary>

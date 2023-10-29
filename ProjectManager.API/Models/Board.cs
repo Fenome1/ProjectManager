@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace ProjectManager.API.Models;
 
@@ -10,7 +10,7 @@ public class Board
 
     public int IdProject { get; set; }
 
-    public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
+    [JsonIgnore] public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
 
     [JsonIgnore] public virtual Project IdProjectNavigation { get; set; } = null!;
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
-using static ProjectManager.Desktop.Common.URL;
+using static ProjectManager.Desktop.Common.Data.URL;
 using static ProjectManager.Desktop.ViewModels.MainWindowViewModel;
 
 namespace ProjectManager.Desktop;

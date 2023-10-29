@@ -17,7 +17,10 @@ public class Objective
     public DateTime? Deadline { get; set; }
 
     public bool Status { get; set; }
+
     [JsonIgnore] public virtual Column IdColumnNavigation { get; set; } = null!;
-    [JsonIgnore] public virtual Priority? IdPriorityNavigation { get; set; }
+
+    public virtual Priority? IdPriorityNavigation { get; set; }
+
     public virtual ICollection<User> IdUsers { get; set; } = new List<User>();
 }

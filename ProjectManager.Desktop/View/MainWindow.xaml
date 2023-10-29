@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:convertors="clr-namespace:ProjectManager.Desktop.Convertors"
         xmlns:viewModels="clr-namespace:ProjectManager.Desktop.ViewModels"
+        xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors"
+        xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.UserControls"
+
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}"
+
         mc:Ignorable="d"
         Title="ProjectManager"
 
@@ -29,27 +32,15 @@
         <ResourceDictionary>
             <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
             <convertors:TabControlHeightConverter x:Key="TabControlHeightConverter" />
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Common/ProjectManagerWindowResourceDictionary.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Window.Resources>
 
     <Grid>
-        <Border
-            CornerRadius="20"
-            MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFA297EF" Offset="1" />
-                    <GradientStop Color="#FFE4C1F5" Offset="0" />
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
-        <Grid x:Name="MainGrid">
 
+        <Border Style="{DynamicResource MainWindowStyle}"
+                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" />
+
+        <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="Auto"
@@ -59,30 +50,32 @@
             </Grid.RowDefinitions>
 
             <!--Граница приложения с иконками-->
-            <Border Grid.Row="0" Background="#FFB692CA"
-                    Height="50"
-                    CornerRadius="20,20,0,0" MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
+            <Border
+                Style="{DynamicResource WindowBarStyle}"
+                Grid.Row="0"
+                Height="50"
+                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
 
                 <WrapPanel Orientation="Horizontal"
                            Margin="0,0,25,20"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center">
 
-                    <Image Source="/Assets/hide.png"
+                    <Image Source="/Assets/Images/hide.png"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
                            Width="29"
                            Margin="0,0,15,0" />
 
-                    <Image Source="../Assets/fullScreen.png"
+                    <Image Source="/Assets/Images/fullScreen.png"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
                            Width="29"
                            Margin="0,0,15,0" />
 
-                    <Image Source="../Assets/xCross.png"
+                    <Image Source="/Assets/Images/xCross.png"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Height="23"
@@ -97,15 +90,15 @@
                 x:Name="ContentGrid"
                 Grid.Row="1"
                 Margin="10,0,10,10">
-
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
-                <!--Пользователь и проекты-->
+                <!--Пользователь и агенства/проекты-->
                 <Grid Grid.Column="0"
-                      Margin="0,10,10,10">
+                      Margin="0,10,10,10"
+                      x:Name="UserAndAgenciesContentGrid">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -132,13 +125,13 @@
                                    TextWrapping="Wrap" />
                         <Button Grid.Column="2" Content="X"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                Click="TestThemeSwitchButton_OnClick" />
                     </Grid>
 
                     <!--Вывод агенств и проектов-->
-                    <Grid
-                        Grid.Row="1"
-                        Margin="0,15,0,0">
+                    <Grid Grid.Row="1"
+                          Margin="0,15,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -156,50 +149,62 @@
                                 HorizontalAlignment="Center" />
                         </Border>
 
-                        <Border Grid.Row="1"
-                                BorderThickness="1"
-                                BorderBrush="White"
-                                CornerRadius="15"
-                                Margin="0,10,0,0">
-                            <TreeView
-                                MouseDoubleClick="Control_OnMouseDoubleClick"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                ItemsSource="{Binding Agencies}">
-                                <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
-                                        <TextBlock
-                                            Text="{Binding Name}"
-                                            TextWrapping="Wrap"
-                                            ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
-                                        <HierarchicalDataTemplate.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    Text="{Binding Name}"
-                                                    TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </HierarchicalDataTemplate.ItemTemplate>
-                                    </HierarchicalDataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
+                        <Border
+                            Grid.Row="1"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            CornerRadius="15"
+                            Margin="0,10,0,0">
+                            <ScrollViewer
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                CanContentScroll="True"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto"
+                                MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}">
+                                <TreeView
+                                    MouseDoubleClick="Control_OnMouseDoubleClick"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    ItemsSource="{Binding Agencies}">
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                                            <TextBlock
+                                                Text="{Binding Name}"
+                                                TextWrapping="Wrap"
+                                                ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
+                                            <HierarchicalDataTemplate.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="{Binding Name}"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </HierarchicalDataTemplate.ItemTemplate>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </ScrollViewer>
                         </Border>
                     </Grid>
+
                 </Grid>
 
-                <Grid Grid.Column="1" x:Name="TabControlContentGrid">
 
+                <Grid Grid.Column="1"
+                      x:Name="TabControlContentGrid">
                     <!--Вывод досок, колонок и задач-->
-                    <TabControl x:Name="BoardsTabControl"
-                                TabStripPlacement="Top"
-                                Grid.Row="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Visibility="Visible"
-                                Background="Transparent"
-                                BorderThickness="1"
-                                BorderBrush="White"
-                                DataContext="{Binding SelectedProject}"
-                                ItemContainerStyle="{DynamicResource TabItemStyle}">
+                    <TabControl
+                        Grid.Row="0"
+                        x:Name="BoardsTabControl"
+                        TabStripPlacement="Top"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Visibility="Hidden"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        DataContext="{Binding SelectedProject}"
+                        ItemContainerStyle="{DynamicResource TabItemStyle}">
 
                         <!--Вывод досок-->
                         <TabControl.ItemTemplate>
@@ -217,92 +222,13 @@
                         <!--Вывод колонок и задач-->
                         <TabControl.ContentTemplate>
                             <DataTemplate>
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                              VerticalScrollBarVisibility="Hidden"
-                                              CanContentScroll="True"
-                                              HorizontalContentAlignment="Stretch"
-                                              VerticalContentAlignment="Stretch"
-                                              HorizontalAlignment="Stretch">
-                                    <ItemsControl ItemsSource="{Binding Columns}"
-                                                  HorizontalAlignment="Left"
-                                                  HorizontalContentAlignment="Left"
-                                                  VerticalAlignment="Top"
-                                                  VerticalContentAlignment="Top"
-                                                  x:Name="ColumnItemsControl">
-
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel HorizontalAlignment="Left"
-                                                            VerticalAlignment="Top"
-                                                            Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border BorderBrush="#FF8D83DA"
-                                                        BorderThickness="2"
-                                                        CornerRadius="5"
-                                                        Padding="5"
-                                                        Margin="10"
-                                                        Width="Auto"
-                                                        MaxWidth="350"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Top">
-
-                                                    <Grid VerticalAlignment="Top"
-                                                          HorizontalAlignment="Left"
-                                                          MinWidth="200"
-                                                          Margin="5">
-
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition />
-                                                            <RowDefinition />
-                                                            <RowDefinition />
-                                                        </Grid.RowDefinitions>
-
-                                                        <TextBlock Text="{Binding Name}"
-                                                                   TextWrapping="WrapWithOverflow"
-                                                                   Grid.Row="0"
-                                                                   Grid.Column="0" />
-
-                                                        <Separator Grid.Row="1" />
-
-                                                        <ScrollViewer Grid.Row="2"
-                                                                      VerticalAlignment="Stretch"
-                                                                      HorizontalAlignment="Stretch"
-                                                                      CanContentScroll="True"
-                                                                      HorizontalScrollBarVisibility="Auto"
-                                                                      VerticalScrollBarVisibility="Auto"
-                                                                      Margin="0,0,0,5"
-                                                                      MaxHeight="{Binding ElementName=TabControlContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}">
-                                                            <ItemsControl
-                                                                ItemsSource="{Binding Objectives}">
-
-                                                                <ItemsControl.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <TextBlock Text="{Binding Name}"
-                                                                            TextWrapping="WrapWithOverflow" />
-                                                                    </DataTemplate>
-                                                                </ItemsControl.ItemTemplate>
-
-                                                            </ItemsControl>
-                                                        </ScrollViewer>
-                                                    </Grid>
-                                                </Border>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-
-                                </ScrollViewer>
+                                <userControls:ColumnControl />
                             </DataTemplate>
                         </TabControl.ContentTemplate>
 
                     </TabControl>
-
                 </Grid>
             </Grid>
-
         </Grid>
     </Grid>
 </Window>

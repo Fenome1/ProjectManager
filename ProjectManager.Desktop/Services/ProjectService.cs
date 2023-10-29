@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ProjectManager.Desktop.Models;
-using static ProjectManager.Desktop.Common.URL;
+using static ProjectManager.Desktop.Common.Data.URL;
 
 namespace ProjectManager.Desktop.Services;
 

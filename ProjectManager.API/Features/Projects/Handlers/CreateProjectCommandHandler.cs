@@ -6,6 +6,7 @@ using ProjectManager.API.Features.Base;
 using ProjectManager.API.Features.Projects.Commands;
 using ProjectManager.API.Hubs;
 using ProjectManager.API.Models;
+using ProjectManager.API.Services;
 
 namespace ProjectManager.API.Features.Projects.Handlers;
 
@@ -31,20 +32,9 @@ public class CreateProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
         await _context.SaveChangesAsync(cancellationToken);
         await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
 
-        await _context.CreateNewBoardForProject(project.IdProject);
-        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", project.IdProject);
+        var newBoard = await _context.CreateNewBoardForProjectAsync(project.IdProject);
+        await _context.CreateNewColumnForBoardAsync(newBoard.IdBoard);
 
         return project;
-    }
-}
-
-public static class CreationService
-{
-    public static async Task<Board> CreateNewBoardForProject(this ProjectManagerDbContext context, int idProject)
-    {
-        var newBoard = new Board { Name = "Новая доска", IdProject = idProject };
-        await context.Boards.AddAsync(newBoard);
-        await context.SaveChangesAsync();
-        return newBoard;
     }
 }

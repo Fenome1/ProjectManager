@@ -34,8 +34,7 @@ public partial class ProjectManagerDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-            "Name=ProjectManager");
+        optionsBuilder.UseSqlServer("Name=ProjectManager");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -57,7 +56,7 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.ToTable("Board");
 
-            entity.HasIndex(e => e.Name, "UQ_Board").IsUnique();
+            entity.HasIndex(e => new { e.IdBoard, e.Name }, "UQ_Board").IsUnique();
 
             entity.Property(e => e.Name).HasMaxLength(100);
 
@@ -72,7 +71,7 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.ToTable("Color");
 
-            entity.Property(e => e.HexCode).HasMaxLength(6);
+            entity.Property(e => e.HexCode).HasMaxLength(9);
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
@@ -135,10 +134,11 @@ public partial class ProjectManagerDbContext : DbContext
 
         modelBuilder.Entity<Priority>(entity =>
         {
-            entity.HasKey(e => e.IdPrioriy);
+            entity.HasKey(e => e.IdPriority);
 
             entity.ToTable("Priority");
 
+            entity.Property(e => e.HexCode).HasMaxLength(9);
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 

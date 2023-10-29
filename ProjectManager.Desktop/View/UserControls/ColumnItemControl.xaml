@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="ProjectManager.Desktop.View.UserControls.ColumnItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ProjectManager.Desktop.View.UserControls"
+             xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <convertors:TabControlHeightConverter x:Key="TabControlHeightConverter" />
+    </UserControl.Resources>
+
+    <Border BorderBrush="White"
+            BorderThickness="2"
+            Background="{Binding Color.HexCode}"
+            CornerRadius="5"
+            Padding="5"
+            Margin="10"
+            Width="Auto"
+            MaxWidth="350"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+
+        <Grid VerticalAlignment="Top"
+              HorizontalAlignment="Left"
+              MinWidth="200"
+              Margin="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding Name}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       TextWrapping="WrapWithOverflow"
+                       Grid.Row="0"
+                       Grid.Column="0" />
+
+            <Separator Grid.Row="1">
+                <Separator.Background>White</Separator.Background>
+            </Separator>
+
+            <!--Вывод задач в колонку-->
+            <ScrollViewer Grid.Row="2"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch"
+                          CanContentScroll="True"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="0,0,0,5"
+                          MaxHeight="{Binding ElementName=TabControlContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}">
+
+                <ItemsControl
+                    ItemsSource="{Binding Objectives}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ObjectiveItemControl />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </ScrollViewer>
+
+        </Grid>
+    </Border>
+</UserControl>

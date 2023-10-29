@@ -1,4 +1,6 @@
-﻿namespace ProjectManager.API.Models;
+﻿using Newtonsoft.Json;
+
+namespace ProjectManager.API.Models;
 
 public class Agency
 {
@@ -8,5 +10,5 @@ public class Agency
 
     public string? Description { get; set; }
 
-    public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
+    [JsonIgnore] public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
 }

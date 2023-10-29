@@ -1,10 +1,10 @@
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
+using Color = ProjectManager.Desktop.Models.Color;
 
-namespace ProjectManager.Desktop.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
 public class IdColorToColorConverter : IValueConverter
 {
@@ -12,11 +12,10 @@ public class IdColorToColorConverter : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var idColor = (int)value;
-        var currentColor = App.BorderColors.FirstOrDefault(c => c.IdColor == idColor);
+        var color = (Color)value;
 
-        var resultHexCode = currentColor?.HexCode ?? DefaultColor;
-        return (Color)ColorConverter.ConvertFromString(resultHexCode);
+        var resultHexCode = color?.HexCode ?? DefaultColor;
+        return (System.Windows.Media.Color)ColorConverter.ConvertFromString(resultHexCode);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

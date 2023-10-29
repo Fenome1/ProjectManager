@@ -1,4 +1,4 @@
-﻿namespace ProjectManager.Desktop.Common;
+﻿namespace ProjectManager.Desktop.Common.Data;
 
 public static class URL
 {

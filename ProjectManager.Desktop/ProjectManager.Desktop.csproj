@@ -8,8 +8,37 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Assets\Fonts\Whitney\Whitney-Black.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-BlackItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-Bold.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-BoldItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-Book.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-BookItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-Light.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-LightItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-Medium.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-MediumItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-Semibold.ttf" />
+		<None Remove="Assets\Fonts\Whitney\Whitney-SemiboldItalic.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdBd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdCnLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdMd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqBd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqCnLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqLight.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqMd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdBd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdCnLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdMd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqBd.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqCnLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqLt.ttf" />
+		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf" />
 		<None Remove="Assets\fullScreen.png" />
 		<None Remove="Assets\hide.png" />
+		<None Remove="Assets\WhitneyMedium.ttf" />
 		<None Remove="Assets\xCross.png" />
 	</ItemGroup>
 
@@ -21,23 +50,106 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Common\" />
-		<Folder Include="Convertors\" />
+		<Folder Include="Services\List\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Assets\hide.png">
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Black.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-BlackItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Bold.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-BoldItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Book.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-BookItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Light.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-LightItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Medium.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-MediumItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-Semibold.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\Whitney-SemiboldItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-RdBd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-RdCnLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-RdLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-RdMd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-SqBd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-SqCnLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-SqLight.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexBlack-SqMd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-RdBd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-RdCnLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-RdLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-RdMd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-SqBd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-SqCnLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-SqLt.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Images\hide.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\xCross.png">
+		<Resource Include="Assets\Images\xCross.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Assets\fullScreen.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Resource>
+		<Resource Include="Assets\Images\fullScreen.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
 	</ItemGroup>
 
 </Project>
