@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="ProjectManager.Desktop.View.Manager.UserControls.ColumnControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Hidden"
+                  CanContentScroll="True"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ItemsControl Grid.Column="0"
+                          ItemsSource="{Binding Columns}"
+                          HorizontalAlignment="Left"
+                          HorizontalContentAlignment="Left"
+                          VerticalAlignment="Top"
+                          VerticalContentAlignment="Top"
+                          x:Name="ColumnItemsControl">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <userControls:ColumnItemControl />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Border Grid.Column="1"
+                    Background="White"
+                    Margin="0,10,10,0"
+                    CornerRadius="20"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Padding="5"
+                    MouseLeftButtonDown="CreateNewColumn_OnMouseLeftButtonDown">
+                <StackPanel>
+                    <TextBlock Text="+ Создать колонку" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

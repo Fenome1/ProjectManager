@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
@@ -19,5 +22,24 @@ public static class ColumnService
 
         var data = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<List<Column>>(data);
+    }
+
+    public static async Task<bool> CreateColumnAsync(int idBoard, string name)
+    {
+        using var httpClient = new HttpClient();
+
+        var data = new { idBoard, name };
+
+        try
+        {
+            var response = await httpClient.PostAsJsonAsync($"{BaseApiUrl}/Column", data);
+            if (response.IsSuccessStatusCode) return true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка создания колонки: {ex.Message}");
+        }
+
+        return false;
     }
 }

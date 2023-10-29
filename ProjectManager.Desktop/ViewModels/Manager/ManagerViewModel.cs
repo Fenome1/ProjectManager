@@ -7,9 +7,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
 
-namespace ProjectManager.Desktop.ViewModels;
+namespace ProjectManager.Desktop.ViewModels.Manager;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class ManagerViewModel : ViewModelBase
 {
     [ObservableProperty] private List<Agency> _agencies = new();
 
@@ -17,12 +17,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty] private Project _selectedProject;
 
-    public MainWindowViewModel()
+    public ManagerViewModel()
     {
         Instance = this;
     }
 
-    public static MainWindowViewModel Instance { get; set; } = new();
+    public static ManagerViewModel Instance { get; set; } = new();
 
     public async Task LoadAgenciesAsync()
     {
@@ -36,6 +36,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
         var projects = await ProjectService.GetProjectsByAgencyIdAsync(idAgency);
         agency.Projects = projects;
+
+        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
     }
 
     public async Task LoadBoardsAsync(int idProject)
@@ -44,6 +46,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
         var boards = await BoardService.GetBoardsByProjectIdAsync(idProject);
         project.Boards = boards;
+
+        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
     }
 
     public async Task LoadColumnsAsync(int idBoard)
@@ -55,6 +59,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
         var columns = await ColumnService.GetColumnsByBoardIdAsync(idBoard);
         board.Columns = columns;
+
+        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
     }
 
     public async Task LoadObjectivesAsync(int idColumn)

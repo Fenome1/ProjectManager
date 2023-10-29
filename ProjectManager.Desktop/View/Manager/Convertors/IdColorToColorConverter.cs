@@ -4,7 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Color = ProjectManager.Desktop.Models.Color;
 
-namespace ProjectManager.Desktop.View.Convertors;
+namespace ProjectManager.Desktop.View.Manager.Convertors;
 
 public class IdColorToColorConverter : IValueConverter
 {

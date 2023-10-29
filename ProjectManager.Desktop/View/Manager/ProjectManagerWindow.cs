@@ -3,13 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Models;
-using static ProjectManager.Desktop.ViewModels.MainWindowViewModel;
+using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
-namespace ProjectManager.Desktop.View;
+namespace ProjectManager.Desktop.View.Manager;
 
-public partial class MainWindow : Window
+public partial class ProjectManagerWindow : Window
 {
-    public MainWindow()
+    public ProjectManagerWindow()
     {
         InitializeComponent();
 

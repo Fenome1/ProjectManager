@@ -1,17 +1,19 @@
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.View.Convertors;
+namespace ProjectManager.Desktop.View.Manager.Convertors;
 
-public class TabControlHeightConverter : IValueConverter
+public class DescriptionToToolTipTextConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is double tabControlHeight) return tabControlHeight - 100;
+        var description = (string)value;
 
-        return DependencyProperty.UnsetValue;
+        if (string.IsNullOrEmpty(description))
+            description = "Агенство";
+
+        return description;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

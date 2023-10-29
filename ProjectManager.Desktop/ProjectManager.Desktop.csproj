@@ -50,10 +50,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\List\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Resource Include="Assets\Fonts\Whitney\Whitney-Black.ttf">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
@@ -150,6 +146,10 @@
 		<Resource Include="Assets\Images\fullScreen.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="View\Manager\UserControls\DialogWindows\Edit\" />
 	</ItemGroup>
 
 </Project>

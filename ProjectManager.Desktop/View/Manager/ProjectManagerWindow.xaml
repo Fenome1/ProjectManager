@@ -1,13 +1,13 @@
-﻿<Window x:Class="ProjectManager.Desktop.View.MainWindow"
+﻿<Window x:Class="ProjectManager.Desktop.View.Manager.ProjectManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:ProjectManager.Desktop.ViewModels"
-        xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors"
-        xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.UserControls"
+        xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Manager.Convertors"
+        xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
+        xmlns:manager="clr-namespace:ProjectManager.Desktop.ViewModels.Manager"
 
-        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance manager:ManagerViewModel, IsDesignTimeCreatable=True}"
 
         mc:Ignorable="d"
         Title="ProjectManager"
@@ -31,7 +31,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
-            <convertors:TabControlHeightConverter x:Key="TabControlHeightConverter" />
+            <convertors:TreeViewHeightConverter x:Key="TreeViewHeightConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -161,7 +161,7 @@
                                 CanContentScroll="True"
                                 HorizontalScrollBarVisibility="Auto"
                                 VerticalScrollBarVisibility="Auto"
-                                MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}">
+                                MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}">
                                 <TreeView
                                     MouseDoubleClick="Control_OnMouseDoubleClick"
                                     Background="Transparent"

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ProjectManager.Desktop.View.UserControls;
+namespace ProjectManager.Desktop.View.Manager.UserControls;
 
 /// <summary>
 ///     Логика взаимодействия для ObjectiveItemControl.xaml
