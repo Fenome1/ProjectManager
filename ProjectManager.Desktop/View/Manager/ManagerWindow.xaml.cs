@@ -7,9 +7,9 @@ using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
 namespace ProjectManager.Desktop.View.Manager;
 
-public partial class ProjectManagerWindow : Window
+public partial class ManagerWindow : Window
 {
-    public ProjectManagerWindow()
+    public ManagerWindow()
     {
         InitializeComponent();
 
