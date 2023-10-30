@@ -12,7 +12,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class ColumnService
 {
-    public static async Task<List<Column>> GetColumnsByBoardIdAsync(int idBoard)
+    public static async Task<List<Column>?> GetColumnsByBoardIdAsync(int idBoard)
     {
         using var httpClient = new HttpClient();
 

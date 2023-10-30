@@ -9,7 +9,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class BoardService
 {
-    public static async Task<List<Board>> GetBoardsByProjectIdAsync(int idProject)
+    public static async Task<List<Board>?> GetBoardsByProjectIdAsync(int idProject)
     {
         using var httpClient = new HttpClient();
 

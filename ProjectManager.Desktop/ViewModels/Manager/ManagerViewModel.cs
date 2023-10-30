@@ -12,10 +12,9 @@ namespace ProjectManager.Desktop.ViewModels.Manager;
 public partial class ManagerViewModel : ViewModelBase
 {
     [ObservableProperty] private List<Agency> _agencies = new();
-
+    [ObservableProperty] private Project? _selectedProject;
     private bool _isPrimaryTheme = true;
 
-    [ObservableProperty] private Project _selectedProject;
 
     public ManagerViewModel()
     {
@@ -27,7 +26,14 @@ public partial class ManagerViewModel : ViewModelBase
     public async Task LoadAgenciesAsync()
     {
         var agencies = await AgencyService.UpdateAgencies();
+
+        if (agencies is null)
+            return;
+
         Agencies = agencies;
+
+        foreach (var agency in Agencies)
+            await agency.LoadProjectsAsync();
     }
 
     public async Task LoadProjectsAsync(int idAgency)
@@ -37,38 +43,38 @@ public partial class ManagerViewModel : ViewModelBase
         var projects = await ProjectService.GetProjectsByAgencyIdAsync(idAgency);
         agency.Projects = projects;
 
-        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
+        if (SelectedProject != null) await LoadProjectTree(SelectedProject);
     }
 
     public async Task LoadBoardsAsync(int idProject)
     {
-        var project = Agencies.SelectMany(a => a.Projects).First(p => p.IdProject == idProject);
+        var project = Agencies.SelectMany(a => a.Projects!).First(p => p.IdProject == idProject);
 
         var boards = await BoardService.GetBoardsByProjectIdAsync(idProject);
         project.Boards = boards;
 
-        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
+        if (SelectedProject != null) await LoadProjectTree(SelectedProject);
     }
 
     public async Task LoadColumnsAsync(int idBoard)
     {
         var board = Agencies
-            .SelectMany(a => a.Projects)
-            .SelectMany(p => p.Boards)
+            .SelectMany(a => a.Projects!)
+            .SelectMany(p => p.Boards!)
             .First(b => b.IdBoard == idBoard);
 
         var columns = await ColumnService.GetColumnsByBoardIdAsync(idBoard);
         board.Columns = columns;
 
-        if (_selectedProject != null) await LoadProjectTree(_selectedProject);
+        if (SelectedProject != null) await LoadProjectTree(SelectedProject);
     }
 
     public async Task LoadObjectivesAsync(int idColumn)
     {
         var column = Agencies
-            .SelectMany(a => a.Projects)
-            .SelectMany(p => p.Boards)
-            .SelectMany(c => c.Columns)
+            .SelectMany(a => a.Projects!)
+            .SelectMany(p => p.Boards!)
+            .SelectMany(c => c.Columns!)
             .First(c => c.IdColumn == idColumn);
 
         var objectives = await ObjectiveService.GetObjectivesByColumnIdAsync(idColumn);
@@ -91,7 +97,8 @@ public partial class ManagerViewModel : ViewModelBase
             if (columns is null || !columns.Any())
                 return;
 
-            foreach (var column in board.Columns) await column.LoadObjectivesAsync();
+            foreach (var column in columns) 
+                await column.LoadObjectivesAsync();
         }
     }
 

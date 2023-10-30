@@ -22,7 +22,7 @@ public partial class ColumnControl : UserControl
         var createColumnDialogWindow = new CreateObjectDialogWindow();
         createColumnDialogWindow.ShowDialog();
 
-        if (!createColumnDialogWindow.DialogResult.Value) return;
+        if (!createColumnDialogWindow.DialogResult!.Value) return;
 
         var columnName = createColumnDialogWindow.EnteredText.Trim();
 

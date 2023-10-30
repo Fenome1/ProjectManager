@@ -9,7 +9,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class ColorService
 {
-    public static async Task<List<Color>> GetColorsAsync()
+    public static async Task<List<Color>?> GetColorsAsync()
     {
         using var httpClient = new HttpClient();
 

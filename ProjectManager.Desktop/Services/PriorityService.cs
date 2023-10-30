@@ -9,7 +9,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class PriorityService
 {
-    public static async Task<List<Priority>> GetPrioritiesAsync()
+    public static async Task<List<Priority>?> GetPrioritiesAsync()
     {
         using var httpClient = new HttpClient();
 

@@ -7,9 +7,12 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Agency : ObservableObject
 {
-    [ObservableProperty] private List<Project> _projects;
+    [ObservableProperty] private List<Project>? _projects;
+
     public int IdAgency { get; set; }
-    public string Name { get; set; }
+
+    public string Name { get; set; } = null!;
+
     public string? Description { get; set; }
 
     public async Task LoadProjectsAsync()

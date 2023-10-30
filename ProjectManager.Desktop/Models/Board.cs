@@ -7,7 +7,7 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Board : ObservableObject
 {
-    [ObservableProperty] private List<Column> _columns;
+    [ObservableProperty] private List<Column>? _columns;
     public int IdBoard { get; set; }
     public string Name { get; set; } = null!;
     public int IdProject { get; set; }

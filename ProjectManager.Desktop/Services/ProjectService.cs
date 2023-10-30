@@ -9,7 +9,7 @@ namespace ProjectManager.Desktop.Services;
 
 internal static class ProjectService
 {
-    public static async Task<List<Project>> GetProjectsByAgencyIdAsync(int idAgency)
+    public static async Task<List<Project>?> GetProjectsByAgencyIdAsync(int idAgency)
     {
         using var httpClient = new HttpClient();
 

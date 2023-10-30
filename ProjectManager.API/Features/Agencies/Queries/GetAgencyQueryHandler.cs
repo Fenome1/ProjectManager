@@ -13,9 +13,12 @@ public class GetAgencyQueryHandler : IRequestHandler<GetAgencyQuery, Agency>
         _context = context;
     }
 
-    public async Task<Agency?> Handle(GetAgencyQuery request, CancellationToken cancellationToken)
+    public async Task<Agency> Handle(GetAgencyQuery request, CancellationToken cancellationToken)
     {
         var agency = await _context.Agencies.FindAsync(request.IdAgency);
+
+        if (agency is null)
+            throw new Exception("Агенство не найдено");
 
         return agency;
     }

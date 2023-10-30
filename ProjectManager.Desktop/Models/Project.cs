@@ -7,9 +7,9 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Project : ObservableObject
 {
-    [ObservableProperty] private List<Board> _boards;
+    [ObservableProperty] private List<Board>? _boards;
     public int IdProject { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     private int IdAgency { get; set; }
 
     public async Task LoadBoardsAsync()

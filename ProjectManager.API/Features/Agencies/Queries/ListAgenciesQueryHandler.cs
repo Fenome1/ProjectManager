@@ -14,7 +14,7 @@ public class ListAgenciesQueryHandler : IRequestHandler<ListAgenciesQuery, List<
         _context = context;
     }
 
-    public async Task<List<Agency?>> Handle(ListAgenciesQuery request, CancellationToken cancellationToken)
+    public async Task<List<Agency>> Handle(ListAgenciesQuery request, CancellationToken cancellationToken)
     {
         var agencies = await _context.Agencies
             .ToListAsync(cancellationToken);

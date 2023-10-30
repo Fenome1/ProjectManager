@@ -12,7 +12,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class ObjectiveService
 {
-    public static async Task<List<Objective>> GetObjectivesByColumnIdAsync(int idColumn)
+    public static async Task<List<Objective>?> GetObjectivesByColumnIdAsync(int idColumn)
     {
         using var httpClient = new HttpClient();
 

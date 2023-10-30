@@ -9,7 +9,7 @@ namespace ProjectManager.Desktop.Services;
 
 public static class AgencyService
 {
-    public static async Task<List<Agency>> UpdateAgencies()
+    public static async Task<List<Agency>?> UpdateAgencies()
     {
         using var httpClient = new HttpClient();
 

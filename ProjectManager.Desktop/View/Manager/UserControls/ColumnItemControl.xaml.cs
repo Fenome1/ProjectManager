@@ -25,7 +25,7 @@ public partial class ColumnItemControl : UserControl
         var createObjectiveDialogWindow = new CreateObjectDialogWindow();
         createObjectiveDialogWindow.ShowDialog();
 
-        if (!createObjectiveDialogWindow.DialogResult.Value) return;
+        if (!createObjectiveDialogWindow.DialogResult!.Value) return;
 
         var objectiveName = createObjectiveDialogWindow.EnteredText.Trim();
 
