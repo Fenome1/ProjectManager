@@ -36,10 +36,8 @@
     </Window.Resources>
 
     <Grid>
-
         <Border Style="{DynamicResource MainWindowStyle}"
                 MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" />
-
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition
@@ -163,7 +161,7 @@
                                 VerticalScrollBarVisibility="Auto"
                                 MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}">
                                 <TreeView
-                                    MouseDoubleClick="Control_OnMouseDoubleClick"
+                                    MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     ItemsSource="{Binding Agencies}">
@@ -199,17 +197,16 @@
                         TabStripPlacement="Top"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
-                        Visibility="Visible"
+                        Visibility="Hidden"
                         Background="Transparent"
                         BorderThickness="1"
                         BorderBrush="White"
-                        DataContext="{Binding SelectedProject}"
-                        ItemContainerStyle="{DynamicResource TabItemStyle}">
-                        
-                        <!--Вывод досок-->
+                        DataContext="{Binding Instance.SelectedProject}">
+
+                        <!-- Вывод досок -->
                         <TabControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Grid.Column="0"/>
+                                <TextBlock Height="25" Text="{Binding Name}" />
                             </DataTemplate>
                         </TabControl.ItemTemplate>
 
@@ -217,22 +214,41 @@
                             <Binding Path="Boards" Mode="OneWay" />
                         </TabControl.ItemsSource>
 
-                        <!--Вывод колонок и задач-->
+                        <!-- Вывод колонок и задач -->
                         <TabControl.ContentTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <userControls:ColumnControl />
-                                </Grid>
+                                <userControls:ColumnControl />
                             </DataTemplate>
                         </TabControl.ContentTemplate>
 
+                        <TabControl.ItemContainerStyle>
+                            <Style TargetType="TabItem">
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Header="Создать доску"
+                                                      Command="{Binding CreateNewBoardCommand}"
+                                                      CommandParameter="{Binding}" />
+                                            <Separator />
+                                            <MenuItem Header="Изменить" />
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"
+                                                              ContentSource="Header"
+                                                              Margin="5,0" />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.ItemContainerStyle>
                     </TabControl>
-                    
-                    <Grid Grid.Row="1" HorizontalAlignment="Left">
-                        <Border BorderBrush="White" BorderThickness="1" Padding="5" Background="White" CornerRadius="25" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left">
-                            <TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Border>
-                    </Grid>
+
                 </Grid>
             </Grid>
         </Grid>

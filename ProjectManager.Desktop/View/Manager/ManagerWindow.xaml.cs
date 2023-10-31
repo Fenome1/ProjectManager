@@ -23,16 +23,11 @@ public partial class ManagerWindow : Window
         await Instance.LoadAgenciesAsync();
     }
 
-    private async void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var selectedItem = ((TreeView)sender).SelectedItem;
 
-        if (selectedItem is Agency agency)
-        {
-            await agency.LoadProjectsAsync();
-
-            TabControlVisibilityHider(BoardsTabControl);
-        }
+        if (selectedItem is Agency) TabControlVisibilityHider(BoardsTabControl);
 
         if (selectedItem is Project project)
         {
@@ -44,12 +39,13 @@ public partial class ManagerWindow : Window
                 return;
             }
 
-            Instance.SelectedProject = project;
             BoardsTabControl.SelectedIndex = 0;
 
-            await LoadProjectTree(project);
+            Instance.SelectedProject = project;
 
             BoardsTabControl.Visibility = Visibility.Visible;
+
+            await LoadProjectTree(project);
         }
     }
 
@@ -59,16 +55,13 @@ public partial class ManagerWindow : Window
             control.Visibility = Visibility.Collapsed;
     }
 
+    //theme change
     private void TestThemeSwitchButton_OnClick(object sender, RoutedEventArgs e)
     {
         ChangeTheme();
     }
 
-    private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        Close();
-    }
-
+    //win control
     private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         DragMove();
@@ -76,11 +69,18 @@ public partial class ManagerWindow : Window
 
     private void WindowSizeChange_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
     }
 
     private void HideWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         WindowState = WindowState.Minimized;
+    }
+
+    private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        Close();
     }
 }

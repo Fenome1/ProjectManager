@@ -25,4 +25,5 @@
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorPrimaryTheme}" />
     </Style>
 
+
 </ResourceDictionary>
