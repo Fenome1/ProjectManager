@@ -20,7 +20,7 @@
             </Grid.ColumnDefinitions>
 
             <ItemsControl Grid.Column="0"
-                          ItemsSource="{Binding Columns}"
+                          ItemsSource="{Binding Columns, UpdateSourceTrigger=PropertyChanged}"
                           HorizontalAlignment="Left"
                           HorizontalContentAlignment="Left"
                           VerticalAlignment="Top"

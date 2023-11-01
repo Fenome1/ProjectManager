@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,7 +28,9 @@ public partial class ManagerWindow : Window
     {
         var selectedItem = ((TreeView)sender).SelectedItem;
 
-        if (selectedItem is Agency) TabControlVisibilityHider(BoardsTabControl);
+        if (selectedItem is Agency) 
+            TabControlVisibilityHider(BoardsTabControl);
+
 
         if (selectedItem is Project project)
         {
@@ -39,11 +42,11 @@ public partial class ManagerWindow : Window
                 return;
             }
 
-            BoardsTabControl.SelectedIndex = 0;
-
             Instance.SelectedProject = project;
 
             BoardsTabControl.Visibility = Visibility.Visible;
+
+            BoardsTabControl.SelectedIndex = 0;
 
             await LoadProjectTree(project);
         }

@@ -6,6 +6,7 @@ using ProjectManager.API.Features.Base;
 using ProjectManager.API.Features.Boards.Commands;
 using ProjectManager.API.Hubs;
 using ProjectManager.API.Models;
+using ProjectManager.API.Services;
 
 namespace ProjectManager.API.Features.Boards.Handlers;
 
@@ -32,6 +33,8 @@ public class CreateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
         await _context.SaveChangesAsync();
 
         await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
+
+        await _context.CreateNewColumnForBoardAsync(board.IdBoard);
 
         return board;
     }

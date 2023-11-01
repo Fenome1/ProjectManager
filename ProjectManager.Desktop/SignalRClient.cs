@@ -13,6 +13,7 @@ public class SignalRClient
     {
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(BaseHubUrl)
+            .WithAutomaticReconnect()
             .Build();
 
         _hubConnection.On<int>("ReceiveAgencyUpdate", async _ => { await Instance.LoadAgenciesAsync(); });

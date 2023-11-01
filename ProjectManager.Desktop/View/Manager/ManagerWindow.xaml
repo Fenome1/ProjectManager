@@ -164,9 +164,9 @@
                                     MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
-                                    ItemsSource="{Binding Agencies}">
+                                    ItemsSource="{Binding Agencies, UpdateSourceTrigger=PropertyChanged}">
                                     <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}">
                                             <TextBlock
                                                 Text="{Binding Name}"
                                                 TextWrapping="Wrap"
@@ -201,7 +201,7 @@
                         Background="Transparent"
                         BorderThickness="1"
                         BorderBrush="White"
-                        DataContext="{Binding Instance.SelectedProject}">
+                        DataContext="{Binding SelectedProject}">
 
                         <!-- Вывод досок -->
                         <TabControl.ItemTemplate>
@@ -211,7 +211,7 @@
                         </TabControl.ItemTemplate>
 
                         <TabControl.ItemsSource>
-                            <Binding Path="Boards" Mode="OneWay" />
+                            <Binding Path="Boards" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
                         </TabControl.ItemsSource>
 
                         <!-- Вывод колонок и задач -->
