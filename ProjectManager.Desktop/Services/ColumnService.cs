@@ -24,6 +24,18 @@ public static class ColumnService
         return JsonConvert.DeserializeObject<List<Column>>(data);
     }
 
+    public static async Task<Column?> GetAsync(int idColumn, bool isDeleted = false)
+    {
+        using var httpClient = new HttpClient();
+
+        var response = await httpClient.GetAsync($"{BaseApiUrl}/Column/{idColumn}?{nameof(isDeleted)}={isDeleted}");
+
+        if (!response.IsSuccessStatusCode) return null;
+
+        var data = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<Column>(data);
+    }
+
     public static async Task<bool> CreateColumnAsync(int idBoard, string name)
     {
         using var httpClient = new HttpClient();

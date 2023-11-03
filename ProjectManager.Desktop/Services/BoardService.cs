@@ -42,4 +42,16 @@ public static class BoardService
 
         return false;
     }
+
+    public static async Task<Board> GetAsync(int idBoard, bool isDeleted = false)
+    {
+        using var httpClient = new HttpClient();
+
+        var response = await httpClient.GetAsync($"{BaseApiUrl}/Board/{idBoard}?{nameof(isDeleted)}={isDeleted}");
+
+        if (!response.IsSuccessStatusCode) return null;
+
+        var data = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<Board>(data);
+    }
 }

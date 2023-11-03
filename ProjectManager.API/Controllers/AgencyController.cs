@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.API.Features.Agencies.Commands;
-using ProjectManager.API.Features.Agencies.Queries;
+using ProjectManager.API.Features.Agencies.Queries.Get;
+using ProjectManager.API.Features.Agencies.Queries.List;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Controllers;
@@ -8,18 +9,18 @@ namespace ProjectManager.API.Controllers;
 public class AgencyController : BaseController
 {
     [HttpGet]
-    public async Task<ActionResult<List<Agency>>> Get()
+    public async Task<ActionResult<List<Agency>>> Get(bool isDeleted = false)
     {
-        var query = new ListAgenciesQuery();
+        var query = new ListAgenciesQuery(isDeleted);
         var agencies = await Mediator.Send(query);
 
         return agencies.Any() ? Ok(agencies) : NotFound();
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(int id, bool isDeleted = false)
     {
-        var query = new GetAgencyQuery { IdAgency = id };
+        var query = new GetAgencyQuery(id, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);

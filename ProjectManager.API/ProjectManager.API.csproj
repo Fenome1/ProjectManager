@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Base\" />
     <Folder Include="Features\Boards\Commands\" />
     <Folder Include="Features\Boards\Handlers\" />
     <Folder Include="Features\Boards\Queries\List\ByProject\" />

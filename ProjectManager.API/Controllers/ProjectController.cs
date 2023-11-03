@@ -1,34 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.API.Features.Projects.Commands;
-using ProjectManager.API.Features.Projects.Queries;
 using ProjectManager.API.Features.Projects.Queries.ByAgency;
+using ProjectManager.API.Features.Projects.Queries.Get;
+using ProjectManager.API.Features.Projects.Queries.List;
 
 namespace ProjectManager.API.Controllers;
 
 public class ProjectController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(bool isDeleted = false)
     {
-        var query = new ListProjectsQuery();
+        var query = new ListProjectsQuery(isDeleted);
         var projects = await Mediator.Send(query);
 
         return Ok(projects);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(int id, bool isDeleted = false)
     {
-        var query = new GetProjectQuery { IdProject = id };
+        var query = new GetProjectQuery(id, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);
     }
 
     [HttpGet("agency/{idAgency}")]
-    public async Task<IActionResult> GetByAgencyId(int idAgency)
+    public async Task<IActionResult> GetByAgencyId(int idAgency, bool isDeleted = false)
     {
-        var query = new ListProjectsByAgencyQuery { IdAgency = idAgency };
+        var query = new ListProjectsByAgencyQuery(idAgency, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);

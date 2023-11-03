@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using ProjectManager.API.Context;
 using ProjectManager.API.Features.Agencies.Commands;
 using ProjectManager.API.Features.Base;
@@ -18,15 +19,20 @@ public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
 
     public async Task<Agency> Handle(DeleteAgencyCommand request, CancellationToken cancellationToken)
     {
-        var agency = await _context.Agencies.FindAsync(request.IdAgency);
+        var agency = await _context.Agencies
+            .FirstOrDefaultAsync(a => a.IdAgency == request.IdAgency);
 
-        if (agency is null)
+        if (agency == null)
             throw new Exception("Агенство не найдено");
 
-        _context.Agencies.Remove(agency);
-        await _context.SaveChangesAsync(cancellationToken);
+        if (agency.IsDeleted)
+            throw new Exception("Агенство уже удалено");
 
-        await _hubContext.Clients.All.SendAsync("ReceiveAgencyUpdate", agency.IdAgency);
+        agency.IsDeleted = true;
+
+        await _context.SaveChangesAsync();
+
+        await _hubContext.Clients.All.SendAsync("ReceiveAgencyDelete", agency.IdAgency);
 
         return agency;
     }

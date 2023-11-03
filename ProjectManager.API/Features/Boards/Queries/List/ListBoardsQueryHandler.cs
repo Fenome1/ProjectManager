@@ -17,7 +17,12 @@ public class ListBoardsQueryHandler : IRequestHandler<ListBoardsQuery, List<Boar
     public async Task<List<Board>> Handle(ListBoardsQuery request, CancellationToken cancellationToken)
     {
         {
-            var boards = await _context.Boards.ToListAsync();
+            var boards = await _context.Boards
+                .Include(b => b.Columns
+                    .Where(c => c.IsDeleted == request.IncludeDeleted))
+                .ThenInclude(c => c.IdColorNavigation)
+                .Where(b => b.IsDeleted == request.IncludeDeleted)
+                .ToListAsync();
 
             if (!boards.Any())
                 throw new Exception("Проекты не найдены");

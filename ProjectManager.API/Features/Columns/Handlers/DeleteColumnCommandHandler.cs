@@ -27,7 +27,7 @@ public class DeleteColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveColumnUpdate", column.IdBoard);
+        await _hubContext.Clients.All.SendAsync("ReceiveColumnDelete", column.IdColumn);
 
         return column;
     }

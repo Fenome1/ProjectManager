@@ -17,6 +17,9 @@ public class ListColumnsQueryHandler : IRequestHandler<ListColumnsQuery, List<Co
     public async Task<List<Column>> Handle(ListColumnsQuery request, CancellationToken cancellationToken)
     {
         var columns = await _context.Columns
+            .Include(c => c.Objectives
+                .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .Where(c => c.IsDeleted == request.IncludeDeleted)
             .Include(c => c.IdColorNavigation)
             .ToListAsync(cancellationToken);
 

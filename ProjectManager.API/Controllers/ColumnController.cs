@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectManager.API.Features.Columns.Commands;
+using ProjectManager.API.Features.Columns.Queries.Get;
 using ProjectManager.API.Features.Columns.Queries.List;
 using ProjectManager.API.Features.Columns.Queries.List.ByBoard;
 
@@ -8,18 +9,27 @@ namespace ProjectManager.API.Controllers;
 public class ColumnController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(bool isDeleted = false)
     {
-        var query = new ListColumnsQuery();
+        var query = new ListColumnsQuery(isDeleted);
         var columns = await Mediator.Send(query);
 
         return Ok(columns);
     }
 
-    [HttpGet("board/{idProject}")]
-    public async Task<IActionResult> GetByProjectId(int idProject)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id, bool isDeleted = false)
     {
-        var query = new ListColumnsByBoardQuery { IdBoard = idProject };
+        var query = new GetColumnQuery(id, isDeleted);
+        var columns = await Mediator.Send(query);
+
+        return Ok(columns);
+    }
+
+    [HttpGet("board/{idBoard}")]
+    public async Task<IActionResult> GetByBoardId(int idBoard, bool isDeleted = false)
+    {
+        var query = new ListColumnsByBoardQuery(idBoard, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);

@@ -1,20 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using ProjectManager.Desktop.Services;
 
 namespace ProjectManager.Desktop.Models;
 
 public partial class Project : ObservableObject
 {
-    [ObservableProperty] private List<Board>? _boards;
-    public int IdProject { get; set; }
-    public string Name { get; set; } = null!;
-    private int IdAgency { get; set; }
+    [ObservableProperty] private ObservableCollection<Board> _boards;
 
-    public async Task LoadBoardsAsync()
-    {
-        var boards = await BoardService.GetBoardsByProjectIdAsync(IdProject);
-        Boards = boards;
-    }
+    [ObservableProperty] private int _idAgency;
+    [ObservableProperty] private int _idProject;
+
+    [ObservableProperty] private string _name = null!;
 }

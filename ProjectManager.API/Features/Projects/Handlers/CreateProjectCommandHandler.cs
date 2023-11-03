@@ -30,10 +30,12 @@ public class CreateProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
         await _context.Projects.AddAsync(project);
 
         await _context.SaveChangesAsync(cancellationToken);
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
 
         var newBoard = await _context.CreateNewBoardForProjectAsync(project.IdProject);
+
         await _context.CreateNewColumnForBoardAsync(newBoard.IdBoard);
+
+        await _hubContext.Clients.All.SendAsync("ReceiveProjectCreate", project.IdProject);
 
         return project;
     }

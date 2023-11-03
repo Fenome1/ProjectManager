@@ -32,9 +32,9 @@ public class CreateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
-
         await _context.CreateNewColumnForBoardAsync(board.IdBoard);
+
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardCreate", board.IdBoard);
 
         return board;
     }

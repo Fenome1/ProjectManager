@@ -9,27 +9,27 @@ namespace ProjectManager.API.Controllers;
 public class BoardController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(bool isDeleted = false)
     {
-        var query = new ListBoardsQuery();
+        var query = new ListBoardsQuery(isDeleted);
         var projects = await Mediator.Send(query);
 
         return Ok(projects);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(int id, bool isDeleted = false)
     {
-        var query = new GetBoardQuery { IdBoard = id };
+        var query = new GetBoardQuery(id, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);
     }
 
     [HttpGet("project/{idProject}")]
-    public async Task<IActionResult> GetByProjectId(int idProject)
+    public async Task<IActionResult> GetByProjectId(int idProject, bool isDeleted = false)
     {
-        var query = new ListBoardsByProjectQuery { IdProject = idProject };
+        var query = new ListBoardsByProjectQuery(idProject, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);
@@ -54,7 +54,7 @@ public class BoardController : BaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var command = new DeleteBoardCommand { IdBoard = id };
+        var command = new DeleteBoardCommand(id);
         await Mediator.Send(command);
 
         return NoContent();

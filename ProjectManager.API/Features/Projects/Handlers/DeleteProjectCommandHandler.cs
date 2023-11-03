@@ -23,10 +23,13 @@ public class DeleteProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
         if (project is null)
             throw new Exception("Проект не найден");
 
-        _context.Projects.Remove(project);
+        if (project.IsDeleted)
+            throw new Exception("Проект уже удален");
+
+        project.IsDeleted = true;
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
+        await _hubContext.Clients.All.SendAsync("ReceiveProjectDelete", project.IdProject);
 
         return project;
     }

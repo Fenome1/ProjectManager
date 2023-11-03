@@ -1,32 +1,28 @@
-﻿<Window x:Class="ProjectManager.Desktop.View.Manager.ManagerWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Manager.Convertors"
-        xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
-        xmlns:manager="clr-namespace:ProjectManager.Desktop.ViewModels.Manager"
-
-        d:DataContext="{d:DesignInstance manager:ManagerViewModel, IsDesignTimeCreatable=True}"
-
-        mc:Ignorable="d"
-        Title="ProjectManager"
-
-        MinWidth="955"
-        MinHeight="590"
-
-        MaxWidth="1920"
-        MaxHeight="1080"
-
-        Width="1280"
-        Height="720"
-
-        WindowStyle="None"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
-        Background="Transparent"
-        Loaded="MainWindow_OnLoaded"
-        ResizeMode="CanResizeWithGrip">
+﻿<Window
+    x:Class="ProjectManager.Desktop.View.Manager.ManagerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Manager.Convertors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:manager="clr-namespace:ProjectManager.Desktop.ViewModels.Manager"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
+    Title="ProjectManager"
+    Width="1280"
+    Height="720"
+    MinWidth="955"
+    MinHeight="590"
+    MaxWidth="1920"
+    MaxHeight="1080"
+    d:DataContext="{d:DesignInstance manager:ManagerViewModel,
+    IsDesignTimeCreatable=True}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Loaded="MainWindow_OnLoaded"
+    ResizeMode="CanResizeWithGrip"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -36,54 +32,57 @@
     </Window.Resources>
 
     <Grid>
-        <Border Style="{DynamicResource MainWindowStyle}"
-                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" />
+        <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="Auto"
-                    MaxHeight="30"
-                    MinHeight="30" />
+                    MinHeight="30"
+                    MaxHeight="30" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <!--Граница приложения с иконками-->
+            <!--  Граница приложения с иконками  -->
             <Border
-                Style="{DynamicResource WindowBarStyle}"
                 Grid.Row="0"
                 Height="50"
-                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown">
+                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown"
+                Style="{DynamicResource WindowBarStyle}">
 
-                <WrapPanel Orientation="Horizontal"
-                           Margin="0,0,25,20"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center">
+                <WrapPanel
+                    Margin="0,0,25,20"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
 
-                    <Image Source="/Assets/Images/hide.png"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
-                           Width="29"
-                           Margin="0,0,15,0" />
+                    <Image
+                        Width="29"
+                        Margin="0,0,15,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
+                        Source="/Assets/Images/hide.png" />
 
-                    <Image Source="/Assets/Images/fullScreen.png"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
-                           Width="29"
-                           Margin="0,0,15,0" />
+                    <Image
+                        Width="29"
+                        Margin="0,0,15,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
+                        Source="/Assets/Images/fullScreen.png" />
 
-                    <Image Source="/Assets/Images/xCross.png"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Height="23"
-                           Width="29"
-                           MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown" />
+                    <Image
+                        Width="29"
+                        Height="23"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown"
+                        Source="/Assets/Images/xCross.png" />
 
                 </WrapPanel>
             </Border>
 
-            <!--Основной контент приложения-->
+            <!--  Основной контент приложения  -->
             <Grid
                 x:Name="ContentGrid"
                 Grid.Row="1"
@@ -93,89 +92,90 @@
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
-                <!--Пользователь и агенства/проекты-->
-                <Grid Grid.Column="0"
-                      Margin="0,10,10,10"
-                      x:Name="UserAndAgenciesContentGrid">
+                <!--  Пользователь и агенства/проекты  -->
+                <Grid
+                    x:Name="UserAndAgenciesContentGrid"
+                    Grid.Column="0"
+                    Margin="0,10,10,10">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--Вывод фото и имени пользователя-->
-                    <Grid Grid.Row="0"
-                          Margin="0,10,0,0">
+                    <!--  Вывод фото и имени пользователя  -->
+                    <Grid Grid.Row="0" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0"
-                               Content="Фото"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="1"
-                                   Text="Имя 
-                                   пользователя"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap" />
-                        <Button Grid.Column="2" Content="X"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Click="TestThemeSwitchButton_OnClick" />
+                        <Label
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Фото" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="Имя                             пользователя"
+                            TextWrapping="Wrap" />
+                        <Button
+                            Grid.Column="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Command="{Binding ChangeThemeCommand}"
+                            Content="X" />
                     </Grid>
 
-                    <!--Вывод агенств и проектов-->
-                    <Grid Grid.Row="1"
-                          Margin="0,15,0,0">
+                    <!--  Вывод агенств и проектов  -->
+                    <Grid Grid.Row="1" Margin="0,15,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!--Хеддер Агентств и проектов-->
-                        <Border Grid.Row="0"
-                                BorderBrush="AliceBlue"
-                                BorderThickness="1"
-                                Padding="5"
-                                CornerRadius="15">
+                        <!--  Хеддер Агентств и проектов  -->
+                        <Border
+                            Grid.Row="0"
+                            Padding="5"
+                            BorderBrush="AliceBlue"
+                            BorderThickness="1"
+                            CornerRadius="15">
                             <TextBlock
-                                Text="Агентства"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center" />
+                                Text="Агентства" />
                         </Border>
 
                         <Border
                             Grid.Row="1"
-                            BorderThickness="1"
+                            Margin="0,10,0,0"
                             BorderBrush="White"
-                            CornerRadius="15"
-                            Margin="0,10,0,0">
+                            BorderThickness="1"
+                            CornerRadius="15">
                             <ScrollViewer
-                                VerticalAlignment="Stretch"
+                                MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}"
                                 HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
                                 CanContentScroll="True"
                                 HorizontalScrollBarVisibility="Auto"
-                                VerticalScrollBarVisibility="Auto"
-                                MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}">
+                                VerticalScrollBarVisibility="Auto">
                                 <TreeView
-                                    MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
-                                    ItemsSource="{Binding Agencies, UpdateSourceTrigger=PropertyChanged}">
+                                    ItemsSource="{Binding Agencies}"
+                                    MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                     <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}">
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
                                             <TextBlock
                                                 Text="{Binding Name}"
                                                 TextWrapping="Wrap"
                                                 ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
                                             <HierarchicalDataTemplate.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock
-                                                        Text="{Binding Name}"
-                                                        TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
                                                 </DataTemplate>
                                             </HierarchicalDataTemplate.ItemTemplate>
                                         </HierarchicalDataTemplate>
@@ -187,23 +187,22 @@
 
                 </Grid>
 
-                <Grid Grid.Column="1"
-                      x:Name="TabControlContentGrid">
+                <Grid x:Name="TabControlContentGrid" Grid.Column="1">
 
-                    <!--Вывод досок, колонок и задач-->
+                    <!--  Вывод досок, колонок и задач  -->
                     <TabControl
-                        Grid.Row="0"
                         x:Name="BoardsTabControl"
-                        TabStripPlacement="Top"
+                        Grid.Row="0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
-                        Visibility="Hidden"
                         Background="Transparent"
-                        BorderThickness="1"
                         BorderBrush="White"
-                        DataContext="{Binding SelectedProject}">
+                        BorderThickness="1"
+                        DataContext="{Binding SelectedProject}"
+                        TabStripPlacement="Top"
+                        Visibility="Hidden">
 
-                        <!-- Вывод досок -->
+                        <!--  Вывод досок  -->
                         <TabControl.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Height="25" Text="{Binding Name}" />
@@ -211,10 +210,13 @@
                         </TabControl.ItemTemplate>
 
                         <TabControl.ItemsSource>
-                            <Binding Path="Boards" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                            <Binding
+                                Mode="OneWay"
+                                Path="Boards"
+                                UpdateSourceTrigger="PropertyChanged" />
                         </TabControl.ItemsSource>
 
-                        <!-- Вывод колонок и задач -->
+                        <!--  Вывод колонок и задач  -->
                         <TabControl.ContentTemplate>
                             <DataTemplate>
                                 <userControls:ColumnControl />
@@ -226,9 +228,10 @@
                                 <Setter Property="ContextMenu">
                                     <Setter.Value>
                                         <ContextMenu>
-                                            <MenuItem Header="Создать доску"
-                                                      Command="{Binding CreateNewBoardCommand}"
-                                                      CommandParameter="{Binding}" />
+                                            <MenuItem
+                                                Command="{Binding CreateNewBoardCommand}"
+                                                CommandParameter="{Binding}"
+                                                Header="Создать доску" />
                                             <Separator />
                                             <MenuItem Header="Изменить" />
                                         </ContextMenu>
@@ -237,11 +240,12 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="TabItem">
-                                            <ContentPresenter x:Name="ContentSite"
-                                                              HorizontalAlignment="Center"
-                                                              VerticalAlignment="Center"
-                                                              ContentSource="Header"
-                                                              Margin="5,0" />
+                                            <ContentPresenter
+                                                x:Name="ContentSite"
+                                                Margin="5,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                ContentSource="Header" />
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>

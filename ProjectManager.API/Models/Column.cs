@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -12,9 +12,11 @@ public class Column
 
     public int IdColor { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     [JsonIgnore] public virtual Board IdBoardNavigation { get; set; } = null!;
 
     public virtual Color IdColorNavigation { get; set; } = null!;
 
-    [JsonIgnore] public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
+    public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
 }

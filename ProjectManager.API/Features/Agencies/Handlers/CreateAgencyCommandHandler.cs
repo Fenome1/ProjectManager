@@ -28,7 +28,7 @@ public class CreateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveAgencyUpdate", agency.IdAgency);
+        await _hubContext.Clients.All.SendAsync("ReceiveAgencyCreate", agency.IdAgency);
 
         return agency;
     }

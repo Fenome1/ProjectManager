@@ -23,11 +23,14 @@ public class DeleteBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
         if (board is null)
             throw new Exception("Доска не найдена");
 
-        _context.Boards.Remove(board);
+        if (board.IsDeleted)
+            throw new Exception("Доска уже удалена");
+
+        board.IsDeleted = true;
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardDelete", board.IdBoard);
 
         return board;
     }

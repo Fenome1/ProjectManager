@@ -20,6 +20,10 @@ public class ListBoardsByProjectQueryHandler : IRequestHandler<ListBoardsByProje
             throw new Exception("Проект не найден");
 
         var boards = await _context.Boards
+            .Include(b => b.Columns
+                .Where(c => c.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(c => c.IdColorNavigation)
+            .Where(p => p.IsDeleted == request.IncludeDeleted)
             .Where(p => p.IdProject == request.IdProject)
             .ToListAsync(cancellationToken);
 

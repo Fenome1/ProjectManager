@@ -27,7 +27,7 @@ public class UpdateProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdAgency);
+        await _hubContext.Clients.All.SendAsync("ReceiveProjectUpdate", project.IdProject);
 
         return project;
     }

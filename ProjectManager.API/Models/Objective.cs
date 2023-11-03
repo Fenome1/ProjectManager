@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -17,6 +17,8 @@ public class Objective
     public DateTime? Deadline { get; set; }
 
     public bool Status { get; set; }
+
+    public bool IsDeleted { get; set; }
 
     [JsonIgnore] public virtual Column IdColumnNavigation { get; set; } = null!;
 

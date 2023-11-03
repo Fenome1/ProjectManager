@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,10 +10,10 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Board : ObservableObject
 {
-    [ObservableProperty] private List<Column>? _columns;
-    public int IdBoard { get; set; }
-    public string Name { get; set; } = null!;
-    public int IdProject { get; set; }
+    [ObservableProperty] private ObservableCollection<Column>? _columns;
+    [ObservableProperty] private int _idBoard;
+    [ObservableProperty] private int _idProject;
+    [ObservableProperty] private string _name = null!;
 
     public ICommand CreateNewBoardCommand => new RelayCommand(async () =>
     {
@@ -30,7 +30,7 @@ public partial class Board : ObservableObject
 
     public async Task LoadColumnsAsync()
     {
-        var columns = await ColumnService.GetColumnsByBoardIdAsync(IdBoard);
-        Columns = columns;
+        /*var columns = await ColumnService.GetColumnsByBoardIdAsync(IdBoard);
+        Columns = columns;*/
     }
 }

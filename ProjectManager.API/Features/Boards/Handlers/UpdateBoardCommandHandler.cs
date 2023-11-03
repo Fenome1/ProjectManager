@@ -9,7 +9,7 @@ using ProjectManager.API.Models;
 namespace ProjectManager.API.Features.Boards.Handlers;
 
 public class UpdateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
-    IRequestHandler<UpdateBoardCommand, Board>, IRequest<Board>
+    IRequestHandler<UpdateBoardCommand, Board>
 {
     public UpdateBoardCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context,
         hubContext)
@@ -28,7 +28,7 @@ public class UpdateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", board.IdBoard);
 
         return board;
     }

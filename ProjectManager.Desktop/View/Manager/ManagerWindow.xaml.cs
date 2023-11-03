@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ProjectManager.Desktop.Common;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
@@ -13,42 +12,33 @@ public partial class ManagerWindow : Window
     public ManagerWindow()
     {
         InitializeComponent();
-
-        DataContext = Instance;
-
         var _ = new SignalRClient().Start();
+        DataContext = ManagerVm;
     }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        await Instance.LoadAgenciesAsync();
+        await ManagerVm.LoadTreeAsync();
     }
 
     private async void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var selectedItem = ((TreeView)sender).SelectedItem;
 
-        if (selectedItem is Agency) 
+        if (selectedItem is Agency)
             TabControlVisibilityHider(BoardsTabControl);
 
 
         if (selectedItem is Project project)
         {
-            await project.LoadBoardsAsync();
+            /*TabControlVisibilityHider(BoardsTabControl);
+                return;*/
 
-            if (project.Boards is null || !project.Boards.Any())
-            {
-                TabControlVisibilityHider(BoardsTabControl);
-                return;
-            }
-
-            Instance.SelectedProject = project;
+            ManagerVm.SelectedProject = project;
 
             BoardsTabControl.Visibility = Visibility.Visible;
 
             BoardsTabControl.SelectedIndex = 0;
-
-            await LoadProjectTree(project);
         }
     }
 
@@ -56,12 +46,6 @@ public partial class ManagerWindow : Window
     {
         if (control.Visibility == Visibility.Visible)
             control.Visibility = Visibility.Collapsed;
-    }
-
-    //theme change
-    private void TestThemeSwitchButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        ChangeTheme();
     }
 
     //win control

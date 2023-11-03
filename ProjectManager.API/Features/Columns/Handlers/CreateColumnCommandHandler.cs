@@ -31,7 +31,7 @@ public class CreateColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveColumnUpdate", column.IdBoard);
+        await _hubContext.Clients.All.SendAsync("ReceiveColumnCreate", column.IdColumn);
 
         return column;
     }
