@@ -24,6 +24,19 @@ public static class ObjectiveService
         return JsonConvert.DeserializeObject<List<Objective>>(data);
     }
 
+    public static async Task<Objective?> GetAsync(int idObjective, bool isDeleted = false)
+    {
+        using var httpClient = new HttpClient();
+
+        var response =
+            await httpClient.GetAsync($"{BaseApiUrl}/Objective/{idObjective}?{nameof(isDeleted)}={isDeleted}");
+
+        if (!response.IsSuccessStatusCode) return null;
+
+        var data = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<Objective>(data);
+    }
+
     public static async Task<bool> CreateObjectiveAsync(int idColumn, string name)
     {
         using var httpClient = new HttpClient();

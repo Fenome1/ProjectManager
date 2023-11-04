@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
@@ -15,11 +14,6 @@ public partial class Column : ObservableObject
     [ObservableProperty] private int _idColumn;
 
     [ObservableProperty] private string _name = null!;
-    [ObservableProperty] private List<Objective>? _objectives;
 
-    public async Task LoadObjectivesAsync()
-    {
-        /*var objectives = await ObjectiveService.GetObjectivesByColumnIdAsync(IdColumn);
-        Objectives = objectives;*/
-    }
+    [ObservableProperty] private ObservableCollection<Objective>? _objectives;
 }

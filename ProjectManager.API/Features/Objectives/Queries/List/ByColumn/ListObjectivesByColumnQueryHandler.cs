@@ -17,7 +17,7 @@ public class ListObjectivesByColumnQueryHandler : IRequestHandler<ListObjectives
     public async Task<List<Objective>> Handle(ListObjectivesByColumnQuery request, CancellationToken cancellationToken)
     {
         var objectives = await _context.Objectives
-            .Include(o => o.IdColumnNavigation)
+            .Where(o => o.IsDeleted == request.IncludeDeleted)
             .Where(o => o.IdColumn == request.IdColumn)
             .Include(o => o.IdPriorityNavigation)
             .ToListAsync();

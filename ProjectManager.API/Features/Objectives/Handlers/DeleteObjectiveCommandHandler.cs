@@ -23,11 +23,14 @@ public class DeleteObjectiveCommandHandler : BaseCommandHandler<ProjectManagerDb
         if (objective is null)
             throw new Exception("Задача не найдена");
 
-        _context.Objectives.Remove(objective);
+        if (objective.IsDeleted)
+            throw new Exception("Задача уже удалена");
+
+        objective.IsDeleted = true;
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveObjectiveUpdate", objective.IdColumn);
+        await _hubContext.Clients.All.SendAsync("ReceiveObjectiveDelete", objective.IdObjective);
 
         return objective;
     }

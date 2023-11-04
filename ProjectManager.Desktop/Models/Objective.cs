@@ -4,13 +4,19 @@ using Newtonsoft.Json;
 
 namespace ProjectManager.Desktop.Models;
 
-public class Objective : ObservableObject
+public partial class Objective : ObservableObject
 {
-    public int IdObjective { get; set; }
-    public int IdColumn { get; set; }
-    public string Name { get; set; } = null!;
-    public string? Description { get; set; }
-    public bool Status { get; set; }
-    public DateTime? Deadline { get; set; }
-    [JsonProperty("IdPriorityNavigation")] public Priority? Priority { get; set; }
+    [ObservableProperty] private DateTime? _deadline;
+
+    [ObservableProperty] private string? _description;
+
+    [ObservableProperty] private int _idColumn;
+    [ObservableProperty] private int _idObjective;
+
+    [ObservableProperty] private string _name = null!;
+
+    [JsonProperty("IdPriorityNavigation")] [ObservableProperty]
+    private Priority? _priority;
+
+    [ObservableProperty] private bool _status;
 }

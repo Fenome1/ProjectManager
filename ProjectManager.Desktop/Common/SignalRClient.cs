@@ -32,6 +32,10 @@ public class SignalRClient
         _hubConnection.On<int>("ReceiveColumnCreate", ManagerVm.CreateColumnAsync);
         _hubConnection.On<int>("ReceiveColumnUpdate", ManagerVm.UpdateColumnAsync);
         _hubConnection.On<int>("ReceiveColumnDelete", ManagerVm.DeleteColumnAsync);
+        //Objective
+        _hubConnection.On<int>("ReceiveObjectiveCreate", ManagerVm.CreateObjectiveAsync);
+        _hubConnection.On<int>("ReceiveObjectiveUpdate", ManagerVm.UpdateObjectiveAsync);
+        _hubConnection.On<int>("ReceiveObjectiveDelete", ManagerVm.DeleteObjectiveAsync);
     }
 
     public async Task Start()

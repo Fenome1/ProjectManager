@@ -17,6 +17,10 @@ public class GetAgencyQueryHandler : IRequestHandler<GetAgencyQuery, Agency>
     public async Task<Agency> Handle(GetAgencyQuery request, CancellationToken cancellationToken)
     {
         var agency = await _context.Agencies
+            .Include(a => a.Projects)
+            .ThenInclude(p => p.Boards)
+            .ThenInclude(b => b.Columns)
+            .ThenInclude(b => b.IdColorNavigation)
             .Include(a => a.Projects
                 .Where(p => p.IsDeleted == request.IncludeDeleted))
             .ThenInclude(p => p.Boards
@@ -25,19 +29,9 @@ public class GetAgencyQueryHandler : IRequestHandler<GetAgencyQuery, Agency>
                 .Where(c => c.IsDeleted == request.IncludeDeleted))
             .ThenInclude(c => c.Objectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(a => a.IsDeleted == request.IncludeDeleted)
             .FirstOrDefaultAsync(a => a.IdAgency == request.IdAgency);
-
-        /* .Include(a => a.Projects
-             .Where(p => p.IsDeleted == request.IncludeDeleted))
-         .ThenInclude(p => p.Boards
-             .Where(b => b.IsDeleted == request.IncludeDeleted))
-         .ThenInclude(b => b.Columns
-             .Where(c => c.IsDeleted == request.IncludeDeleted))
-         .ThenInclude(c => c.Objectives
-             .Where(o => o.IsDeleted == request.IncludeDeleted))
-         .Where(a => a.IsDeleted == request.IncludeDeleted)
-         .FirstOrDefaultAsync(a => a.IdAgency == request.IdAgency);*/
 
         if (agency is null)
             throw new Exception("Агенство не найдено");

@@ -22,6 +22,7 @@ public class ListColumnsByBoardsQueryHandler : IRequestHandler<ListColumnsByBoar
         var columns = await _context.Columns
             .Include(c => c.Objectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(c => c.IsDeleted == request.IncludeDeleted)
             .Where(c => c.IdBoard == request.IdBoard)
             .Include(c => c.IdColorNavigation)

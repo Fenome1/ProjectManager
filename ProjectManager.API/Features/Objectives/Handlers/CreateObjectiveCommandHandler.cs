@@ -33,7 +33,7 @@ public class CreateObjectiveCommandHandler : BaseCommandHandler<ProjectManagerDb
 
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveObjectiveUpdate", objective.IdColumn);
+        await _hubContext.Clients.All.SendAsync("ReceiveObjectiveCreate", objective.IdObjective);
 
         return objective;
     }

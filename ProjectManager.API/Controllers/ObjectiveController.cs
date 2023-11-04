@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectManager.API.Features.Objectives.Commands;
+using ProjectManager.API.Features.Objectives.Queries.Get;
 using ProjectManager.API.Features.Objectives.Queries.List;
 using ProjectManager.API.Features.Objectives.Queries.List.ByColumn;
 
@@ -8,18 +9,27 @@ namespace ProjectManager.API.Controllers;
 public class ObjectiveController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(bool isDeleted = false)
     {
-        var query = new ListObjectivesQuery();
+        var query = new ListObjectivesQuery(isDeleted);
+        var objectives = await Mediator.Send(query);
+
+        return Ok(objectives);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id, bool isDeleted = false)
+    {
+        var query = new GetObjectiveQuery(id, isDeleted);
         var objectives = await Mediator.Send(query);
 
         return Ok(objectives);
     }
 
     [HttpGet("column/{idColumn}")]
-    public async Task<IActionResult> GetByProjectId(int idColumn)
+    public async Task<IActionResult> GetByColumnId(int idColumn, bool isDeleted = false)
     {
-        var query = new ListObjectivesByColumnQuery { IdColumn = idColumn };
+        var query = new ListObjectivesByColumnQuery(idColumn, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);

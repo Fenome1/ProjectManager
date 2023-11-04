@@ -11,5 +11,6 @@ public class MappingProfile : Profile
         CreateMap<Project, Project>();
         CreateMap<Board, Board>();
         CreateMap<Column, Column>();
+        CreateMap<Objective, Objective>();
     }
 }

@@ -68,8 +68,19 @@ public class NotifyHub : Hub
         await Clients.All.SendAsync("ReceiveColumnDelete", idColumn);
     }
 
-    public async Task SendObjectiveUpdateNotification(int idColumn)
+    //Objective
+    public async Task SendObjectiveCreateNotification(int idObjective)
     {
-        await Clients.All.SendAsync("ReceiveObjectiveUpdate", idColumn);
+        await Clients.All.SendAsync("ReceiveObjectiveCreate", idObjective);
+    }
+
+    public async Task SendObjectiveUpdateNotification(int idObjective)
+    {
+        await Clients.All.SendAsync("ReceiveObjectiveUpdate", idObjective);
+    }
+
+    public async Task SendObjectiveDeleteNotification(int idObjective)
+    {
+        await Clients.All.SendAsync("ReceiveObjectiveUpdate", idObjective);
     }
 }

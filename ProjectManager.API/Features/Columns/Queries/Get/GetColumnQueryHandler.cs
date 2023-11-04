@@ -19,6 +19,7 @@ public class GetColumnQueryHandler : IRequestHandler<GetColumnQuery, Column>
         var column = await _context.Columns
             .Include(c => c.Objectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(c => c.IsDeleted == request.IncludeDeleted)
             .Include(c => c.IdColorNavigation)
             .FirstOrDefaultAsync(c => c.IdColumn == request.IdColumn);

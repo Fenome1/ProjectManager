@@ -16,7 +16,10 @@ public class ListObjectivesQueryHandler : IRequestHandler<ListObjectivesQuery, L
 
     public async Task<List<Objective>> Handle(ListObjectivesQuery request, CancellationToken cancellationToken)
     {
-        var objectives = await _context.Objectives.Include(o => o.IdPriorityNavigation).ToListAsync();
+        var objectives = await _context.Objectives
+            .Where(o => o.IsDeleted == request.IncludeDeleted)
+            .Include(o => o.IdPriorityNavigation)
+            .ToListAsync();
 
         if (!objectives.Any())
             throw new Exception("Задачи не найдены");
