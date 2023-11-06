@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using static ProjectManager.Desktop.Common.Data.URL;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
-namespace ProjectManager.Desktop.Common;
+namespace ProjectManager.Desktop.Common.Config;
 
 public class SignalRClient
 {
@@ -36,6 +36,7 @@ public class SignalRClient
         _hubConnection.On<int>("ReceiveObjectiveCreate", ManagerVm.CreateObjectiveAsync);
         _hubConnection.On<int>("ReceiveObjectiveUpdate", ManagerVm.UpdateObjectiveAsync);
         _hubConnection.On<int>("ReceiveObjectiveDelete", ManagerVm.DeleteObjectiveAsync);
+
     }
 
     public async Task Start()

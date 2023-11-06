@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -52,6 +53,24 @@ public static class ObjectiveService
         catch (Exception ex)
         {
             MessageBox.Show($"Ошибка создания задачи: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> DeleteAsync(int idObjective)
+    {
+        using var httpClient = new HttpClient();
+
+        try
+        {
+            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Objective/{idObjective}");
+            if (response.IsSuccessStatusCode)
+                return true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка удаления задачи: {ex.Message}");
         }
 
         return false;

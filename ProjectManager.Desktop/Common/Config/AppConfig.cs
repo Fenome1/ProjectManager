@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using ProjectManager.Desktop.Common.Modules;
+using ProjectManager.Desktop.Common.Config.Modules;
 
-namespace ProjectManager.Desktop.Common;
+namespace ProjectManager.Desktop.Common.Config;
 
 public static class AppConfig
 {

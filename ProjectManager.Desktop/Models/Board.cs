@@ -26,4 +26,8 @@ public partial class Board : ObservableObject
         if (!string.IsNullOrEmpty(boardName))
             await BoardService.CreateBoardAsync(IdProject, boardName);
     });
+    public ICommand DeleteBoardCommand => new RelayCommand(async () =>
+    {
+        await BoardService.DeleteAsync(IdBoard);
+    });
 }

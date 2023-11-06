@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using AutoMapper;
+using ProjectManager.Desktop.Common.Config;
 
-namespace ProjectManager.Desktop.Common.Modules;
+namespace ProjectManager.Desktop.Common.Config.Modules;
 
 public class AppModule : Module
 {

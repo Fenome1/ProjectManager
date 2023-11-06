@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ProjectManager.Desktop.Common;
+using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
@@ -28,12 +28,8 @@ public partial class ManagerWindow : Window
         if (selectedItem is Agency)
             TabControlVisibilityHider(BoardsTabControl);
 
-
         if (selectedItem is Project project)
         {
-            /*TabControlVisibilityHider(BoardsTabControl);
-                return;*/
-
             ManagerVm.SelectedProject = project;
 
             BoardsTabControl.Visibility = Visibility.Visible;

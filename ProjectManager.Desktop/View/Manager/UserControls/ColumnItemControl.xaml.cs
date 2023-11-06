@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
@@ -6,9 +7,6 @@ using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 
 namespace ProjectManager.Desktop.View.Manager.UserControls;
 
-/// <summary>
-///     Логика взаимодействия для ColumnItemControl.xaml
-/// </summary>
 public partial class ColumnItemControl : UserControl
 {
     public ColumnItemControl()
@@ -31,5 +29,17 @@ public partial class ColumnItemControl : UserControl
 
         if (!string.IsNullOrEmpty(objectiveName))
             await ObjectiveService.CreateObjectiveAsync((int)idColumn, objectiveName);
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var contextMenu = button.ContextMenu;
+
+        if (contextMenu != null)
+        {
+            contextMenu.PlacementTarget = button;
+            contextMenu.IsOpen = true;
+        }
     }
 }

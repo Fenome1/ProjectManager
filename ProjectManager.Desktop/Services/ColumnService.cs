@@ -54,4 +54,22 @@ public static class ColumnService
 
         return false;
     }
+
+    public static async Task<bool> DeleteAsync(int idColumn)
+    {
+        using var httpClient = new HttpClient();
+
+        try
+        {
+            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Column/{idColumn}");
+            if (response.IsSuccessStatusCode)
+                return true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка удаления задачи: {ex.Message}");
+        }
+
+        return false;
+    }
 }

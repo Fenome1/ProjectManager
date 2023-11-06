@@ -23,7 +23,10 @@ public class DeleteColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
         if (column is null)
             throw new Exception("Колонка не найдена");
 
-        _context.Columns.Remove(column);
+        if (column.IsDeleted)
+            throw new Exception("Колонка уже удалена");
+
+        column.IsDeleted = true;
 
         await _context.SaveChangesAsync();
 

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:userControls="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls"
+    d:Background="LightGreen"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -39,6 +40,11 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
@@ -47,11 +53,35 @@
                 Text="{Binding Name}"
                 TextWrapping="WrapWithOverflow" />
 
-            <Separator Grid.Row="1">
+            <Button
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,0,0,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Click="ButtonBase_OnClick"
+                Content=""
+                Style="{DynamicResource ThreeDotsButtonStyle}">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Изменить" />
+                        <MenuItem Command="{Binding DeleteColumnCommand}" Header="Удалить" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+
+            <Separator
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
                 <Separator.Background>White</Separator.Background>
             </Separator>
 
-            <Grid Grid.Row="2" Margin="0,5,0,5">
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,5,0,5">
                 <TextBlock
                     Grid.Row="0"
                     MouseLeftButtonDown="CreateNewTask_OnMouseLeftButtonDown"
@@ -61,6 +91,8 @@
             <!--  Вывод задач в колонку  -->
             <ScrollViewer
                 Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
                 MaxHeight="{Binding ElementName=TabControlContentGrid, Path=ActualHeight, Converter={StaticResource TabControlHeightConverter}}"
                 Margin="0,0,0,5"
                 HorizontalAlignment="Stretch"

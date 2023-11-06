@@ -54,4 +54,22 @@ public static class BoardService
         var data = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<Board>(data);
     }
+
+    public static async Task<bool> DeleteAsync(int idBoard)
+    {
+        using var httpClient = new HttpClient();
+
+        try
+        {
+            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Board/{idBoard}");
+            if (response.IsSuccessStatusCode)
+                return true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка удаления доски: {ex.Message}");
+        }
+
+        return false;
+    }
 }

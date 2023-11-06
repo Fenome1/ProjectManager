@@ -31,11 +31,13 @@ public class CreateProjectCommandHandler : BaseCommandHandler<ProjectManagerDbCo
 
         await _context.SaveChangesAsync(cancellationToken);
 
+        await _hubContext.Clients.All.SendAsync("ReceiveProjectCreate", project.IdProject);
+
         var newBoard = await _context.CreateNewBoardForProjectAsync(project.IdProject);
 
-        await _context.CreateNewColumnForBoardAsync(newBoard.IdBoard);
+        var newColumn = await _context.CreateNewColumnForBoardAsync(newBoard.IdBoard);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveProjectCreate", project.IdProject);
+        await _hubContext.Clients.All.SendAsync("ReceiveColumnCreate", newColumn.IdColumn);
 
         return project;
     }

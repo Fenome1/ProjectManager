@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ProjectManager.Desktop.Models;
 
-namespace ProjectManager.Desktop.Common;
+namespace ProjectManager.Desktop.Common.Config;
 
 public class MappingProfile : Profile
 {

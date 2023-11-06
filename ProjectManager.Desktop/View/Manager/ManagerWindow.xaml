@@ -167,17 +167,48 @@
                                     BorderBrush="Transparent"
                                     ItemsSource="{Binding Agencies}"
                                     MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
+                                    <TreeView.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                        </ContextMenu>
+                                    </TreeView.ContextMenu>
                                     <TreeView.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
                                             <TextBlock
                                                 Text="{Binding Name}"
                                                 TextWrapping="Wrap"
-                                                ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}" />
+                                                ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
+                                                <TextBlock.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem
+                                                            Command="{Binding CreateNewProjectCommand}"
+                                                            CommandParameter="{Binding}"
+                                                            Header="Создать проект" />
+                                                        <MenuItem Header="Изменить" />
+                                                        <MenuItem
+                                                            Command="{Binding DeleteAgencyCommand}"
+                                                            CommandParameter="{Binding}"
+                                                            Header="Удалить" />
+                                                    </ContextMenu>
+                                                </TextBlock.ContextMenu>
+                                            </TextBlock>
+
                                             <HierarchicalDataTemplate.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap">
+                                                        <TextBlock.ContextMenu>
+                                                            <ContextMenu>
+                                                                <MenuItem Header="Изменить" />
+                                                                <MenuItem
+                                                                    Command="{Binding DeleteProjectCommand}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Header="Удалить" />
+                                                            </ContextMenu>
+                                                        </TextBlock.ContextMenu>
+                                                    </TextBlock>
                                                 </DataTemplate>
                                             </HierarchicalDataTemplate.ItemTemplate>
+
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>
@@ -234,6 +265,7 @@
                                                 Header="Создать доску" />
                                             <Separator />
                                             <MenuItem Header="Изменить" />
+                                            <MenuItem Command="{Binding DeleteBoardCommand}" Header="Удалить" />
                                         </ContextMenu>
                                     </Setter.Value>
                                 </Setter>

@@ -152,7 +152,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Common\Modules\" />
+		<Folder Include="Common\Config\Modules\" />
 		<Folder Include="View\Manager\UserControls\DialogWindows\Edit\" />
 	</ItemGroup>
 
