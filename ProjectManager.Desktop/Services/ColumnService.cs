@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using Newtonsoft.Json;
+using Flurl;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
 
@@ -12,44 +10,52 @@ namespace ProjectManager.Desktop.Services;
 
 public static class ColumnService
 {
-    public static async Task<List<Column>?> GetColumnsByBoardIdAsync(int idBoard)
+    public static async Task<List<Column>?> GetListByBoardIdAsync(int idBoard)
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var response = await $"{BaseApiUrl}/Column/board/{idBoard}"
+                .GetJsonAsync<List<Column>>();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Column/board/{idBoard}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Column>>(data);
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Column?> GetAsync(int idColumn, bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
-
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Column/{idColumn}?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Column>(data);
-    }
-
-    public static async Task<bool> CreateColumnAsync(int idBoard, string name)
-    {
-        using var httpClient = new HttpClient();
-
-        var data = new { idBoard, name };
-
         try
         {
-            var response = await httpClient.PostAsJsonAsync($"{BaseApiUrl}/Column", data);
-            if (response.IsSuccessStatusCode) return true;
+            var response = await $"{BaseApiUrl}/Column/{idColumn}"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<Column>();
+
+            return response;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка создания колонки: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<bool> CreateAsync(int idBoard, string name)
+    {
+        try
+        {
+            var response = await $"{BaseApiUrl}/Column"
+                .PostJsonAsync(new { idBoard, name });
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;
@@ -57,17 +63,42 @@ public static class ColumnService
 
     public static async Task<bool> DeleteAsync(int idColumn)
     {
-        using var httpClient = new HttpClient();
-
         try
         {
-            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Column/{idColumn}");
-            if (response.IsSuccessStatusCode)
+            var response = await $"{BaseApiUrl}/Column/{idColumn}"
+                .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
                 return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка удаления задачи: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> UpdateColumn(int idColumn, int? idColor = null, string? name = null)
+    {
+        try
+        {
+            var updatingColumn = new
+            {
+                IdColumn = idColumn,
+                IdColor = idColor,
+                Name = name
+            };
+
+            var response = await $"{BaseApiUrl}/Column"
+                .PutJsonAsync(updatingColumn);
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;

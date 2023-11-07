@@ -9,8 +9,7 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class Column : ObservableObject
 {
-    [ObservableProperty]
-    [JsonProperty("IdColorNavigation")]
+    [ObservableProperty] [JsonProperty("IdColorNavigation")]
     private Color? _color;
 
     [ObservableProperty] private int _idBoard;
@@ -21,8 +20,5 @@ public partial class Column : ObservableObject
 
     [ObservableProperty] private ObservableCollection<Objective>? _objectives;
 
-    public ICommand DeleteColumnCommand => new RelayCommand(async () =>
-    {
-        await ColumnService.DeleteAsync(IdColumn);
-    });
+    public ICommand DeleteColumnCommand => new RelayCommand(async () => { await ColumnService.DeleteAsync(IdColumn); });
 }

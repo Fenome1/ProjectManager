@@ -52,6 +52,8 @@ public partial class ManagerViewModel : ViewModelBase
         Application.Current.Resources.MergedDictionaries.Clear();
         Application.Current.Resources.MergedDictionaries.Add(resourceDict);
     });
+
+    //Agency notifications
     public ICommand CreateNewAgencyCommand => new RelayCommand(async () =>
     {
         var createAgencyDialogWindow = new CreateObjectDialogWindow();
@@ -65,6 +67,25 @@ public partial class ManagerViewModel : ViewModelBase
             await AgencyService.CreateAgencyAsync(agencyName);
     });
 
+    //Columns notifications
+    public ICommand ColumnColorUpdateCommand => new RelayCommand<(int idColumn, int idColor)>(async columnColorUpdate =>
+    {
+        await ColumnService.UpdateColumn(columnColorUpdate.idColumn, columnColorUpdate.idColor);
+    });
+
+    //Objectives notifications
+    public ICommand ObjectivePriorityUpdateCommand =>
+        new RelayCommand<(int idObjective, int idPriority)>(async updateCommand =>
+        {
+            if (updateCommand.idPriority < 0)
+            {
+                await ObjectiveService.UpdateAsync(updateCommand.idObjective, isPriorityReset: true);
+                return;
+            }
+
+            await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
+        });
+
     //loadTree
     public async Task LoadTreeAsync()
     {
@@ -77,7 +98,6 @@ public partial class ManagerViewModel : ViewModelBase
             Agencies.Add(agency);
     }
 
-    //Agency notifications
     public async Task CreateAgencyAsync(int idAgency)
     {
         var createdAgency = await AgencyService.GetAsync(idAgency);
@@ -86,6 +106,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { Agencies.Add(createdAgency); });
     }
+
     public async Task UpdateAgencyAsync(int idAgency)
     {
         var updatedAgency = await AgencyService.GetAsync(idAgency);
@@ -102,6 +123,7 @@ public partial class ManagerViewModel : ViewModelBase
             OnPropertyChanged(nameof(Agencies));
         });
     }
+
     public void DeleteAgencyAsync(int idAgency)
     {
         var deletedAgency = GetAgencyByProject(idAgency);
@@ -124,6 +146,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { agency.Projects.Add(createdProject); });
     }
+
     public async Task UpdateProjectAsync(int idProject)
     {
         var updatedProject = await ProjectService.GetAsync(idProject);
@@ -138,6 +161,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         if (oldItemInCollection != null) Mapper.Map(updatedProject, oldItemInCollection);
     }
+
     public async Task DeleteProjectAsync(int idProject)
     {
         var deletedProject = await ProjectService.GetAsync(idProject, true);
@@ -151,14 +175,13 @@ public partial class ManagerViewModel : ViewModelBase
 
         if (currentProjectInCollection is null)
             return;
-        
+
         Application.Current.Dispatcher.Invoke(() => { agency.Projects.Remove(currentProjectInCollection); });
 
         if (SelectedProject.IdProject == deletedProject.IdProject)
-        {
             Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
-        }
     }
+
     private Agency? GetAgencyByProject(int idAgency)
     {
         return Agencies.FirstOrDefault(a => a.IdAgency == idAgency);
@@ -177,6 +200,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { project.Boards.Add(createdBoard); });
     }
+
     public async Task UpdateBoardAsync(int idBoard)
     {
         var updatedBoard = await BoardService.GetAsync(idBoard);
@@ -194,6 +218,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { Mapper.Map(updatedBoard, boardToUpdate); });
     }
+
     public async Task DeleteBoardAsync(int idBoard)
     {
         var deletedBoard = await BoardService.GetAsync(idBoard, true);
@@ -211,6 +236,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { project.Boards.Remove(currentBoardInCollection); });
     }
+
     private Project? GetProjectByBoard(int idProject)
     {
         return Agencies
@@ -218,7 +244,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(p => p.IdProject == idProject);
     }
 
-    //Columns notifications
     public async Task CreateColumnAsync(int idColumn)
     {
         var createdColumn = await ColumnService.GetAsync(idColumn);
@@ -231,6 +256,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { board.Columns.Add(createdColumn); });
     }
+
     public async Task UpdateColumnAsync(int idColumn)
     {
         var updatedColumn = await ColumnService.GetAsync(idColumn);
@@ -246,8 +272,13 @@ public partial class ManagerViewModel : ViewModelBase
 
         if (columnToUpdate is null) return;
 
-        Application.Current.Dispatcher.Invoke(() => { Mapper.Map(updatedColumn, columnToUpdate); });
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Mapper.Map(updatedColumn, columnToUpdate);
+            OnPropertyChanged(nameof(Column));
+        });
     }
+
     public async Task DeleteColumnAsync(int idColumn)
     {
         var deletedColumn = await ColumnService.GetAsync(idColumn, true);
@@ -265,6 +296,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { board.Columns.Remove(currentColumnInCollection); });
     }
+
     private Board? GetBoardByColumn(int idBoard)
     {
         return Agencies
@@ -273,7 +305,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(b => b.IdBoard == idBoard);
     }
 
-    //Objectives notifications
     public async Task CreateObjectiveAsync(int idObjective)
     {
         var createdObjective = await ObjectiveService.GetAsync(idObjective);
@@ -286,23 +317,29 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { column.Objectives.Add(createdObjective); });
     }
-    public async Task UpdateObjectiveAsync(int idObjective)
+
+    public async void UpdateObjectiveAsync(int idObjective)
     {
         var updatedObjective = await ObjectiveService.GetAsync(idObjective);
 
         if (updatedObjective is null) return;
 
-        var column = GetColumnByObjective(updatedObjective.IdObjective);
+        var column = GetColumnByObjective(updatedObjective.IdColumn);
 
         if (column is null) return;
 
         var objectiveToUpdate = column.Objectives
-            .FirstOrDefault(c => c.IdColumn == updatedObjective.IdColumn);
+            .FirstOrDefault(c => c.IdObjective == updatedObjective.IdObjective);
 
         if (objectiveToUpdate is null) return;
 
-        Application.Current.Dispatcher.Invoke(() => { Mapper.Map(updatedObjective, objectiveToUpdate); });
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Mapper.Map(updatedObjective, objectiveToUpdate);
+            OnPropertyChanged(nameof(Objective));
+        });
     }
+
     public async Task DeleteObjectiveAsync(int idObjective)
     {
         var deletedObjective = await ObjectiveService.GetAsync(idObjective, true);
@@ -320,6 +357,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { column.Objectives.Remove(currentObjectiveInCollection); });
     }
+
     private Column? GetColumnByObjective(int idColumn)
     {
         return Agencies

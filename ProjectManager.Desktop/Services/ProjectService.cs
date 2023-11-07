@@ -1,74 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using System.Windows;
-using Newtonsoft.Json;
+using Flurl;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
 
 namespace ProjectManager.Desktop.Services;
 
-internal static class ProjectService
+public static class ProjectService
 {
     public static async Task<List<Project>?> GetProjectsByAgencyIdAsync(int idAgency, bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var response = await $"{BaseApiUrl}/Project/agency/{idAgency}"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<List<Project>>();
 
-        var response =
-            await httpClient.GetAsync($"{BaseApiUrl}/Project/agency/{idAgency}?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Project>>(data);
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Project?> GetAsync(int idProject, bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var response = await $"{BaseApiUrl}/Project/{idProject}"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<Project>();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Project/{idProject}?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Project>(data);
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<bool> CreateProjectAsync(int idAgency, string name)
     {
-        using var httpClient = new HttpClient();
-
-        var data = new { idAgency, name };
-
         try
         {
-            var response = await httpClient.PostAsJsonAsync($"{BaseApiUrl}/Project", data);
-            if (response.IsSuccessStatusCode) return true;
+            var response = await $"{BaseApiUrl}/Project"
+                .PostJsonAsync(new { idAgency, name });
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка создания проекта: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;
     }
+
     public static async Task<bool> DeleteAsync(int idProject)
     {
-        using var httpClient = new HttpClient();
-
         try
         {
-            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Project/{idProject}");
-            if (response.IsSuccessStatusCode)
+            var response = await $"{BaseApiUrl}/Project/{idProject}"
+                .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
                 return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка удаления проекта: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;

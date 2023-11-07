@@ -42,6 +42,14 @@ public class ColumnController : BaseController
         return CreatedAtAction(nameof(Get), new { id = result.IdColumn }, result);
     }
 
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UpdateColumnCommand command)
+    {
+        var result = await Mediator.Send(command);
+
+        return Ok(result);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

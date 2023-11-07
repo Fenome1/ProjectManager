@@ -9,9 +9,12 @@ namespace ProjectManager.Desktop.View.Manager;
 
 public partial class ManagerWindow : Window
 {
+    private Project _project;
+
     public ManagerWindow()
     {
         InitializeComponent();
+
         var _ = new SignalRClient().Start();
         DataContext = ManagerVm;
     }

@@ -12,4 +12,5 @@ public class UpdateObjectiveCommand : IRequest<Objective>
     public DateTime? Deadline { get; set; }
     public bool? Status { get; set; }
     public bool IsDeadlineReset { get; set; } = false;
+    public bool IsPriorityReset { get; set; } = false;
 }

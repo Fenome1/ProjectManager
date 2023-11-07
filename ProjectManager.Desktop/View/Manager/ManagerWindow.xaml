@@ -15,7 +15,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance manager:ManagerViewModel,
-    IsDesignTimeCreatable=True}"
+                                     IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Loaded="MainWindow_OnLoaded"
@@ -169,7 +169,8 @@
                                     MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                     <TreeView.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                            <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                      Header="Создать агенство" />
                                         </ContextMenu>
                                     </TreeView.ContextMenu>
                                     <TreeView.ItemTemplate>

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -30,8 +29,5 @@ public partial class Agency : ObservableObject
             await ProjectService.CreateProjectAsync(IdAgency, projectName);
     });
 
-    public ICommand DeleteAgencyCommand => new RelayCommand(async () =>
-    {
-        await AgencyService.DeleteAsync(IdAgency);
-    });
+    public ICommand DeleteAgencyCommand => new RelayCommand(async () => { await AgencyService.DeleteAsync(IdAgency); });
 }

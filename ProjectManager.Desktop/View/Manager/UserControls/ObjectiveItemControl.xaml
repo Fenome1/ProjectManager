@@ -55,8 +55,10 @@
                     Content=""
                     Style="{DynamicResource ThreeDotsButtonStyle}">
                     <Button.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu Loaded="SettingContextMenu_OnLoaded">
                             <MenuItem Header="Изменить" />
+                            <MenuItem Header="Приоритет" />
+                            <Separator />
                             <MenuItem Command="{Binding DeleteObjectiveCommand}" Header="Удалить" />
                         </ContextMenu>
                     </Button.ContextMenu>
@@ -79,7 +81,9 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                <DataTrigger
+                                    Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                    Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -90,7 +94,9 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                    <DataTrigger
+                                        Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                        Value="True">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -113,7 +119,9 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                <DataTrigger
+                                    Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                    Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -124,7 +132,9 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                    <DataTrigger
+                                        Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                        Value="True">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>

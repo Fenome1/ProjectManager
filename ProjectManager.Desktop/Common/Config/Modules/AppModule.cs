@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using AutoMapper;
-using ProjectManager.Desktop.Common.Config;
 
 namespace ProjectManager.Desktop.Common.Config.Modules;
 

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using Newtonsoft.Json;
+using Flurl;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
 
@@ -14,57 +12,67 @@ public static class AgencyService
 {
     public static async Task<List<Agency>?> GetAsync(bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var agencies = await $"{BaseApiUrl}/Agency"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<List<Agency>>();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Agency?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Agency>>(data);
+            return agencies;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Agency> GetAsync(int idAgency, bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
-
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Agency/{idAgency}?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Agency>(data);
-    }
-
-    public static async Task<bool> CreateAgencyAsync(string name)
-    {
-        using var httpClient = new HttpClient();
-
         try
         {
-            var response = await httpClient.PostAsJsonAsync($"{BaseApiUrl}/Agency", new {name});
-            if (response.IsSuccessStatusCode) return true;
+            var agency = await $"{BaseApiUrl}/Agency/{idAgency}"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<Agency>();
+
+            return agency;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка создания агенства: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<bool> CreateAgencyAsync(string name, string description = null)
+    {
+        try
+        {
+            var response = await $"{BaseApiUrl}/Agency"
+                .PostJsonAsync(new { Name = name, Description = description });
+
+            if (response.ResponseMessage.IsSuccessStatusCode) return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;
     }
+
     public static async Task<bool> DeleteAsync(int idAgency)
     {
-        using var httpClient = new HttpClient();
-
         try
         {
-            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Agency/{idAgency}");
-            if (response.IsSuccessStatusCode)
-                return true;
+            var response = await $"{BaseApiUrl}/Agency/{idAgency}"
+                .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode) return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка удаления агенства: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;

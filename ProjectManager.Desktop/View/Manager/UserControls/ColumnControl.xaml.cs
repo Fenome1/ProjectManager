@@ -27,6 +27,6 @@ public partial class ColumnControl : UserControl
         var columnName = createColumnDialogWindow.EnteredText.Trim();
 
         if (!string.IsNullOrEmpty(columnName))
-            await ColumnService.CreateColumnAsync((int)idBoard, columnName);
+            await ColumnService.CreateAsync((int)idBoard, columnName);
     }
 }

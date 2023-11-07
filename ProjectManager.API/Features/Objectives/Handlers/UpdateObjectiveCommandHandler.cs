@@ -37,8 +37,11 @@ public class UpdateObjectiveCommandHandler : BaseCommandHandler<ProjectManagerDb
         if (request.Status is not null)
             objective.Status = (bool)request.Status;
 
+        if (request.IsPriorityReset)
+            objective.IdPriority = null;
         if (request.IdPriority is not null)
             objective.IdPriority = request.IdPriority;
+
 
         await _context.SaveChangesAsync();
 

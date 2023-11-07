@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using Newtonsoft.Json;
+using Flurl;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
 
@@ -13,46 +10,52 @@ namespace ProjectManager.Desktop.Services;
 
 public static class ObjectiveService
 {
-    public static async Task<List<Objective>?> GetObjectivesByColumnIdAsync(int idColumn)
+    public static async Task<List<Objective>?> GetListByColumnIdAsync(int idColumn)
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var response = await $"{BaseApiUrl}/Objective/column/{idColumn}"
+                .GetJsonAsync<List<Objective>>();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Objective/column/{idColumn}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Objective>>(data);
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Objective?> GetAsync(int idObjective, bool isDeleted = false)
     {
-        using var httpClient = new HttpClient();
-
-        var response =
-            await httpClient.GetAsync($"{BaseApiUrl}/Objective/{idObjective}?{nameof(isDeleted)}={isDeleted}");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<Objective>(data);
-    }
-
-    public static async Task<bool> CreateObjectiveAsync(int idColumn, string name)
-    {
-        using var httpClient = new HttpClient();
-
-        var data = new { idColumn, name };
-
         try
         {
-            var response = await httpClient.PostAsJsonAsync($"{BaseApiUrl}/Objective", data);
-            if (response.IsSuccessStatusCode)
+            var response = await $"{BaseApiUrl}/Objective/{idObjective}"
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<Objective>();
+
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
+    }
+
+    public static async Task<bool> CreateAsync(int idColumn, string name)
+    {
+        try
+        {
+            var response = await $"{BaseApiUrl}/Objective"
+                .PostJsonAsync(new { idColumn, name });
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
                 return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка создания задачи: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;
@@ -60,17 +63,54 @@ public static class ObjectiveService
 
     public static async Task<bool> DeleteAsync(int idObjective)
     {
-        using var httpClient = new HttpClient();
-
         try
         {
-            var response = await httpClient.DeleteAsync($"{BaseApiUrl}/Objective/{idObjective}");
-            if (response.IsSuccessStatusCode)
+            var response = await $"{BaseApiUrl}/Objective/{idObjective}"
+                .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
                 return true;
         }
-        catch (Exception ex)
+        catch (FlurlHttpException ex)
         {
-            MessageBox.Show($"Ошибка удаления задачи: {ex.Message}");
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> UpdateAsync(int idObjective,
+        int? idPriority = null,
+        string? name = null,
+        string? description = null,
+        DateTime? deadline = null,
+        bool? status = null,
+        bool isPriorityReset = false,
+        bool isDeadlineReset = false)
+    {
+        try
+        {
+            var updatingObjective = new
+            {
+                IdObjective = idObjective,
+                IdPriority = idPriority,
+                Name = name,
+                Description = description,
+                Deadline = deadline,
+                Status = status,
+                IsPriorityReset = isPriorityReset,
+                IsDeadlineReset = isDeadlineReset
+            };
+
+            var response = await $"{BaseApiUrl}/Objective"
+                .PutJsonAsync(updatingObjective);
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 
         return false;

@@ -31,7 +31,7 @@ public class UpdateColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveBoardUpdate", column.IdColumn);
+        await _hubContext.Clients.All.SendAsync("ReceiveColumnUpdate", column.IdColumn);
 
         return column;
     }

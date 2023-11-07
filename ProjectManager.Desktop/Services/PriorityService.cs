@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.Common.Data.URL;
 
@@ -11,13 +11,17 @@ public static class PriorityService
 {
     public static async Task<List<Priority>?> GetPrioritiesAsync()
     {
-        using var httpClient = new HttpClient();
+        try
+        {
+            var response = await $"{BaseApiUrl}/Priority"
+                .GetJsonAsync<List<Priority>?>();
 
-        var response = await httpClient.GetAsync($"{BaseApiUrl}/Priority");
-
-        if (!response.IsSuccessStatusCode) return null;
-
-        var data = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Priority>>(data);
+            return response;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return null;
+        }
     }
 }

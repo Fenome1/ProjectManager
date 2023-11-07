@@ -59,12 +59,14 @@
                 Margin="0,0,0,5"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Click="ButtonBase_OnClick"
+                Click="SettingsButton_OnClick"
                 Content=""
                 Style="{DynamicResource ThreeDotsButtonStyle}">
                 <Button.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Loaded="SettingContextMenu_OnLoaded">
                         <MenuItem Header="Изменить" />
+                        <MenuItem Header="Цвет" />
+                        <Separator />
                         <MenuItem Command="{Binding DeleteColumnCommand}" Header="Удалить" />
                     </ContextMenu>
                 </Button.ContextMenu>
