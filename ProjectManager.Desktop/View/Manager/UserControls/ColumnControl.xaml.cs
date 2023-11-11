@@ -19,7 +19,7 @@ public partial class ColumnControl : UserControl
 
         if (idBoard is null) return;
 
-        var createColumnDialogWindow = new CreateObjectDialogWindow();
+        var createColumnDialogWindow = new CreateObjectDialogWindow("Создать колонку");
         createColumnDialogWindow.ShowDialog();
 
         if (!createColumnDialogWindow.DialogResult!.Value) return;

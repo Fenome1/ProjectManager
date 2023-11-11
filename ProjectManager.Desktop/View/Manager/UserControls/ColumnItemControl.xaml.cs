@@ -23,7 +23,7 @@ public partial class ColumnItemControl : UserControl
 
         if (idColumn is null) return;
 
-        var createObjectiveDialogWindow = new CreateObjectDialogWindow();
+        var createObjectiveDialogWindow = new CreateObjectDialogWindow("Создать задачу");
         createObjectiveDialogWindow.ShowDialog();
 
         if (!createObjectiveDialogWindow.DialogResult!.Value) return;

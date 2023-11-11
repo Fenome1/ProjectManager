@@ -44,7 +44,7 @@ public static class ProjectService
         }
     }
 
-    public static async Task<bool> CreateProjectAsync(int idAgency, string name)
+    public static async Task<bool> CreateAsync(int idAgency, string name)
     {
         try
         {
@@ -68,6 +68,30 @@ public static class ProjectService
         {
             var response = await $"{BaseApiUrl}/Project/{idProject}"
                 .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> UpdateAsync(int idProject, string name)
+    {
+        var updatingProject = new
+        {
+            IdProject = idProject,
+            Name = name
+        };
+
+        try
+        {
+            var response = await $"{BaseApiUrl}/Project"
+                .PutJsonAsync(updatingProject);
 
             if (response.ResponseMessage.IsSuccessStatusCode)
                 return true;

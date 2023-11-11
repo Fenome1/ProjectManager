@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
+using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
 
 namespace ProjectManager.Desktop.Models;
 
@@ -18,7 +19,7 @@ public partial class Agency : ObservableObject
 
     public ICommand CreateNewProjectCommand => new RelayCommand(async () =>
     {
-        var createProjectDialogWindow = new CreateObjectDialogWindow();
+        var createProjectDialogWindow = new CreateObjectDialogWindow("Создать проект");
         createProjectDialogWindow.ShowDialog();
 
         if (!createProjectDialogWindow.DialogResult!.Value) return;
@@ -26,7 +27,20 @@ public partial class Agency : ObservableObject
         var projectName = createProjectDialogWindow.EnteredText.Trim();
 
         if (!string.IsNullOrEmpty(projectName))
-            await ProjectService.CreateProjectAsync(IdAgency, projectName);
+            await ProjectService.CreateAsync(IdAgency, projectName);
+    });
+
+    public ICommand UpdateAgencyCommand => new RelayCommand(async () =>
+    {
+        var agencyUpdateWindow = new AgencyUpdateWindow(this);
+        agencyUpdateWindow.ShowDialog();
+
+        if (!(bool)agencyUpdateWindow.DialogResult!)
+            return;
+
+        await AgencyService.UpdateAsync(IdAgency,
+            agencyUpdateWindow.NameTextBox.Text,
+            agencyUpdateWindow.DescriptionTextBox.Text);
     });
 
     public ICommand DeleteAgencyCommand => new RelayCommand(async () => { await AgencyService.DeleteAsync(IdAgency); });

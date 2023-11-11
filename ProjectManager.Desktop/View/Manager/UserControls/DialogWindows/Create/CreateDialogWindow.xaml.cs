@@ -5,9 +5,10 @@ namespace ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 
 public partial class CreateObjectDialogWindow : Window
 {
-    public CreateObjectDialogWindow()
+    public CreateObjectDialogWindow(string winTitle = "Создать")
     {
         InitializeComponent();
+        Title = winTitle;
         InputTextBox.Focus();
     }
 

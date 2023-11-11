@@ -21,6 +21,11 @@ public class ListBoardsQueryHandler : IRequestHandler<ListBoardsQuery, List<Boar
                 .Include(b => b.Columns
                     .Where(c => c.IsDeleted == request.IncludeDeleted))
                 .ThenInclude(c => c.IdColorNavigation)
+                .ThenInclude(b => b.Columns
+                    .Where(c => c.IsDeleted == request.IncludeDeleted))
+                .ThenInclude(c => c.Objectives
+                    .Where(o => o.IsDeleted == request.IncludeDeleted))
+                .ThenInclude(o => o.IdPriorityNavigation)
                 .Where(b => b.IsDeleted == request.IncludeDeleted)
                 .ToListAsync();
 

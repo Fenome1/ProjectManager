@@ -44,7 +44,7 @@ public static class AgencyService
         }
     }
 
-    public static async Task<bool> CreateAgencyAsync(string name, string description = null)
+    public static async Task<bool> CreateAsync(string name, string description = null)
     {
         try
         {
@@ -69,6 +69,31 @@ public static class AgencyService
                 .DeleteAsync();
 
             if (response.ResponseMessage.IsSuccessStatusCode) return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> UpdateAsync(int idAgency, string? name = null, string? description = null)
+    {
+        var updatingProject = new
+        {
+            IdAgency = idAgency,
+            Name = name,
+            Description = description
+        };
+
+        try
+        {
+            var response = await $"{BaseApiUrl}/Agency"
+                .PutJsonAsync(updatingProject);
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
         }
         catch (FlurlHttpException ex)
         {

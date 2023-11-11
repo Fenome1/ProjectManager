@@ -15,7 +15,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance manager:ManagerViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Loaded="MainWindow_OnLoaded"
@@ -28,6 +28,7 @@
         <ResourceDictionary>
             <convertors:DescriptionToToolTipTextConverter x:Key="DescriptionConverter" />
             <convertors:TreeViewHeightConverter x:Key="TreeViewHeightConverter" />
+            <convertors:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -119,14 +120,15 @@
                         <TextBlock
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            Text="Имя                             пользователя"
+                            Text="Мой профиль"
                             TextWrapping="Wrap" />
                         <Button
                             Grid.Column="2"
+                            Margin="5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Command="{Binding ChangeThemeCommand}"
-                            Content="X" />
+                            Content="&lt;-" />
                     </Grid>
 
                     <!--  Вывод агенств и проектов  -->
@@ -157,62 +159,97 @@
                             CornerRadius="15">
                             <ScrollViewer
                                 MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}"
+                                Padding="5"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 CanContentScroll="True"
                                 HorizontalScrollBarVisibility="Auto"
                                 VerticalScrollBarVisibility="Auto">
-                                <TreeView
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    ItemsSource="{Binding Agencies}"
-                                    MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
-                                    <TreeView.ContextMenu>
+                                <StackPanel>
+                                    <StackPanel.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Command="{Binding CreateNewAgencyCommand}"
                                                       Header="Создать агенство" />
                                         </ContextMenu>
-                                    </TreeView.ContextMenu>
-                                    <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
-                                            <TextBlock
-                                                Text="{Binding Name}"
-                                                TextWrapping="Wrap"
-                                                ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
-                                                <TextBlock.ContextMenu>
-                                                    <ContextMenu>
-                                                        <MenuItem
-                                                            Command="{Binding CreateNewProjectCommand}"
-                                                            CommandParameter="{Binding}"
-                                                            Header="Создать проект" />
-                                                        <MenuItem Header="Изменить" />
-                                                        <MenuItem
-                                                            Command="{Binding DeleteAgencyCommand}"
-                                                            CommandParameter="{Binding}"
-                                                            Header="Удалить" />
-                                                    </ContextMenu>
-                                                </TextBlock.ContextMenu>
-                                            </TextBlock>
+                                    </StackPanel.ContextMenu>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="Ничего не найдено..."
+                                        Visibility="{Binding Agencies.Count, Converter={StaticResource CountToVisibilityConverter}}" />
+                                    <TreeView
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        ItemsSource="{Binding Agencies}"
+                                        MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
 
-                                            <HierarchicalDataTemplate.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap">
-                                                        <TextBlock.ContextMenu>
-                                                            <ContextMenu>
-                                                                <MenuItem Header="Изменить" />
-                                                                <MenuItem
-                                                                    Command="{Binding DeleteProjectCommand}"
-                                                                    CommandParameter="{Binding}"
-                                                                    Header="Удалить" />
-                                                            </ContextMenu>
-                                                        </TextBlock.ContextMenu>
-                                                    </TextBlock>
-                                                </DataTemplate>
-                                            </HierarchicalDataTemplate.ItemTemplate>
+                                        <TreeView.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                          Header="Создать агенство" />
+                                            </ContextMenu>
+                                        </TreeView.ContextMenu>
 
-                                        </HierarchicalDataTemplate>
-                                    </TreeView.ItemTemplate>
-                                </TreeView>
+                                        <TreeView.Style>
+                                            <Style TargetType="TreeView">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Agencies.Count}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TreeView.Style>
+
+                                        <TreeView.ItemTemplate>
+                                            <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
+                                                <TextBlock
+                                                    Text="{Binding Name}"
+                                                    TextWrapping="Wrap"
+                                                    ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
+                                                    <TextBlock.ContextMenu>
+                                                        <ContextMenu>
+                                                            <MenuItem
+                                                                Command="{Binding CreateNewProjectCommand}"
+                                                                CommandParameter="{Binding}"
+                                                                Header="Создать проект" />
+                                                            <MenuItem
+                                                                Command="{Binding UpdateAgencyCommand}"
+                                                                CommandParameter="{Binding}"
+                                                                Header="Изменить" />
+                                                            <MenuItem
+                                                                Command="{Binding DeleteAgencyCommand}"
+                                                                CommandParameter="{Binding}"
+                                                                Header="Удалить" />
+                                                        </ContextMenu>
+                                                    </TextBlock.ContextMenu>
+                                                </TextBlock>
+
+                                                <HierarchicalDataTemplate.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap">
+                                                            <TextBlock.ContextMenu>
+                                                                <ContextMenu>
+                                                                    <MenuItem
+                                                                        Command="{Binding UpdateProjectCommand}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Header="Изменить" />
+                                                                    <MenuItem
+                                                                        Command="{Binding DeleteProjectCommand}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Header="Удалить" />
+                                                                </ContextMenu>
+                                                            </TextBlock.ContextMenu>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </HierarchicalDataTemplate.ItemTemplate>
+
+                                            </HierarchicalDataTemplate>
+                                        </TreeView.ItemTemplate>
+                                    </TreeView>
+                                </StackPanel>
+
+
                             </ScrollViewer>
                         </Border>
                     </Grid>
@@ -220,6 +257,43 @@
                 </Grid>
 
                 <Grid x:Name="TabControlContentGrid" Grid.Column="1">
+                    <Border
+                        x:Name="SelectedAgencyBoard"
+                        Grid.Row="0"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="Transparent"
+                        BorderBrush="White"
+                        BorderThickness="1"
+                        Visibility="Hidden">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Border
+                                Margin="20"
+                                Padding="10"
+                                BorderBrush="White"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                DataContext="{Binding SelectedAgency}">
+                                <StackPanel>
+                                    <TextBlock Margin="0,0,0,20" Text="Информация" />
+                                    <TextBlock Margin="0,0,0,5" Text="{Binding Name, StringFormat='Название: {0}'}" />
+                                    <TextBlock
+                                        Margin="0,0,0,5"
+                                        Text="{Binding Description, Converter={StaticResource DescriptionConverter}, StringFormat='Описание: {0}'}"
+                                        TextWrapping="Wrap" />
+                                    <Button
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding UpdateAgencyCommand}"
+                                        Content="Изменить" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
 
                     <!--  Вывод досок, колонок и задач  -->
                     <TabControl
@@ -265,7 +339,10 @@
                                                 CommandParameter="{Binding}"
                                                 Header="Создать доску" />
                                             <Separator />
-                                            <MenuItem Header="Изменить" />
+                                            <MenuItem
+                                                Command="{Binding UpdateBoardCommand}"
+                                                CommandParameter="{Binding}"
+                                                Header="Изменить" />
                                             <MenuItem Command="{Binding DeleteBoardCommand}" Header="Удалить" />
                                         </ContextMenu>
                                     </Setter.Value>

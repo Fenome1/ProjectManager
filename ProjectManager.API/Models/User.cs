@@ -12,6 +12,8 @@ public class User
 
     public string FullName { get; set; } = null!;
 
+    public string? Image { get; set; }
+
     public bool IsDeleted { get; set; }
 
     public virtual Role IdRoleNavigation { get; set; } = null!;

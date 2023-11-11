@@ -3,6 +3,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ProjectManager.Desktop.Services;
+using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
 
 namespace ProjectManager.Desktop.Models;
 
@@ -17,5 +18,17 @@ public partial class Project : ObservableObject
     public ICommand DeleteProjectCommand => new RelayCommand(async () =>
     {
         await ProjectService.DeleteAsync(IdProject);
+    });
+
+    public ICommand UpdateProjectCommand => new RelayCommand(async () =>
+    {
+        var projectUpdateWindow = new ProjectUpdateWindow(this);
+        projectUpdateWindow.ShowDialog();
+
+        if (!(bool)projectUpdateWindow.DialogResult!)
+            return;
+
+        await ProjectService.UpdateAsync(IdProject,
+            projectUpdateWindow.NameTextBox.Text);
     });
 }

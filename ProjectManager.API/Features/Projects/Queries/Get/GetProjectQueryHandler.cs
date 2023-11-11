@@ -17,8 +17,16 @@ public class GetProjectQueryHandler : IRequestHandler<GetProjectQuery, Project>
     public async Task<Project> Handle(GetProjectQuery request, CancellationToken cancellationToken)
     {
         var project = await _context.Projects
+            .Include(p => p.Boards)
+            .ThenInclude(b => b.Columns)
+            .ThenInclude(b => b.IdColorNavigation)
             .Include(p => p.Boards
                 .Where(b => b.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(b => b.Columns
+                .Where(c => c.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(c => c.Objectives
+                .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(p => p.IsDeleted == request.IncludeDeleted)
             .FirstOrDefaultAsync(p => p.IdProject == request.IdProject);
 

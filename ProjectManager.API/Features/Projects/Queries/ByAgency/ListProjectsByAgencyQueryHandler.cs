@@ -21,11 +21,16 @@ public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAg
             throw new Exception("Агенство не найдено");
 
         var projects = await _context.Projects
+            .Include(p => p.Boards)
+            .ThenInclude(b => b.Columns)
+            .ThenInclude(b => b.IdColorNavigation)
             .Include(p => p.Boards
                 .Where(b => b.IsDeleted == request.IncludeDeleted))
-            .ThenInclude(b => b.Columns.Where(c => c.IsDeleted == request.IncludeDeleted))
-            .ThenInclude(c => c.IdColorNavigation)
-            .Where(p => p.IdAgency == request.IdAgency)
+            .ThenInclude(b => b.Columns
+                .Where(c => c.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(c => c.Objectives
+                .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(p => p.IsDeleted == request.IncludeDeleted)
             .ToListAsync(cancellationToken);
 

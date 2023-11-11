@@ -51,12 +51,18 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Text="{Binding Name}"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow">
+                <TextBlock.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateColumnCommand}" Header="Изменить" />
+                    </ContextMenu>
+                </TextBlock.ContextMenu>
+            </TextBlock>
 
             <Button
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="0,0,0,5"
+                Margin="0,0,-5,5"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Click="SettingsButton_OnClick"
@@ -64,7 +70,7 @@
                 Style="{DynamicResource ThreeDotsButtonStyle}">
                 <Button.ContextMenu>
                     <ContextMenu Loaded="SettingContextMenu_OnLoaded">
-                        <MenuItem Header="Изменить" />
+                        <MenuItem Command="{Binding UpdateColumnCommand}" Header="Изменить" />
                         <MenuItem Header="Цвет" />
                         <Separator />
                         <MenuItem Command="{Binding DeleteColumnCommand}" Header="Удалить" />

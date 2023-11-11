@@ -31,13 +31,15 @@
                 <ControlTemplate TargetType="Button">
                     <StackPanel
                         x:Name="StackPanelContainer"
+                        Width="15"
+                        Height="25"
                         Background="Transparent"
                         Orientation="Vertical">
                         <Ellipse
                             x:Name="Ellipse1"
                             Width="5"
                             Height="5"
-                            Margin="0,0,0,2"
+                            Margin="0,2,0,2"
                             Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
                         <Ellipse
                             x:Name="Ellipse2"

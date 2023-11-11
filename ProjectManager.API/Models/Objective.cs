@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ProjectManager.API.Models;
+﻿namespace ProjectManager.API.Models;
 
 public class Objective
 {
@@ -20,7 +18,7 @@ public class Objective
 
     public bool IsDeleted { get; set; }
 
-    [JsonIgnore] public virtual Column IdColumnNavigation { get; set; } = null!;
+    public virtual Column IdColumnNavigation { get; set; } = null!;
 
     public virtual Priority? IdPriorityNavigation { get; set; }
 

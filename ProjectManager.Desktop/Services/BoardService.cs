@@ -43,7 +43,7 @@ public static class BoardService
         }
     }
 
-    public static async Task<bool> CreateBoardAsync(int idProject, string name)
+    public static async Task<bool> CreateAsync(int idProject, string name)
     {
         var data = new { idProject, name };
 
@@ -70,6 +70,30 @@ public static class BoardService
                 .DeleteAsync();
 
             if (response.ResponseMessage.IsSuccessStatusCode) return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
+    public static async Task<bool> UpdateAsync(int idBoard, string name)
+    {
+        var updatingBoard = new
+        {
+            IdBoard = idBoard,
+            Name = name
+        };
+
+        try
+        {
+            var response = await $"{BaseApiUrl}/Board"
+                .PutJsonAsync(updatingBoard);
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
         }
         catch (FlurlHttpException ex)
         {

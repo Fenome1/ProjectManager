@@ -79,17 +79,17 @@ public static class ColumnService
         return false;
     }
 
-    public static async Task<bool> UpdateColumn(int idColumn, int? idColor = null, string? name = null)
+    public static async Task<bool> UpdateAsync(int idColumn, int? idColor = null, string? name = null)
     {
+        var updatingColumn = new
+        {
+            IdColumn = idColumn,
+            IdColor = idColor,
+            Name = name
+        };
+
         try
         {
-            var updatingColumn = new
-            {
-                IdColumn = idColumn,
-                IdColor = idColor,
-                Name = name
-            };
-
             var response = await $"{BaseApiUrl}/Column"
                 .PutJsonAsync(updatingColumn);
 

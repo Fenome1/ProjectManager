@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using ProjectManager.Desktop.Services;
+using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
+using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special;
 
 namespace ProjectManager.Desktop.Models;
 
@@ -23,8 +25,45 @@ public partial class Objective : ObservableObject
 
     [ObservableProperty] private bool _status;
 
+    public ICommand UpdateStatusCommand => new RelayCommand(async () =>
+    {
+        await ObjectiveService.UpdateAsync(IdObjective, status: Status);
+    });
+
+    public ICommand UpdateObjectiveCommand => new RelayCommand(async () =>
+    {
+        var objectiveUpdateWindow = new ObjectiveUpdateWindow(this);
+        objectiveUpdateWindow.ShowDialog();
+
+        if (!(bool)objectiveUpdateWindow.DialogResult!)
+            return;
+
+        await ObjectiveService.UpdateAsync(IdObjective,
+            name: objectiveUpdateWindow.NameTextBox.Text,
+            description: objectiveUpdateWindow.DescriptionTextBox.Text);
+    });
+
     public ICommand DeleteObjectiveCommand => new RelayCommand(async () =>
     {
         await ObjectiveService.DeleteAsync(IdObjective);
+    });
+
+    public ICommand DeadlineSelectCommand => new RelayCommand(async () =>
+    {
+        var selectWindow = new DeadlineSelectWindow(Deadline);
+
+        selectWindow.ShowDialog();
+
+        if (!(bool)selectWindow.DialogResult)
+            return;
+
+        var selectedDeadline = selectWindow.DeadlineDate;
+
+        await ObjectiveService.UpdateAsync(IdObjective, deadline: selectedDeadline);
+    });
+
+    public ICommand DeadlineRemoveCommand => new RelayCommand(async () =>
+    {
+        await ObjectiveService.UpdateAsync(IdObjective, isDeadlineReset: true);
     });
 }

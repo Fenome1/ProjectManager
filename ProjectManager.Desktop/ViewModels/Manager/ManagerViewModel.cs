@@ -21,6 +21,7 @@ public partial class ManagerViewModel : ViewModelBase
     [ObservableProperty] private ObservableCollection<Agency> _agencies = new();
 
     private bool _isPrimaryTheme = true;
+    [ObservableProperty] private Agency? _selectedAgency;
 
     [ObservableProperty] private Project? _selectedProject;
 
@@ -56,7 +57,7 @@ public partial class ManagerViewModel : ViewModelBase
     //Agency notifications
     public ICommand CreateNewAgencyCommand => new RelayCommand(async () =>
     {
-        var createAgencyDialogWindow = new CreateObjectDialogWindow();
+        var createAgencyDialogWindow = new CreateObjectDialogWindow("Создать агентство");
         createAgencyDialogWindow.ShowDialog();
 
         if (!createAgencyDialogWindow.DialogResult!.Value) return;
@@ -64,13 +65,13 @@ public partial class ManagerViewModel : ViewModelBase
         var agencyName = createAgencyDialogWindow.EnteredText.Trim();
 
         if (!string.IsNullOrEmpty(agencyName))
-            await AgencyService.CreateAgencyAsync(agencyName);
+            await AgencyService.CreateAsync(agencyName);
     });
 
     //Columns notifications
     public ICommand ColumnColorUpdateCommand => new RelayCommand<(int idColumn, int idColor)>(async columnColorUpdate =>
     {
-        await ColumnService.UpdateColumn(columnColorUpdate.idColumn, columnColorUpdate.idColor);
+        await ColumnService.UpdateAsync(columnColorUpdate.idColumn, columnColorUpdate.idColor);
     });
 
     //Objectives notifications
@@ -130,7 +131,13 @@ public partial class ManagerViewModel : ViewModelBase
 
         if (deletedAgency is null) return;
 
+        var deletingAgency = Agencies.FirstOrDefault(a => a.IdAgency == idAgency);
+
         Application.Current.Dispatcher.Invoke(() => { Agencies.Remove(deletedAgency); });
+
+        foreach (var project in deletingAgency.Projects)
+            if (project.IdProject == SelectedProject.IdProject)
+                ResetUiSelectedProject();
     }
 
     //Project notifications
@@ -147,7 +154,7 @@ public partial class ManagerViewModel : ViewModelBase
         Application.Current.Dispatcher.Invoke(() => { agency.Projects.Add(createdProject); });
     }
 
-    public async Task UpdateProjectAsync(int idProject)
+    public async void UpdateProjectAsync(int idProject)
     {
         var updatedProject = await ProjectService.GetAsync(idProject);
 
@@ -159,7 +166,8 @@ public partial class ManagerViewModel : ViewModelBase
         var oldItemInCollection =
             agency.Projects.FirstOrDefault(p => p.IdProject == updatedProject.IdProject);
 
-        if (oldItemInCollection != null) Mapper.Map(updatedProject, oldItemInCollection);
+        if (oldItemInCollection != null)
+            Application.Current.Dispatcher.Invoke(() => oldItemInCollection.Name = updatedProject.Name);
     }
 
     public async Task DeleteProjectAsync(int idProject)
@@ -179,7 +187,12 @@ public partial class ManagerViewModel : ViewModelBase
         Application.Current.Dispatcher.Invoke(() => { agency.Projects.Remove(currentProjectInCollection); });
 
         if (SelectedProject.IdProject == deletedProject.IdProject)
-            Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
+            ResetUiSelectedProject();
+    }
+
+    private static void ResetUiSelectedProject()
+    {
+        Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
     }
 
     private Agency? GetAgencyByProject(int idAgency)

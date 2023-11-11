@@ -35,29 +35,52 @@
                 <CheckBox
                     Margin="5"
                     VerticalAlignment="Center"
+                    Command="{Binding UpdateStatusCommand}"
+                    CommandParameter="{Binding}"
                     FontSize="25"
                     IsChecked="{Binding Status}" />
 
                 <!--  Имя задачи  -->
                 <TextBlock
                     Grid.Column="1"
+                    MaxWidth="180"
                     Margin="5"
                     VerticalAlignment="Center"
                     Text="{Binding Name}"
-                    TextWrapping="WrapWithOverflow" />
+                    TextWrapping="Wrap">
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding UpdateObjectiveCommand}" Header="Изменить" />
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
 
                 <Button
                     Grid.Column="2"
-                    Margin="0,1,10,5"
+                    Margin="0,5,5,5"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Click="OpenObjectiveContextMenu_OnClick"
+                    VerticalAlignment="Top"
+                    Click="OpenContextMenu_OnClick"
                     Content=""
                     Style="{DynamicResource ThreeDotsButtonStyle}">
                     <Button.ContextMenu>
-                        <ContextMenu Loaded="SettingContextMenu_OnLoaded">
-                            <MenuItem Header="Изменить" />
+                        <ContextMenu Loaded="SettingPriorityContextMenu_OnLoaded">
+                            <MenuItem
+                                Command="{Binding UpdateObjectiveCommand}"
+                                CommandParameter="{Binding}"
+                                Header="Изменить" />
+                            <Separator />
                             <MenuItem Header="Приоритет" />
+                            <MenuItem Header="Дедлайн">
+                                <MenuItem
+                                    Command="{Binding DeadlineSelectCommand}"
+                                    CommandParameter="{Binding}"
+                                    Header="Добавить" />
+                                <MenuItem
+                                    Command="{Binding DeadlineRemoveCommand}"
+                                    CommandParameter="{Binding}"
+                                    Header="Удалить" />
+                            </MenuItem>
                             <Separator />
                             <MenuItem Command="{Binding DeleteObjectiveCommand}" Header="Удалить" />
                         </ContextMenu>
@@ -89,7 +112,20 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <TextBlock Text="{Binding Deadline, StringFormat='MM.dd.yy'}">
+                    <TextBlock MouseLeftButtonUp="OpenContextMenu_OnClick"
+                               Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem
+                                    Command="{Binding DeadlineSelectCommand}"
+                                    CommandParameter="{Binding}"
+                                    Header="Изменить" />
+                                <MenuItem
+                                    Command="{Binding DeadlineRemoveCommand}"
+                                    CommandParameter="{Binding}"
+                                    Header="Удалить" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -127,7 +163,12 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <TextBlock Text="{Binding Priority.Name}">
+                    <TextBlock MouseLeftButtonUp="OpenContextMenu_OnClick" Text="{Binding Priority.Name}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu Loaded="SettingPriorityContextMenu_OnLoaded">
+                                <MenuItem Header="Приоритет" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />

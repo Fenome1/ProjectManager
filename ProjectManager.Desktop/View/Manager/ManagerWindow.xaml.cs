@@ -9,14 +9,11 @@ namespace ProjectManager.Desktop.View.Manager;
 
 public partial class ManagerWindow : Window
 {
-    private Project _project;
-
     public ManagerWindow()
     {
         InitializeComponent();
-
-        var _ = new SignalRClient().Start();
         DataContext = ManagerVm;
+        var _ = new SignalRClient().Start();
     }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -24,15 +21,23 @@ public partial class ManagerWindow : Window
         await ManagerVm.LoadTreeAsync();
     }
 
-    private async void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    private void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var selectedItem = ((TreeView)sender).SelectedItem;
 
-        if (selectedItem is Agency)
-            TabControlVisibilityHider(BoardsTabControl);
+        if (selectedItem is Agency agency)
+        {
+            FrameworkVisibilityHider(BoardsTabControl);
+
+            ManagerVm.SelectedAgency = agency;
+
+            SelectedAgencyBoard.Visibility = Visibility.Visible;
+        }
 
         if (selectedItem is Project project)
         {
+            FrameworkVisibilityHider(SelectedAgencyBoard);
+
             ManagerVm.SelectedProject = project;
 
             BoardsTabControl.Visibility = Visibility.Visible;
@@ -41,10 +46,10 @@ public partial class ManagerWindow : Window
         }
     }
 
-    private static void TabControlVisibilityHider(TabControl control)
+    private static void FrameworkVisibilityHider(FrameworkElement element)
     {
-        if (control.Visibility == Visibility.Visible)
-            control.Visibility = Visibility.Collapsed;
+        if (element.Visibility == Visibility.Visible)
+            element.Visibility = Visibility.Hidden;
     }
 
     //win control

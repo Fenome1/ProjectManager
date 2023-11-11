@@ -14,19 +14,19 @@ public partial class ObjectiveItemControl : UserControl
         InitializeComponent();
     }
 
-    private void OpenObjectiveContextMenu_OnClick(object sender, RoutedEventArgs e)
+    private void OpenContextMenu_OnClick(object sender, RoutedEventArgs e)
     {
-        var button = (Button)sender;
-        var contextMenu = button.ContextMenu;
+        var element = (FrameworkElement)sender;
+        var contextMenu = element.ContextMenu;
 
         if (contextMenu != null)
         {
-            contextMenu.PlacementTarget = button;
+            contextMenu.PlacementTarget = element;
             contextMenu.IsOpen = true;
         }
     }
 
-    private async void SettingContextMenu_OnLoaded(object sender, RoutedEventArgs e)
+    private async void SettingPriorityContextMenu_OnLoaded(object sender, RoutedEventArgs e)
     {
         var settingContextMenu = sender as ContextMenu;
 
