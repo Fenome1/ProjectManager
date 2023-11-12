@@ -39,6 +39,9 @@
     <Folder Include="Features\Objectives\Commands\" />
     <Folder Include="Features\Objectives\Handlers\" />
     <Folder Include="Features\Objectives\Queries\Get\" />
+    <Folder Include="Features\Roles\List\" />
+    <Folder Include="Features\Users\Handlers\" />
+    <Folder Include="Features\Users\Queries\Get\" />
   </ItemGroup>
 
 </Project>

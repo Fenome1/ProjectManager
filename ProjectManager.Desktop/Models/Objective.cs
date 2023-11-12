@@ -1,8 +1,12 @@
 using System;
+using System.Linq;
+using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
+using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special;
@@ -20,7 +24,8 @@ public partial class Objective : ObservableObject
 
     [ObservableProperty] private string _name = null!;
 
-    [JsonProperty("IdPriorityNavigation")] [ObservableProperty]
+    [JsonProperty("IdPriorityNavigation")]
+    [ObservableProperty]
     private Priority? _priority;
 
     [ObservableProperty] private bool _status;
@@ -66,4 +71,11 @@ public partial class Objective : ObservableObject
     {
         await ObjectiveService.UpdateAsync(IdObjective, isDeadlineReset: true);
     });
+    public ICommand ExecutorSelectCommand
+        => new RelayCommand(async () =>
+        {
+            var executors = await UserService.GetByRoleAsync((int)Roles.Executor);
+            var selectWindow = new ExecutorSelectWindow(executors, IdObjective);
+            selectWindow.ShowDialog();
+        });
 }

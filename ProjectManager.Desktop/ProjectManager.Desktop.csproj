@@ -155,6 +155,8 @@
 
 	<ItemGroup>
 		<Folder Include="Common\Config\Modules\" />
+		<Folder Include="Models\Enums\" />
+		<Folder Include="View\Manager\UserControls\DialogWindows\Special\Converters\" />
 	</ItemGroup>
 
 </Project>

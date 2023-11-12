@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Common.Config;
@@ -18,7 +19,16 @@ public partial class ManagerWindow : Window
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        await ManagerVm.LoadTreeAsync();
+        try
+        {
+            await ManagerVm.InitializeUser();
+            await ManagerVm.LoadTreeAsync();
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(exception.Message);
+            Close();
+        }
     }
 
     private void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

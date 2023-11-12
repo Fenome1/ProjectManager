@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ProjectManager.API.Models;
 
-public partial class Role
+public partial class Theme
 {
-    public int IdRole { get; set; }
+    public int IdTheme { get; set; }
 
     public string Name { get; set; } = null!;
 

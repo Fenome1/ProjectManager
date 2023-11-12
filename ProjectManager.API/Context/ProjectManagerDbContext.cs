@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Context;
@@ -30,12 +32,12 @@ public partial class ProjectManagerDbContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
+    public virtual DbSet<Theme> Themes { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(
-            "Server=localhost;User Id=sa;Password=Fenome1Password!;Initial Catalog=ProjectManager;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Password=Fenome1Password!;Initial Catalog=ProjectManager;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -163,7 +165,18 @@ public partial class ProjectManagerDbContext : DbContext
 
             entity.HasIndex(e => e.Name, "UQ_Role").IsUnique();
 
+            entity.Property(e => e.IdRole).ValueGeneratedNever();
             entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Theme>(entity =>
+        {
+            entity.HasKey(e => e.IdTheme);
+
+            entity.ToTable("Theme");
+
+            entity.Property(e => e.IdTheme).ValueGeneratedNever();
+            entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -173,15 +186,19 @@ public partial class ProjectManagerDbContext : DbContext
             entity.ToTable("User");
 
             entity.Property(e => e.FullName).HasMaxLength(255);
-            entity.Property(e => e.IdRole).HasDefaultValueSql("((1))");
-            entity.Property(e => e.Image).IsUnicode(false);
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Role).HasDefaultValueSql("((1))");
+            entity.Property(e => e.Theme).HasDefaultValueSql("((1))");
 
-            entity.HasOne(d => d.IdRoleNavigation).WithMany(p => p.Users)
-                .HasForeignKey(d => d.IdRole)
+            entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
+                .HasForeignKey(d => d.Role)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_User_Role");
+
+            entity.HasOne(d => d.ThemeNavigation).WithMany(p => p.Users)
+                .HasForeignKey(d => d.Theme)
+                .HasConstraintName("FK_User_Theme");
         });
 
         OnModelCreatingPartial(modelBuilder);

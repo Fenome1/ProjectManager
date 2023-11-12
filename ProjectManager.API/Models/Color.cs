@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectManager.API.Models;
 
-public class Color
+public partial class Color
 {
     public int IdColor { get; set; }
 
@@ -10,5 +11,5 @@ public class Color
 
     public string HexCode { get; set; } = null!;
 
-    [JsonIgnore] public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
+    public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
 }

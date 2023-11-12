@@ -1,0 +1,79 @@
+﻿<Window
+    x:Class="ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.ExecutorSelectWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special"
+    xmlns:manager="clr-namespace:ProjectManager.Desktop.ViewModels.Manager"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Исполнители"
+    d:DataContext="{d:DesignInstance local:ExecutorSelectWindow,
+    IsDesignTimeCreatable=True}"
+    SizeToContent="WidthAndHeight"
+    Style="{DynamicResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converters:UserObjectiveConverter x:Key="UserObjectiveConverter" />
+    </Window.Resources>
+    <Grid>
+        <ScrollViewer Grid.Row="0" Margin="10">
+            <ListBox ItemsSource="{Binding Executors}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                            <CheckBox Command="{Binding AssignUserCommand}" Tag="{Binding Path=IdObjective, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                                <CheckBox.CommandParameter>
+                                    <Binding RelativeSource="{RelativeSource Self}" />
+                                </CheckBox.CommandParameter>
+                                <CheckBox.IsChecked>
+                                    <MultiBinding Converter="{StaticResource UserObjectiveConverter}" Mode="OneWay">
+                                        <Binding Path="." />
+                                        <Binding Path="IdObjective" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+                                    </MultiBinding>
+                                </CheckBox.IsChecked>
+                            </CheckBox>
+                            <TextBlock Margin="5,0,0,0" Text="{Binding Login}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <!--<DataGrid
+        x:Name="ExecutorsDataGrid"
+        Grid.Row="0"
+        Margin="10"
+        AutoGenerateColumns="False"
+        BorderThickness="0"
+        CanUserAddRows="False"
+        CanUserDeleteRows="False"
+        CanUserReorderColumns="False"
+        CanUserSortColumns="False"
+        ItemsSource="{Binding Executors}"
+        RowBackground="Transparent">
+        <DataGrid.Columns>
+        <DataGridCheckBoxColumn Header="Выбор">
+        <DataGridCheckBoxColumn.ElementStyle>
+        <Style TargetType="CheckBox">
+        <EventSetter Event="Checked" Handler="UserAddAssign_OnHandler" />
+        <EventSetter Event="Unchecked" Handler="UserRemoveAssign_OnHandler" />
+        <Setter Property="IsChecked">
+        <Setter.Value>
+        <MultiBinding Converter="{StaticResource UserObjectiveConverter}">
+        <Binding Path="." />
+        <Binding
+        Mode="TwoWay"
+        Path="IdObjective"
+        RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+        </MultiBinding>
+        </Setter.Value>
+        </Setter>
+        </Style>
+        </DataGridCheckBoxColumn.ElementStyle>
+        </DataGridCheckBoxColumn>
+        <DataGridTextColumn Binding="{Binding Login}" Header="Исполнитель" />
+        </DataGrid.Columns>
+        </DataGrid>-->
+    </Grid>
+</Window>

@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectManager.API.Models;
 
-public class Board
+public partial class Board
 {
     public int IdBoard { get; set; }
 
@@ -14,5 +15,5 @@ public class Board
 
     public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
 
-    [JsonIgnore] public virtual Project IdProjectNavigation { get; set; } = null!;
+    public virtual Project IdProjectNavigation { get; set; } = null!;
 }

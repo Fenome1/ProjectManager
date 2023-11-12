@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectManager.API.Models;
 
-public class Priority
+public partial class Priority
 {
     public int IdPriority { get; set; }
 
@@ -10,5 +11,5 @@ public class Priority
 
     public string HexCode { get; set; } = null!;
 
-    [JsonIgnore] public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
+    public virtual ICollection<Objective> Objectives { get; set; } = new List<Objective>();
 }

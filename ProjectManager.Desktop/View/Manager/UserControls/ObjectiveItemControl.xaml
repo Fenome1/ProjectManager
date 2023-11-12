@@ -11,6 +11,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <convertors:IsNotNullConverter x:Key="IsNotNullConverter" />
+        <convertors:StatusToOpacityConverter x:Key="StatusToOpacityConverter" />
     </UserControl.Resources>
     <Border
         Margin="5"
@@ -18,7 +19,8 @@
         VerticalAlignment="Stretch"
         BorderBrush="White"
         BorderThickness="3"
-        CornerRadius="10">
+        CornerRadius="10"
+        Opacity="{Binding Status, Converter={StaticResource StatusToOpacityConverter}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -81,6 +83,7 @@
                                     CommandParameter="{Binding}"
                                     Header="Удалить" />
                             </MenuItem>
+                            <MenuItem Command="{Binding ExecutorSelectCommand}" Header="Исполнители" />
                             <Separator />
                             <MenuItem Command="{Binding DeleteObjectiveCommand}" Header="Удалить" />
                         </ContextMenu>
@@ -104,16 +107,13 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                    Value="True">
+                                <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <TextBlock MouseLeftButtonUp="OpenContextMenu_OnClick"
-                               Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
+                    <TextBlock MouseLeftButtonUp="OpenContextMenu_OnClick" Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
                         <TextBlock.ContextMenu>
                             <ContextMenu>
                                 <MenuItem
@@ -130,9 +130,7 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                        Value="True">
+                                    <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -155,9 +153,7 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                    Value="True">
+                                <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -173,9 +169,7 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                        Value="True">
+                                    <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>

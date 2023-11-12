@@ -1,6 +1,11 @@
-namespace ProjectManager.API.Features.User.Commands;
+using MediatR;
+using ProjectManager.API.Models;
 
-public class CreateUserCommand
+namespace ProjectManager.API.Features.Users.Commands;
+
+public class CreateUserCommand : IRequest<User>
 {
-    
+    public string Login { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public int Role { get; set; }
 }
