@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -21,9 +22,9 @@ public partial class User
 
     public bool IsDeleted { get; set; }
 
-    public virtual Role RoleNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Role RoleNavigation { get; set; } = null!;
 
-    public virtual Theme ThemeNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Theme ThemeNavigation { get; set; } = null!;
 
     public virtual ICollection<Objective> IdObjectives { get; set; } = new List<Objective>();
 }

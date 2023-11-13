@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -21,9 +22,9 @@ public partial class Objective
 
     public bool IsDeleted { get; set; }
 
-    public virtual Column IdColumnNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Column IdColumnNavigation { get; set; } = null!;
 
     public virtual Priority? IdPriorityNavigation { get; set; }
 
-    public virtual ICollection<User> IdUsers { get; set; } = new List<User>();
+    [JsonIgnore] public virtual ICollection<User> IdUsers { get; set; } = new List<User>();
 }

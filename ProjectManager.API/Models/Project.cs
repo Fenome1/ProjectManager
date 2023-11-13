@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -15,5 +16,5 @@ public partial class Project
 
     public virtual ICollection<Board> Boards { get; set; } = new List<Board>();
 
-    public virtual Agency IdAgencyNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Agency IdAgencyNavigation { get; set; } = null!;
 }

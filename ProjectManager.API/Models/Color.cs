@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -11,5 +10,5 @@ public partial class Color
 
     public string HexCode { get; set; } = null!;
 
-    public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
+    [JsonIgnore] public virtual ICollection<Column> Columns { get; set; } = new List<Column>();
 }

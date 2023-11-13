@@ -9,7 +9,7 @@ public class TreeViewHeightConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is double gridAgencyHeight) return gridAgencyHeight - 100;
+        if (value is double gridAgencyHeight) return gridAgencyHeight - 105;
 
         return DependencyProperty.UnsetValue;
     }

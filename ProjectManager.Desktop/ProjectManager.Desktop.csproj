@@ -38,6 +38,8 @@
 		<None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf" />
 		<None Remove="Assets\fullScreen.png" />
 		<None Remove="Assets\hide.png" />
+		<None Remove="Assets\Images\exit.png" />
+		<None Remove="Assets\Images\user.png" />
 		<None Remove="Assets\WhitneyMedium.ttf" />
 		<None Remove="Assets\xCross.png" />
 	</ItemGroup>
@@ -157,6 +159,18 @@
 		<Folder Include="Common\Config\Modules\" />
 		<Folder Include="Models\Enums\" />
 		<Folder Include="View\Manager\UserControls\DialogWindows\Special\Converters\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\Images\exit.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\Images\user.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 </Project>

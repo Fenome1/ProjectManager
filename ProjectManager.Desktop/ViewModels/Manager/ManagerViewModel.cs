@@ -37,9 +37,9 @@ public partial class ManagerViewModel : ViewModelBase
 
     public async Task InitializeUser()
     {
-        _user = (await UserService.GetAsync()).First();
+        User = (await UserService.GetAsync()).First();
 
-        if (_user is null)
+        if (User is null)
         {
             throw new Exception("Ошибка инициализации пользователя");
         }

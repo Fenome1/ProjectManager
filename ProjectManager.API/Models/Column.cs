@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
@@ -15,7 +16,7 @@ public partial class Column
 
     public bool IsDeleted { get; set; }
 
-    public virtual Board IdBoardNavigation { get; set; } = null!;
+    [JsonIgnore] public virtual Board IdBoardNavigation { get; set; } = null!;
 
     public virtual Color IdColorNavigation { get; set; } = null!;
 

@@ -20,6 +20,7 @@
     Background="Transparent"
     Loaded="MainWindow_OnLoaded"
     ResizeMode="CanResizeWithGrip"
+    UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -106,29 +107,47 @@
 
                     <!--  Вывод фото и имени пользователя  -->
                     <Grid Grid.Row="0" Margin="0,10,0,0">
+
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label
+                        <Border
                             Grid.Column="0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="Фото" />
+                            Width="40"
+                            Height="40"
+                            Margin="0,0,15,0"
+                            BorderBrush="White"
+                            BorderThickness="1"
+                            CornerRadius="30"
+                            RenderOptions.BitmapScalingMode="HighQuality">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/Images/user.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                            </Border.Background>
+                        </Border>
+
                         <TextBlock
                             Grid.Column="1"
+                            Margin="0,0,10,0"
                             VerticalAlignment="Center"
-                            Text="Мой профиль"
+                            Text="{Binding User.Login}"
                             TextWrapping="Wrap" />
+
                         <Button
                             Grid.Column="2"
-                            Margin="5"
+                            Width="21"
+                            Height="20"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            BorderThickness="0"
                             Command="{Binding ChangeThemeCommand}"
-                            Content="&lt;-" />
+                            RenderOptions.BitmapScalingMode="HighQuality">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Images/exit.png" />
+                            </Button.Background>
+                        </Button>
                     </Grid>
 
                     <!--  Вывод агенств и проектов  -->
@@ -143,8 +162,8 @@
                             Grid.Row="0"
                             Padding="5"
                             BorderBrush="AliceBlue"
-                            BorderThickness="1"
-                            CornerRadius="15">
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="25,25,0,0">
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -153,10 +172,9 @@
 
                         <Border
                             Grid.Row="1"
-                            Margin="0,10,0,0"
                             BorderBrush="White"
                             BorderThickness="1"
-                            CornerRadius="15">
+                            CornerRadius="0,0,25,25">
                             <ScrollViewer
                                 MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}"
                                 Padding="5"
@@ -168,8 +186,7 @@
                                 <StackPanel>
                                     <StackPanel.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                      Header="Создать агенство" />
+                                            <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                         </ContextMenu>
                                     </StackPanel.ContextMenu>
                                     <TextBlock
@@ -185,8 +202,7 @@
 
                                         <TreeView.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                          Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                             </ContextMenu>
                                         </TreeView.ContextMenu>
 
