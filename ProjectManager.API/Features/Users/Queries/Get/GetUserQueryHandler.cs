@@ -7,7 +7,7 @@ namespace ProjectManager.API.Features.Users.Queries.Get;
 
 public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User>
 {
-    private ProjectManagerDbContext _context;
+    private readonly ProjectManagerDbContext _context;
 
     public GetUserQueryHandler(ProjectManagerDbContext context)
     {
@@ -17,6 +17,8 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User>
     public async Task<User> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
         var user = await _context.Users
+            .Include(u => u.IdObjectives
+                .Where(o => o.IsDeleted == request.IncludeDeleted))
             .Where(u => u.IsDeleted == request.IncludeDeleted)
             .FirstOrDefaultAsync(u => u.IdUser == request.IdUser);
 

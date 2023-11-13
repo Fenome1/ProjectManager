@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.View.Manager.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
-public class CountToVisibilityConverter : IValueConverter
+public class StatusToOpacityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var count = (int)value;
-
-        return count switch
+        var status = (bool)value;
+        return status switch
         {
-            0 => Visibility.Visible,
-            _ => Visibility.Collapsed
+            true => 0.7,
+            _ => 1
         };
     }
 

@@ -7,7 +7,7 @@ namespace ProjectManager.API.Features.Users.Queries.List.ByRole;
 
 public class ListUsersByRoleQueryHandler : IRequestHandler<ListUsersByRoleQuery, List<User>>
 {
-    private ProjectManagerDbContext _context;
+    private readonly ProjectManagerDbContext _context;
 
     public ListUsersByRoleQueryHandler(ProjectManagerDbContext context)
     {
@@ -17,7 +17,8 @@ public class ListUsersByRoleQueryHandler : IRequestHandler<ListUsersByRoleQuery,
     public async Task<List<User>> Handle(ListUsersByRoleQuery request, CancellationToken cancellationToken)
     {
         var users = await _context.Users
-            .Include(o => o.IdObjectives)
+            .Include(u => u.IdObjectives
+                .Where(o => o.IsDeleted == request.IncludeDeleted))
             .Where(u => u.IsDeleted == request.IncludeDeleted)
             .Where(u => u.Role == request.Role)
             .ToListAsync();

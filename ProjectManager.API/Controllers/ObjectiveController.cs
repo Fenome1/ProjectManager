@@ -26,7 +26,7 @@ public class ObjectiveController : BaseController
         return Ok(objectives);
     }
 
-    [HttpGet("column/{idColumn}")]
+    [HttpGet("Column/{idColumn}")]
     public async Task<IActionResult> GetByColumnId(int idColumn, bool isDeleted = false)
     {
         var query = new ListObjectivesByColumnQuery(idColumn, isDeleted);
@@ -35,6 +35,7 @@ public class ObjectiveController : BaseController
         return Ok(result);
     }
 
+    [HttpGet("/User/{idUser}")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateObjectiveCommand command)
     {

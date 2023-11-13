@@ -8,9 +8,13 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Users.Commands.Objectives.Add;
 
-public class AddObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<AddObjectiveToUserCommand, User>
+public class AddObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<AddObjectiveToUserCommand, User>
 {
-    public AddObjectiveToUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext) { }
+    public AddObjectiveToUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(
+        context, hubContext)
+    {
+    }
 
     public async Task<User> Handle(AddObjectiveToUserCommand request, CancellationToken cancellationToken)
     {
@@ -26,13 +30,13 @@ public class AddObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManage
         if (objective is null)
             throw new Exception("Задача не найдена");
 
-        if(objective.IdUsers.Any(u => u.IdUser == user.IdUser))
+        if (objective.IdUsers.Any(u => u.IdUser == user.IdUser))
             throw new Exception("Пользователь уже подписан на задачу");
 
         user.IdObjectives.Add(objective);
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveUpdateObjectives", user.IdUser);
+        await _hubContext.Clients.All.SendAsync("ReceiveAddObjective", objective.IdObjective);
 
         return user;
     }

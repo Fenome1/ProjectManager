@@ -68,11 +68,10 @@ public class UserController : BaseController
         return NoContent();
     }
 
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var command = new DeleteUserCommand() { IdUser = id };
+        var command = new DeleteUserCommand { IdUser = id };
         await Mediator.Send(command);
 
         return NoContent();

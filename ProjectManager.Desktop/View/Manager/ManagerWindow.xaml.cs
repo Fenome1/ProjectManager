@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ProjectManager.Desktop.Common.Config;
+using ProjectManager.Desktop.Common.Config.Manager;
 using ProjectManager.Desktop.Models;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
@@ -14,7 +14,7 @@ public partial class ManagerWindow : Window
     {
         InitializeComponent();
         DataContext = ManagerVm;
-        var _ = new SignalRClient().Start();
+        var _ = new SignalRManagerClient().Start();
     }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class Objective
+public class Objective
 {
     public int IdObjective { get; set; }
 

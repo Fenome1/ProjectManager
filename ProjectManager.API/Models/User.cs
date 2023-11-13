@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class User
+public class User
 {
     public int IdUser { get; set; }
 

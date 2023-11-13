@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,8 +21,7 @@ public partial class Objective : ObservableObject
 
     [ObservableProperty] private string _name = null!;
 
-    [JsonProperty("IdPriorityNavigation")]
-    [ObservableProperty]
+    [JsonProperty("IdPriorityNavigation")] [ObservableProperty]
     private Priority? _priority;
 
     [ObservableProperty] private bool _status;
@@ -71,6 +67,7 @@ public partial class Objective : ObservableObject
     {
         await ObjectiveService.UpdateAsync(IdObjective, isDeadlineReset: true);
     });
+
     public ICommand ExecutorSelectCommand
         => new RelayCommand(async () =>
         {

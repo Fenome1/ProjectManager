@@ -2,6 +2,6 @@
 
 public enum Themes
 {
-    Primary = 1, 
+    Primary = 1,
     Secondary = 2
 }

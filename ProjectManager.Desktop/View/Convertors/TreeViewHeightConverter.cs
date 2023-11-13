@@ -3,13 +3,13 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.View.Manager.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
-public class TabControlHeightConverter : IValueConverter
+public class TreeViewHeightConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is double tabControlHeight) return tabControlHeight - 155;
+        if (value is double gridAgencyHeight) return gridAgencyHeight - 105;
 
         return DependencyProperty.UnsetValue;
     }

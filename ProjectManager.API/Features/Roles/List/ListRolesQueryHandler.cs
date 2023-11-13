@@ -7,7 +7,7 @@ namespace ProjectManager.API.Features.Roles.List;
 
 public class ListRolesQueryHandler : IRequestHandler<ListRolesQuery, List<Role>>
 {
-    private ProjectManagerDbContext _context;
+    private readonly ProjectManagerDbContext _context;
 
     public ListRolesQueryHandler(ProjectManagerDbContext context)
     {

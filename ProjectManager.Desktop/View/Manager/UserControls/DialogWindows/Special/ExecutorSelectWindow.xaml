@@ -3,11 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.Converters"
-    xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Manager.Convertors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special"
-    xmlns:manager="clr-namespace:ProjectManager.Desktop.ViewModels.Manager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors"
     Title="Исполнители"
     MinWidth="260"
     MinHeight="250"
@@ -52,7 +51,8 @@
                                 VerticalAlignment="Center"
                                 Text="Ничего не найдено..."
                                 Visibility="{Binding Executors.Count, Converter={StaticResource CountToVisibilityConverter}}" />
-                            <ItemsControl x:Name="ExecutorsItemsControl" ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl x:Name="ExecutorsItemsControl"
+                                          ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
@@ -65,9 +65,11 @@
                                                     <Binding RelativeSource="{RelativeSource Self}" />
                                                 </CheckBox.CommandParameter>
                                                 <CheckBox.IsChecked>
-                                                    <MultiBinding Converter="{StaticResource UserObjectiveConverter}" Mode="OneWay">
+                                                    <MultiBinding Converter="{StaticResource UserObjectiveConverter}"
+                                                                  Mode="OneWay">
                                                         <Binding Path="." />
-                                                        <Binding Path="IdObjective" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+                                                        <Binding Path="IdObjective"
+                                                                 RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
                                                     </MultiBinding>
                                                 </CheckBox.IsChecked>
                                             </CheckBox>

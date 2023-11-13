@@ -2,7 +2,7 @@
 
 namespace ProjectManager.API.Models;
 
-public partial class Color
+public class Color
 {
     public int IdColor { get; set; }
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public partial class Priority
+public class Priority
 {
     public int IdPriority { get; set; }
 

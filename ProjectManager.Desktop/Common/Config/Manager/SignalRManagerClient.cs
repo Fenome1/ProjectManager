@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 using static ProjectManager.Desktop.Common.Data.URL;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
-namespace ProjectManager.Desktop.Common.Config;
+namespace ProjectManager.Desktop.Common.Config.Manager;
 
-public class SignalRClient
+public class SignalRManagerClient
 {
     private readonly HubConnection _hubConnection;
 
-    public SignalRClient()
+    public SignalRManagerClient()
     {
         _hubConnection = new HubConnectionBuilder()
             .WithUrl(BaseHubUrl)

@@ -8,9 +8,13 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Users.Commands.Objectives.Delete;
 
-public class DeleteObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<DeleteObjectiveToUserCommand, User>
+public class DeleteObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<DeleteObjectiveToUserCommand, User>
 {
-    public DeleteObjectiveToUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext) { }
+    public DeleteObjectiveToUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) :
+        base(context, hubContext)
+    {
+    }
 
     public async Task<User> Handle(DeleteObjectiveToUserCommand request, CancellationToken cancellationToken)
     {
@@ -32,7 +36,8 @@ public class DeleteObjectiveToUserCommandHandler : BaseCommandHandler<ProjectMan
         user.IdObjectives.Remove(objective);
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveUpdateObjectives", user.IdUser);
+        await _hubContext.Clients.User(user.IdUser.ToString())
+            .SendAsync("ReceiveDeleteObjective", objective.IdObjective);
 
         return user;
     }

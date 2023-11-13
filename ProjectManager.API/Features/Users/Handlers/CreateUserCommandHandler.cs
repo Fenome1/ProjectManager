@@ -9,10 +9,13 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Users.Handlers;
 
-public class CreateUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<CreateUserCommand, User>
+public class CreateUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<CreateUserCommand, User>
 {
-    private IMapper _mapper;
-    public CreateUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext, IMapper mapper) : base(context, hubContext)
+    private readonly IMapper _mapper;
+
+    public CreateUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext, IMapper mapper)
+        : base(context, hubContext)
     {
         _mapper = mapper;
     }

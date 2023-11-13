@@ -1,14 +1,21 @@
-using System;
+﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.View.Manager.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
-public class IsNotNullConverter : IValueConverter
+public class CountToVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value != null;
+        var count = (int)value;
+
+        return count switch
+        {
+            0 => Visibility.Visible,
+            _ => Visibility.Collapsed
+        };
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

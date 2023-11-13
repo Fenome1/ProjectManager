@@ -8,9 +8,11 @@ using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Features.Users.Handlers;
 
-public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>, IRequestHandler<UpdateUserCommand, User>
+public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbContext, NotifyHub>,
+    IRequestHandler<UpdateUserCommand, User>
 {
-    public UpdateUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context, hubContext)
+    public UpdateUserCommandHandler(ProjectManagerDbContext context, IHubContext<NotifyHub> hubContext) : base(context,
+        hubContext)
     {
     }
 
@@ -23,16 +25,16 @@ public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
         if (!string.IsNullOrWhiteSpace(request.FullName))
             user.FullName = request.FullName;
 
-        if(!string.IsNullOrWhiteSpace(request.Login))
+        if (!string.IsNullOrWhiteSpace(request.Login))
             user.Login = request.Login;
 
-        if(!string.IsNullOrEmpty(request.Password))
+        if (!string.IsNullOrEmpty(request.Password))
             user.Password = request.Password;
 
-        if(!string.IsNullOrEmpty(request.Image))
+        if (!string.IsNullOrEmpty(request.Image))
             user.Image = request.Image;
 
-        if(request.Theme is not null)
+        if (request.Theme is not null)
             user.Theme = (int)request.Theme!;
 
         await _context.SaveChangesAsync(cancellationToken);

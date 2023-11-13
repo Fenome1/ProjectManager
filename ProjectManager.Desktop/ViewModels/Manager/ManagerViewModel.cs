@@ -19,34 +19,24 @@ namespace ProjectManager.Desktop.ViewModels.Manager;
 
 public partial class ManagerViewModel : ViewModelBase
 {
-    public static ManagerViewModel ManagerVm { get; private set; } = new();
-    private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
-
-    [ObservableProperty] private User _user;
-
     [ObservableProperty] private ObservableCollection<Agency> _agencies = new();
 
     [ObservableProperty] private Agency? _selectedAgency;
 
     [ObservableProperty] private Project? _selectedProject;
 
+    [ObservableProperty] private User _user;
+
     public ManagerViewModel()
     {
         ManagerVm = this;
     }
 
-    public async Task InitializeUser()
-    {
-        User = (await UserService.GetAsync()).First();
-
-        if (User is null)
-        {
-            throw new Exception("Ошибка инициализации пользователя");
-        }
-    }
+    public static ManagerViewModel ManagerVm { get; private set; } = new();
+    private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
 
     //commands
-    public ICommand ChangeThemeCommand => new RelayCommand(async ()  =>
+    public ICommand ChangeThemeCommand => new RelayCommand(async () =>
     {
         var path = "/View/Styles/Themes";
 
@@ -68,18 +58,6 @@ public partial class ManagerViewModel : ViewModelBase
         Application.Current.Resources.MergedDictionaries.Add(resourceDict);
     });
 
-    //loadTree
-    public async Task LoadTreeAsync()
-    {
-        var agencies = await AgencyService.GetAsync();
-
-        if (agencies is null || !agencies.Any())
-            return;
-
-        foreach (var agency in agencies)
-            Agencies.Add(agency);
-    }
-
     //Agency notifications
     public ICommand CreateNewAgencyCommand => new RelayCommand(async () =>
     {
@@ -93,6 +71,45 @@ public partial class ManagerViewModel : ViewModelBase
         if (!string.IsNullOrEmpty(agencyName))
             await AgencyService.CreateAsync(agencyName);
     });
+
+    //Column notifications
+    public ICommand ColumnColorUpdateCommand => new RelayCommand<(int idColumn, int idColor)>(async columnColorUpdate =>
+    {
+        await ColumnService.UpdateAsync(columnColorUpdate.idColumn, columnColorUpdate.idColor);
+    });
+
+    //Objective notifications
+    public ICommand ObjectivePriorityUpdateCommand =>
+        new RelayCommand<(int idObjective, int idPriority)>(async updateCommand =>
+        {
+            if (updateCommand.idPriority < 0)
+            {
+                await ObjectiveService.UpdateAsync(updateCommand.idObjective, isPriorityReset: true);
+                return;
+            }
+
+            await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
+        });
+
+    public async Task InitializeUser()
+    {
+        User = (await UserService.GetAsync()).First();
+
+        if (User is null) throw new Exception("Ошибка инициализации пользователя");
+    }
+
+    //loadTree
+    public async Task LoadTreeAsync()
+    {
+        var agencies = await AgencyService.GetAsync();
+
+        if (agencies is null || !agencies.Any())
+            return;
+
+        foreach (var agency in agencies)
+            Agencies.Add(agency);
+    }
+
     public async Task CreateAgencyAsync(int idAgency)
     {
         var createdAgency = await AgencyService.GetAsync(idAgency);
@@ -101,6 +118,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { Agencies.Add(createdAgency); });
     }
+
     public async Task UpdateAgencyAsync(int idAgency)
     {
         var updatedAgency = await AgencyService.GetAsync(idAgency);
@@ -117,6 +135,7 @@ public partial class ManagerViewModel : ViewModelBase
             OnPropertyChanged(nameof(Agencies));
         });
     }
+
     public void DeleteAgencyAsync(int idAgency)
     {
         var deletedAgency = GetAgencyByProject(idAgency);
@@ -145,6 +164,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { agency.Projects.Add(createdProject); });
     }
+
     public async void UpdateProjectAsync(int idProject)
     {
         var updatedProject = await ProjectService.GetAsync(idProject);
@@ -160,6 +180,7 @@ public partial class ManagerViewModel : ViewModelBase
         if (oldItemInCollection != null)
             Application.Current.Dispatcher.Invoke(() => oldItemInCollection.Name = updatedProject.Name);
     }
+
     public async Task DeleteProjectAsync(int idProject)
     {
         var deletedProject = await ProjectService.GetAsync(idProject, true);
@@ -179,10 +200,12 @@ public partial class ManagerViewModel : ViewModelBase
         if (SelectedProject.IdProject == deletedProject.IdProject)
             ResetUiSelectedProject();
     }
+
     private static void ResetUiSelectedProject()
     {
         Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
     }
+
     private Agency? GetAgencyByProject(int idAgency)
     {
         return Agencies.FirstOrDefault(a => a.IdAgency == idAgency);
@@ -201,6 +224,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { project.Boards.Add(createdBoard); });
     }
+
     public async Task UpdateBoardAsync(int idBoard)
     {
         var updatedBoard = await BoardService.GetAsync(idBoard);
@@ -218,6 +242,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { Mapper.Map(updatedBoard, boardToUpdate); });
     }
+
     public async Task DeleteBoardAsync(int idBoard)
     {
         var deletedBoard = await BoardService.GetAsync(idBoard, true);
@@ -235,6 +260,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { project.Boards.Remove(currentBoardInCollection); });
     }
+
     private Project? GetProjectByBoard(int idProject)
     {
         return Agencies
@@ -242,11 +268,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(p => p.IdProject == idProject);
     }
 
-    //Column notifications
-    public ICommand ColumnColorUpdateCommand => new RelayCommand<(int idColumn, int idColor)>(async columnColorUpdate =>
-    {
-        await ColumnService.UpdateAsync(columnColorUpdate.idColumn, columnColorUpdate.idColor);
-    });
     public async Task CreateColumnAsync(int idColumn)
     {
         var createdColumn = await ColumnService.GetAsync(idColumn);
@@ -259,6 +280,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { board.Columns.Add(createdColumn); });
     }
+
     public async Task UpdateColumnAsync(int idColumn)
     {
         var updatedColumn = await ColumnService.GetAsync(idColumn);
@@ -280,6 +302,7 @@ public partial class ManagerViewModel : ViewModelBase
             OnPropertyChanged(nameof(Column));
         });
     }
+
     public async Task DeleteColumnAsync(int idColumn)
     {
         var deletedColumn = await ColumnService.GetAsync(idColumn, true);
@@ -297,6 +320,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { board.Columns.Remove(currentColumnInCollection); });
     }
+
     private Board? GetBoardByColumn(int idBoard)
     {
         return Agencies
@@ -305,18 +329,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(b => b.IdBoard == idBoard);
     }
 
-    //Objective notifications
-    public ICommand ObjectivePriorityUpdateCommand =>
-        new RelayCommand<(int idObjective, int idPriority)>(async updateCommand =>
-        {
-            if (updateCommand.idPriority < 0)
-            {
-                await ObjectiveService.UpdateAsync(updateCommand.idObjective, isPriorityReset: true);
-                return;
-            }
-
-            await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
-        });
     public async Task CreateObjectiveAsync(int idObjective)
     {
         var createdObjective = await ObjectiveService.GetAsync(idObjective);
@@ -329,6 +341,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { column.Objectives.Add(createdObjective); });
     }
+
     public async void UpdateObjectiveAsync(int idObjective)
     {
         var updatedObjective = await ObjectiveService.GetAsync(idObjective);
@@ -350,6 +363,7 @@ public partial class ManagerViewModel : ViewModelBase
             OnPropertyChanged(nameof(Objective));
         });
     }
+
     public async Task DeleteObjectiveAsync(int idObjective)
     {
         var deletedObjective = await ObjectiveService.GetAsync(idObjective, true);
@@ -367,6 +381,7 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { column.Objectives.Remove(currentObjectiveInCollection); });
     }
+
     private Column? GetColumnByObjective(int idColumn)
     {
         return Agencies

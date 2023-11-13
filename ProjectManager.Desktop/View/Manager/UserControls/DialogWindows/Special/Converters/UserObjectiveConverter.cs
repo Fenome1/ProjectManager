@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using System.Windows.Data;
-using System;
+﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Data;
 using ProjectManager.Desktop.Models;
 
 namespace ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.Converters;

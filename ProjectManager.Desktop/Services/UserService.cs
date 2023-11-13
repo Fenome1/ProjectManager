@@ -1,9 +1,8 @@
-﻿using Flurl.Http;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
-using System.Collections.ObjectModel;
 using Flurl;
+using Flurl.Http;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
 using static ProjectManager.Desktop.Common.Data.URL;
@@ -28,6 +27,7 @@ public class UserService
             return null;
         }
     }
+
     public static async Task<User> GetAsync(int idUser, bool isDeleted = false)
     {
         try
@@ -44,6 +44,7 @@ public class UserService
             return null;
         }
     }
+
     public static async Task<List<User>> GetByRoleAsync(int idRole, bool isDeleted = false)
     {
         try

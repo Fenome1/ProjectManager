@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,25 +10,25 @@ namespace ProjectManager.Desktop.Models;
 
 public partial class User : ObservableObject
 {
-    [ObservableProperty] private int _idUser;
-
-    [ObservableProperty] private int _role;
-
-    [ObservableProperty] private string _login = null!;
-
     [ObservableProperty] private string? _fullname;
+
+    [ObservableProperty] private ObservableCollection<Objective>? _idObjectives;
+    [ObservableProperty] private int _idUser;
 
     [ObservableProperty] private string? _image;
 
+    [ObservableProperty] private string _login = null!;
+
+    [ObservableProperty] private int _role;
+
     [ObservableProperty] private int _theme;
 
-    [ObservableProperty] private List<Objective>? _idObjectives;
-    public ICommand AssignUserCommand => new RelayCommand<object>( async (parameter) =>
+    public ICommand AssignUserCommand => new RelayCommand<object>(async parameter =>
     {
         var checkBox = parameter as CheckBox;
 
         if (checkBox is null)
-           return;
+            return;
 
         var user = checkBox.DataContext as User;
 

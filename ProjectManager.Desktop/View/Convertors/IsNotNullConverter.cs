@@ -1,19 +1,14 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace ProjectManager.Desktop.View.Manager.Convertors;
+namespace ProjectManager.Desktop.View.Convertors;
 
-public class StatusToOpacityConverter : IValueConverter
+public class IsNotNullConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var status = (bool)value;
-        return status switch
-        {
-            true => 0.7,
-            _ => 1
-        };
+        return value != null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
