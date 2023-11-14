@@ -11,7 +11,7 @@
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
     <StackPanel Margin="10" Orientation="Horizontal">
-        <TextBlock Text="Название: " />
+        <TextBlock VerticalAlignment="Center" Text="Название: " />
         <TextBox
             x:Name="NameTextBox"
             Width="200"
@@ -19,6 +19,7 @@
             VerticalAlignment="Center"
             KeyDown="NameTextBox_OnKeyDown"
             Loaded="NameTextBox_OnLoaded"
+            MaxLength="100"
             TextWrapping="WrapWithOverflow" />
     </StackPanel>
 </Window>

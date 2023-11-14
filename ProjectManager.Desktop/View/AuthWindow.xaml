@@ -75,7 +75,7 @@
             <Grid
                 x:Name="ContentGrid"
                 Grid.Row="1"
-                Margin="40">
+                Margin="50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

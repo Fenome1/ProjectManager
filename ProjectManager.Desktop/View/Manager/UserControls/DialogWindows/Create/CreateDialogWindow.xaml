@@ -12,13 +12,14 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="10" Orientation="Horizontal">
-        <TextBlock Text="Название: " />
+        <TextBlock VerticalAlignment="Center" Text="Название: " />
         <TextBox
             x:Name="InputTextBox"
             Width="200"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             KeyUp="ObjectNameTextBox_OnKeyUp"
+            MaxLength="100"
             TextWrapping="WrapWithOverflow" />
     </StackPanel>
 </Window>

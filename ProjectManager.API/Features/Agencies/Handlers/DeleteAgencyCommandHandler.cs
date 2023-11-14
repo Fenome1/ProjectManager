@@ -20,20 +20,43 @@ public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
     public async Task<Agency> Handle(DeleteAgencyCommand request, CancellationToken cancellationToken)
     {
         var agency = await _context.Agencies
+            .Include(a => a.Projects)
+            .ThenInclude(p => p.Boards)
+            .ThenInclude(b => b.Columns)
+            .ThenInclude(c => c.Objectives)
             .FirstOrDefaultAsync(a => a.IdAgency == request.IdAgency);
 
         if (agency == null)
             throw new Exception("Агенство не найдено");
 
-        if (agency.IsDeleted)
-            throw new Exception("Агенство уже удалено");
-
-        agency.IsDeleted = true;
+        HierarchicalDeletion(agency);
 
         await _context.SaveChangesAsync();
 
         await _hubContext.Clients.All.SendAsync("ReceiveAgencyDelete", agency.IdAgency);
 
         return agency;
+    }
+
+    private static void HierarchicalDeletion(Agency agency)
+    {
+        agency.IsDeleted = true;
+
+        foreach (var project in agency.Projects)
+        {
+            project.IsDeleted = true;
+
+            foreach (var board in project.Boards)
+            {
+                board.IsDeleted = true;
+
+                foreach (var column in board.Columns)
+                {
+                    column.IsDeleted = true;
+
+                    foreach (var objective in column.Objectives) objective.IsDeleted = true;
+                }
+            }
+        }
     }
 }

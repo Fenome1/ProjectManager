@@ -140,7 +140,7 @@ public partial class ManagerViewModel : ViewModelBase
         Application.Current.Dispatcher.Invoke(() => { Agencies.Remove(deletedAgency); });
 
         foreach (var project in deletingAgency.Projects)
-            if (project.IdProject == SelectedProject.IdProject)
+            if (SelectedProject != null && project.IdProject == SelectedProject.IdProject)
                 ResetUiSelectedProject();
     }
 

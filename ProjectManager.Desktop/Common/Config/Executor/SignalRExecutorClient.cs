@@ -16,12 +16,19 @@ public class SignalRExecutorClient
             .WithAutomaticReconnect()
             .Build();
 
+
+        //Delete Update
+        _hubConnection.On<int>("ReceiveAgencyDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
+        _hubConnection.On<int>("ReceiveProjectDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
+        _hubConnection.On<int>("ReceiveBoardDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
+        _hubConnection.On<int>("ReceiveColumnDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
+        _hubConnection.On<int>("ReceiveDeleteObjective", ExecutorVm.ObjectiveDeleteAssignAsync);
+
         //Objective
         _hubConnection.On<int>("ReceiveObjectiveUpdate", ExecutorVm.UpdateObjectiveAsync);
         _hubConnection.On<int>("ReceiveObjectiveDelete", ExecutorVm.DeleteObjectiveAsync);
 
         _hubConnection.On<int>("ReceiveAddObjective", ExecutorVm.ObjectiveAddAssignAsync);
-        _hubConnection.On<int>("ReceiveDeleteObjective", ExecutorVm.ObjectiveDeleteAssignAsync);
     }
 
     public async Task StartConnection()

@@ -17,8 +17,8 @@ public partial class AuthViewModel : ViewModelBase
 {
     public static AuthViewModel AuthVm = new();
 
-    [ObservableProperty] private string _login;
-    [ObservableProperty] private string _password;
+    [ObservableProperty] private string _login = "Fenome1";
+    [ObservableProperty] private string _password = "pass";
 
     public AuthViewModel()
     {

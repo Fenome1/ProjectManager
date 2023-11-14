@@ -81,4 +81,19 @@ public partial class ExecutorViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { User.IdObjectives.Remove(currentObjectiveInCollection); });
     }
+
+    public async Task GetObjectivesAsync()
+    {
+        var currentUser = await UserService.GetAsync(User.IdUser);
+
+        if (currentUser is null) return;
+
+        var newObjectives = currentUser.IdObjectives;
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            User.IdObjectives.Clear();
+            User.IdObjectives = newObjectives;
+        });
+    }
 }

@@ -98,7 +98,7 @@
                 <Grid
                     x:Name="UserAndAgenciesContentGrid"
                     Grid.Column="0"
-                    MinWidth="150"
+                    MinWidth="200"
                     Margin="0,10,10,10">
 
                     <Grid.RowDefinitions>
@@ -202,7 +202,6 @@
                                         BorderBrush="Transparent"
                                         ItemsSource="{Binding Agencies}"
                                         MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
-
                                         <TreeView.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem Command="{Binding CreateNewAgencyCommand}"

@@ -35,8 +35,9 @@
                         BorderThickness="1"
                         FontSize="17"
                         KeyDown="TextBoxes_OnKeyDown"
-                        TextWrapping="WrapWithOverflow"
-                        Loaded="NameTextBox_OnLoaded" />
+                        Loaded="NameTextBox_OnLoaded"
+                        MaxLength="100"
+                        TextWrapping="WrapWithOverflow" />
                 </StackPanel>
 
                 <StackPanel
