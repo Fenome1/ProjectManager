@@ -10,25 +10,26 @@ namespace ProjectManager.Desktop.View.Manager;
 
 public partial class ManagerWindow : Window
 {
+    private readonly SignalRManagerClient _signalRManagerClient;
+
     public ManagerWindow()
     {
         InitializeComponent();
         DataContext = ManagerVm;
-        var _ = new SignalRManagerClient().Start();
+        _signalRManagerClient = new SignalRManagerClient();
     }
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        try
+        await ManagerVm.LoadTreeAsync();
+
+        if (ManagerVm.User is null)
         {
-            await ManagerVm.InitializeUser();
-            await ManagerVm.LoadTreeAsync();
-        }
-        catch (Exception exception)
-        {
-            MessageBox.Show(exception.Message);
+            MessageBox.Show("Ошибка авторизации");
             Close();
         }
+
+        await _signalRManagerClient.StartConnection();
     }
 
     private void TreeViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -83,5 +84,10 @@ public partial class ManagerWindow : Window
     private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         Close();
+    }
+
+    private async void ManagerWindow_OnClosed(object? sender, EventArgs e)
+    {
+        await _signalRManagerClient.StopConnection();
     }
 }

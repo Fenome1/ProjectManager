@@ -26,7 +26,7 @@ public class ColumnController : BaseController
         return Ok(columns);
     }
 
-    [HttpGet("board/{idBoard}")]
+    [HttpGet("Board/{idBoard}")]
     public async Task<IActionResult> GetByBoardId(int idBoard, bool isDeleted = false)
     {
         var query = new ListColumnsByBoardQuery(idBoard, isDeleted);

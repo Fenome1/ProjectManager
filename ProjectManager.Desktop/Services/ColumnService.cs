@@ -14,7 +14,7 @@ public static class ColumnService
     {
         try
         {
-            var response = await $"{BaseApiUrl}/Column/board/{idBoard}"
+            var response = await $"{BaseApiUrl}/Column/Board/{idBoard}"
                 .GetJsonAsync<List<Column>>();
 
             return response;

@@ -36,7 +36,7 @@ public class DeleteObjectiveToUserCommandHandler : BaseCommandHandler<ProjectMan
         user.IdObjectives.Remove(objective);
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.User(user.IdUser.ToString())
+        await _hubContext.Clients.Group(user.IdUser.ToString())
             .SendAsync("ReceiveDeleteObjective", objective.IdObjective);
 
         return user;

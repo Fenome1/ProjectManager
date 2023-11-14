@@ -76,4 +76,11 @@ public class UserController : BaseController
 
         return NoContent();
     }
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Auth([FromBody] AuthUserCommand command)
+    {
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
 }

@@ -14,7 +14,7 @@ public static class ProjectService
     {
         try
         {
-            var response = await $"{BaseApiUrl}/Project/agency/{idAgency}"
+            var response = await $"{BaseApiUrl}/Project/Agency/{idAgency}"
                 .SetQueryParam(nameof(isDeleted), isDeleted)
                 .GetJsonAsync<List<Project>>();
 

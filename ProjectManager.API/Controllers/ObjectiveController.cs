@@ -35,7 +35,7 @@ public class ObjectiveController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("/User/{idUser}")]
+    [HttpGet("User/{idUser}")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateObjectiveCommand command)
     {

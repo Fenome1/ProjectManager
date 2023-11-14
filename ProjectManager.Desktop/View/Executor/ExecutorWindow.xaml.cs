@@ -6,29 +6,26 @@ using static ProjectManager.Desktop.ViewModels.Executor.ExecutorViewModel;
 
 namespace ProjectManager.Desktop.View.Executor;
 
-/// <summary>
-///     Логика взаимодействия для ExecutorWindow.xaml
-/// </summary>
 public partial class ExecutorWindow : Window
 {
+    private readonly SignalRExecutorClient _signalRExecutorClient;
+
     public ExecutorWindow()
     {
         InitializeComponent();
         DataContext = ExecutorVm;
-        var _ = new SignalRExecutorClient().Start();
+        _signalRExecutorClient = new SignalRExecutorClient();
     }
 
     private async void ExecutorWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        try
+        if (ExecutorVm.User is null)
         {
-            await ExecutorVm.InitializeUser();
-        }
-        catch (Exception exception)
-        {
-            MessageBox.Show(exception.Message);
+            MessageBox.Show("Ошибка авторизации");
             Close();
         }
+
+        await _signalRExecutorClient.StartConnection();
     }
 
     private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -51,5 +48,10 @@ public partial class ExecutorWindow : Window
     private void CloseWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         Close();
+    }
+
+    private async void ExecutorWindow_OnClosed(object? sender, EventArgs e)
+    {
+        await _signalRExecutorClient.StopConnection();
     }
 }

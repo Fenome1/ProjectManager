@@ -14,7 +14,7 @@ public static class ObjectiveService
     {
         try
         {
-            var response = await $"{BaseApiUrl}/Objective/column/{idColumn}"
+            var response = await $"{BaseApiUrl}/Objective/Column/{idColumn}"
                 .GetJsonAsync<List<Objective>>();
 
             return response;

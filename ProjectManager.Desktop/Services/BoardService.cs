@@ -14,7 +14,7 @@ public static class BoardService
     {
         try
         {
-            var response = await $"{BaseApiUrl}/Board/project/{idProject}"
+            var response = await $"{BaseApiUrl}/Board/Project/{idProject}"
                 .GetJsonAsync<List<Board>>();
 
             return response;

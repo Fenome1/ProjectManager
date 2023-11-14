@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
+using Newtonsoft.Json;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
 using static ProjectManager.Desktop.Common.Data.URL;
@@ -110,5 +111,32 @@ public class UserService
         }
 
         return false;
+    }
+
+    public static async Task<User> AuthAsync(string login, string password)
+    {
+        var data = new { Login = login, Password = password };
+
+        try
+        {
+            var response = await $"{BaseApiUrl}/User/Login"
+                .PostJsonAsync(data);
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+            {
+                var userJson = await response.ResponseMessage.Content.ReadAsStringAsync();
+                var user = JsonConvert.DeserializeObject<User>(userJson);
+
+                return user;
+            }
+
+            ;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return null;
     }
 }

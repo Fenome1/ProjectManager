@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Autofac;
@@ -7,7 +6,6 @@ using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
-using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.ViewModels.Base;
 
@@ -24,13 +22,6 @@ public partial class ExecutorViewModel : ViewModelBase
 
     private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
     public static ExecutorViewModel ExecutorVm { get; private set; } = new();
-
-    public async Task InitializeUser()
-    {
-        User = (await UserService.GetByRoleAsync((int)Roles.Executor)).First();
-
-        if (User is null) throw new Exception("Ошибка инициализации пользователя");
-    }
 
     //Assign
     public async Task ObjectiveAddAssignAsync(int idObjective)

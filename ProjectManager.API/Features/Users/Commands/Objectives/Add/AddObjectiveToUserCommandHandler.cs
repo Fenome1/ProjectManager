@@ -36,7 +36,8 @@ public class AddObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManage
         user.IdObjectives.Add(objective);
         await _context.SaveChangesAsync();
 
-        await _hubContext.Clients.All.SendAsync("ReceiveAddObjective", objective.IdObjective);
+        await _hubContext.Clients.Group(user.IdUser.ToString())
+            .SendAsync("ReceiveAddObjective", objective.IdObjective);
 
         return user;
     }

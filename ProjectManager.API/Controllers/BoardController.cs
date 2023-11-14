@@ -26,7 +26,7 @@ public class BoardController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("project/{idProject}")]
+    [HttpGet("Project/{idProject}")]
     public async Task<IActionResult> GetByProjectId(int idProject, bool isDeleted = false)
     {
         var query = new ListBoardsByProjectQuery(idProject, isDeleted);

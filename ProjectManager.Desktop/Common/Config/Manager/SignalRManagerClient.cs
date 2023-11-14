@@ -38,13 +38,15 @@ public class SignalRManagerClient
         _hubConnection.On<int>("ReceiveObjectiveDelete", ManagerVm.DeleteObjectiveAsync);
     }
 
-    public async Task Start()
+    public async Task StartConnection()
     {
         await _hubConnection.StartAsync();
+        await _hubConnection.InvokeAsync("UserConnected", ManagerVm.User.IdUser);
     }
 
-    public async Task Stop()
+    public async Task StopConnection()
     {
+        await _hubConnection.InvokeAsync("UserDisconnected", ManagerVm.User.IdUser);
         await _hubConnection.StopAsync();
     }
 }

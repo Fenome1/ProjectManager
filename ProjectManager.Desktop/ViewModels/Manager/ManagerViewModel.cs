@@ -91,13 +91,6 @@ public partial class ManagerViewModel : ViewModelBase
             await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
         });
 
-    public async Task InitializeUser()
-    {
-        User = (await UserService.GetAsync()).First();
-
-        if (User is null) throw new Exception("Ошибка инициализации пользователя");
-    }
-
     //loadTree
     public async Task LoadTreeAsync()
     {

@@ -16,13 +16,47 @@
 
     <Style x:Key="WindowBarStyle" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource PrimaryColorPrimaryTheme}" />
-        <Setter Property="CornerRadius" Value="20,20,0,0" />
+        <Setter Property="CornerRadius" Value="10,10,0,0" />
     </Style>
 
     <Style TargetType="TextBlock">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorPrimaryTheme}" />
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorPrimaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorPrimaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Background" Value="{DynamicResource TertiaryColorPrimaryTheme}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorPrimaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+        </Style.Resources>
     </Style>
 
     <Style x:Key="ThreeDotsButtonStyle" TargetType="Button">

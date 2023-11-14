@@ -24,13 +24,15 @@ public class SignalRExecutorClient
         _hubConnection.On<int>("ReceiveDeleteObjective", ExecutorVm.ObjectiveDeleteAssignAsync);
     }
 
-    public async Task Start()
+    public async Task StartConnection()
     {
         await _hubConnection.StartAsync();
+        await _hubConnection.InvokeAsync("UserConnected", ExecutorVm.User.IdUser);
     }
 
-    public async Task Stop()
+    public async Task StopConnection()
     {
+        await _hubConnection.InvokeAsync("UserDisconnected", ExecutorVm.User.IdUser);
         await _hubConnection.StopAsync();
     }
 }

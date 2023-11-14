@@ -26,7 +26,7 @@ public class ProjectController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("agency/{idAgency}")]
+    [HttpGet("Agency/{idAgency}")]
     public async Task<IActionResult> GetByAgencyId(int idAgency, bool isDeleted = false)
     {
         var query = new ListProjectsByAgencyQuery(idAgency, isDeleted);
