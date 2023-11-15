@@ -9,19 +9,99 @@
     </Style>
 
     <Style x:Key="MainWindowStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="CornerRadius" Value="18" />
         <Setter Property="Background" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
     </Style>
 
     <Style x:Key="WindowBarStyle" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-        <Setter Property="CornerRadius" Value="20,20,0,0" />
+        <Setter Property="CornerRadius" Value="10,10,0,0" />
     </Style>
 
     <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
+    </Style>
+
+    <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="17" />
         <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
+        <Setter Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="ThreeDotsButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel
+                        x:Name="StackPanelContainer"
+                        Width="15"
+                        Height="25"
+                        Background="Transparent"
+                        Orientation="Vertical">
+                        <Ellipse
+                            x:Name="Ellipse1"
+                            Width="5"
+                            Height="5"
+                            Margin="0,2,0,2"
+                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                        <Ellipse
+                            x:Name="Ellipse2"
+                            Width="5"
+                            Height="5"
+                            Margin="0,0,0,2"
+                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                        <Ellipse
+                            x:Name="Ellipse3"
+                            Width="5"
+                            Height="5"
+                            Margin="0,0,0,0"
+                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

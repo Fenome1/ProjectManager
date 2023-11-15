@@ -13,7 +13,7 @@
     MaxWidth="680"
     MaxHeight="700"
     d:DataContext="{d:DesignInstance local:AuthWindow,
-    IsDesignTimeCreatable=True}"
+                                     IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="CanResizeWithGrip"

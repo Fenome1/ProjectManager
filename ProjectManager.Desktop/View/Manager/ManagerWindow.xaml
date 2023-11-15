@@ -32,9 +32,10 @@
             <convertors:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
-
     <Grid>
         <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
+
+
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition
@@ -125,8 +126,7 @@
                             CornerRadius="30"
                             RenderOptions.BitmapScalingMode="HighQuality">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Assets/Images/user.png"
-                                            RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                                <ImageBrush ImageSource="/Assets/Images/user.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
                             </Border.Background>
                         </Border>
 
@@ -188,8 +188,7 @@
                                 <StackPanel>
                                     <StackPanel.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                      Header="Создать агенство" />
+                                            <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                         </ContextMenu>
                                     </StackPanel.ContextMenu>
                                     <TextBlock
@@ -204,8 +203,7 @@
                                         MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                         <TreeView.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                          Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                             </ContextMenu>
                                         </TreeView.ContextMenu>
 
@@ -385,5 +383,6 @@
                 </Grid>
             </Grid>
         </Grid>
+
     </Grid>
 </Window>
