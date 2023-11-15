@@ -60,7 +60,7 @@ public partial class ManagerWindow : Window
     private static void FrameworkVisibilityHider(FrameworkElement element)
     {
         if (element.Visibility == Visibility.Visible)
-            element.Visibility = Visibility.Hidden;
+            element.Visibility = Visibility.Collapsed;
     }
 
     //win control

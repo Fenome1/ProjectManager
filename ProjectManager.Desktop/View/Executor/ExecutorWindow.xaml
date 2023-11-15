@@ -207,6 +207,7 @@
                                                                 <Grid.RowDefinitions>
                                                                     <RowDefinition Height="Auto" />
                                                                     <RowDefinition Height="*" />
+                                                                    <RowDefinition Height="*" />
                                                                 </Grid.RowDefinitions>
 
                                                                 <Grid Grid.Row="0">
@@ -307,6 +308,13 @@
 
                                                                 </StackPanel>
 
+                                                                <Border Grid.Row="3" HorizontalAlignment="Left" 
+                                                                        BorderThickness="3" 
+                                                                        BorderBrush="White" 
+                                                                        CornerRadius="10" 
+                                                                        Padding="10" Margin="5">
+                                                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                                </Border>
                                                             </Grid>
                                                         </Border>
                                                     </DataTemplate>

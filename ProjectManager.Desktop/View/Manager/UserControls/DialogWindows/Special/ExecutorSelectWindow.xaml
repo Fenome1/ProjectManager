@@ -2,7 +2,7 @@
     x:Class="ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.ExecutorSelectWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.Converters"
+    xmlns:convertorsLocal="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special.Converters"
     xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Special"
@@ -10,20 +10,27 @@
     Title="Исполнители"
     d:DataContext="{d:DesignInstance local:ExecutorSelectWindow,
                                      IsDesignTimeCreatable=True}"
+    MinHeight="350"
+    MinWidth="350"
+    
+    MaxWidth="500"
+    MaxHeight="500"
+    
     SizeToContent="WidthAndHeight"
     Style="{DynamicResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
-        <converters:UserObjectiveConverter x:Key="UserObjectiveConverter" />
+        <convertorsLocal:UserObjectiveConverter x:Key="UserObjectiveConverter" />
         <convertors:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+        <convertorsLocal:BorderHeightToMaxHeihgt x:Key="BorderHeightToMaxHeihgt" />
     </Window.Resources>
-    <Grid Margin="10">
+    <Grid Margin="5" x:Name="ContentGrid">
         <ScrollViewer
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Auto">
+            VerticalScrollBarVisibility="Hidden">
             <Border
                 Padding="20"
                 HorizontalAlignment="Stretch"
@@ -38,42 +45,47 @@
                         VerticalAlignment="Center"
                         Text="Исполнители" />
                     <Border
-                        Padding="0,10,0,10"
+                        Padding="0,20,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         BorderBrush="White"
-                        BorderThickness="0,1,0,0">
+                        BorderThickness="0,1,0,0"
+                        x:Name="ExecutorsContentBorder">
                         <StackPanel>
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Text="Ничего не найдено..."
                                 Visibility="{Binding Executors.Count, Converter={StaticResource CountToVisibilityConverter}}" />
-                            <ItemsControl x:Name="ExecutorsItemsControl" ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                                            <CheckBox
+
+                            <ScrollViewer MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource BorderHeightToMaxHeihgt}}">
+                                <ItemsControl x:Name="ExecutorsItemsControl" ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                                                <CheckBox
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Center"
                                                 Command="{Binding AssignUserCommand}"
                                                 Tag="{Binding Path=IdObjective, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                                                <CheckBox.CommandParameter>
-                                                    <Binding RelativeSource="{RelativeSource Self}" />
-                                                </CheckBox.CommandParameter>
-                                                <CheckBox.IsChecked>
-                                                    <MultiBinding Converter="{StaticResource UserObjectiveConverter}" Mode="OneWay">
-                                                        <Binding Path="." />
-                                                        <Binding Path="IdObjective" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
-                                                    </MultiBinding>
-                                                </CheckBox.IsChecked>
-                                            </CheckBox>
-                                            <TextBlock Margin="5,0,0,0" Text="{Binding Login}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
+                                                    <CheckBox.CommandParameter>
+                                                        <Binding RelativeSource="{RelativeSource Self}" />
+                                                    </CheckBox.CommandParameter>
+                                                    <CheckBox.IsChecked>
+                                                        <MultiBinding Converter="{StaticResource UserObjectiveConverter}" Mode="OneWay">
+                                                            <Binding Path="." />
+                                                            <Binding Path="IdObjective" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+                                                        </MultiBinding>
+                                                    </CheckBox.IsChecked>
+                                                </CheckBox>
+                                                <TextBlock Margin="10,0,0,0" Text="{Binding Login}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
 
-                            </ItemsControl>
+                                </ItemsControl>
+                            </ScrollViewer>
+
                         </StackPanel>
 
                     </Border>

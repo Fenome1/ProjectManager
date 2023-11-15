@@ -159,7 +159,6 @@
 		<Folder Include="Common\Config\Modules\" />
 		<Folder Include="Models\Enums\" />
 		<Folder Include="ViewModels\Executor\" />
-		<Folder Include="View\Manager\UserControls\DialogWindows\Special\Converters\" />
 	</ItemGroup>
 
 	<ItemGroup>

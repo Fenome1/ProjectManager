@@ -139,6 +139,9 @@ public partial class ManagerViewModel : ViewModelBase
 
         Application.Current.Dispatcher.Invoke(() => { Agencies.Remove(deletedAgency); });
 
+        if (SelectedAgency == deletingAgency)
+            ResetUiSelectedAgency();
+
         foreach (var project in deletingAgency.Projects)
             if (SelectedProject != null && project.IdProject == SelectedProject.IdProject)
                 ResetUiSelectedProject();
@@ -192,11 +195,6 @@ public partial class ManagerViewModel : ViewModelBase
 
         if (SelectedProject.IdProject == deletedProject.IdProject)
             ResetUiSelectedProject();
-    }
-
-    private static void ResetUiSelectedProject()
-    {
-        Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
     }
 
     private Agency? GetAgencyByProject(int idAgency)
@@ -261,6 +259,7 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(p => p.IdProject == idProject);
     }
 
+    //Columns notifications
     public async Task CreateColumnAsync(int idColumn)
     {
         var createdColumn = await ColumnService.GetAsync(idColumn);
@@ -322,6 +321,7 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(b => b.IdBoard == idBoard);
     }
 
+    //Objectives notifications
     public async Task CreateObjectiveAsync(int idObjective)
     {
         var createdObjective = await ObjectiveService.GetAsync(idObjective);
@@ -382,5 +382,14 @@ public partial class ManagerViewModel : ViewModelBase
             .SelectMany(p => p.Boards)
             .SelectMany(c => c.Columns)
             .FirstOrDefault(c => c.IdColumn == idColumn);
+    }
+
+    private static void ResetUiSelectedProject()
+    {
+        Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
+    }
+    private static void ResetUiSelectedAgency()
+    {
+        Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedAgency = null; });
     }
 }
