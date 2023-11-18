@@ -1,0 +1,34 @@
+﻿<Window
+    x:Class="ProjectManager.Desktop.View.General.ProfileEditWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:general="clr-namespace:ProjectManager.Desktop.View.General"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AuthWindow"
+    Width="480"
+    Height="500"
+    MinWidth="480"
+    MinHeight="500"
+    MaxWidth="680"
+    MaxHeight="700"
+    d:DataContext="{d:DesignInstance general:AuthWindow,
+    IsDesignTimeCreatable=True}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="CanResizeWithGrip"
+    UseLayoutRounding="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <Border Style="{DynamicResource MainWindowStyle}" />
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+        </Grid>
+    </Grid>
+</Window>

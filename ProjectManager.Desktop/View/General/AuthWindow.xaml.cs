@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ProjectManager.Desktop.ViewModels.AuthViewModel;
+using static ProjectManager.Desktop.ViewModels.General.AuthViewModel;
 
-namespace ProjectManager.Desktop.View;
+namespace ProjectManager.Desktop.View.General;
 
 public partial class AuthWindow : Window
 {

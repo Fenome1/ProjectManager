@@ -7,7 +7,6 @@ using CommunityToolkit.Mvvm.Input;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
-using ProjectManager.Desktop.ViewModels.Manager;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
 namespace ProjectManager.Desktop.Models;
@@ -43,12 +42,12 @@ public partial class Board : ObservableObject
         await BoardService.UpdateAsync(IdBoard, columnUpdateWindow.NameTextBox.Text);
     });
 
-    public ICommand DeleteBoardCommand => new RelayCommand(async () => {
-
+    public ICommand DeleteBoardCommand => new RelayCommand(async () =>
+    {
         var boardCount = ManagerVm.Agencies
-        .SelectMany(a => a.Projects)
-        .SelectMany(p => p.Boards)
-        .Count();
+            .SelectMany(a => a.Projects)
+            .SelectMany(p => p.Boards)
+            .Count();
 
         if (boardCount <= 1)
         {
@@ -59,6 +58,6 @@ public partial class Board : ObservableObject
             return;
         }
 
-        await BoardService.DeleteAsync(IdBoard); 
+        await BoardService.DeleteAsync(IdBoard);
     });
 }

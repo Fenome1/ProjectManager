@@ -68,7 +68,8 @@ public class UserService
         string? password = null,
         string? fullName = null,
         int? theme = null,
-        string? image = null)
+        byte[]? image = null,
+        bool isImageReset = false)
     {
         var updatingUser = new
         {
@@ -77,7 +78,8 @@ public class UserService
             Password = password,
             FullName = fullName,
             Theme = theme,
-            Image = image
+            Image = image,
+            IsImageReset = isImageReset
         };
         try
         {
@@ -129,8 +131,6 @@ public class UserService
 
                 return user;
             }
-
-            ;
         }
         catch (FlurlHttpException ex)
         {

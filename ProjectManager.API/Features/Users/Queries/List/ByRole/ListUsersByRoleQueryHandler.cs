@@ -24,7 +24,7 @@ public class ListUsersByRoleQueryHandler : IRequestHandler<ListUsersByRoleQuery,
             .ToListAsync();
 
         if (!users.Any())
-            throw new Exception("Пользоватли не найдены");
+            throw new Exception("Пользователи с требуемой ролью не найдены");
 
         return users;
     }

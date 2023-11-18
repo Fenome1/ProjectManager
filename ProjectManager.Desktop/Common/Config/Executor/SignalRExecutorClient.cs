@@ -18,17 +18,15 @@ public class SignalRExecutorClient
 
 
         //Delete Update
-        _hubConnection.On<int>("ReceiveAgencyDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
-        _hubConnection.On<int>("ReceiveProjectDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
-        _hubConnection.On<int>("ReceiveBoardDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
-        _hubConnection.On<int>("ReceiveColumnDelete", _ => { ExecutorVm.GetObjectivesAsync(); });
         _hubConnection.On<int>("ReceiveDeleteObjective", ExecutorVm.ObjectiveDeleteAssignAsync);
 
-        //Objective
+        //User - Objective
         _hubConnection.On<int>("ReceiveObjectiveUpdate", ExecutorVm.UpdateObjectiveAsync);
         _hubConnection.On<int>("ReceiveObjectiveDelete", ExecutorVm.DeleteObjectiveAsync);
-
         _hubConnection.On<int>("ReceiveAddObjective", ExecutorVm.ObjectiveAddAssignAsync);
+
+        //User
+        _hubConnection.On<int>("ReceiveUserUpdate", ExecutorVm.UpdateUserAsync);
     }
 
     public async Task StartConnection()

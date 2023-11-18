@@ -2,7 +2,7 @@
     x:Class="ProjectManager.Desktop.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    StartupUri="/View/AuthWindow.xaml">
+    StartupUri="/View/General/AuthWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -10,9 +10,10 @@
             <FontFamily x:Key="WhitneyMedium">pack://application:,,,/Assets/Fonts/Whitney/Whitney-Medium.ttf#Whitney Medium</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="View/Styles/Themes/SecondaryThemeDictionary.xaml" />
-                <ResourceDictionary Source="View/Styles/Themes/PrimaryThemeDictionary.xaml" />
+                <ResourceDictionary Source="/View/Styles/Themes/SecondaryThemeDictionary.xaml" />
+                <ResourceDictionary Source="/View/Styles/Themes/PrimaryThemeDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

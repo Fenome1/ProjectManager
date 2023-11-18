@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using ProjectManager.Desktop.Common.Config.Executor;
+using ProjectManager.Desktop.Common.Handlers;
 using static ProjectManager.Desktop.ViewModels.Executor.ExecutorViewModel;
 
 namespace ProjectManager.Desktop.View.Executor;
@@ -19,11 +20,15 @@ public partial class ExecutorWindow : Window
 
     private async void ExecutorWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (ExecutorVm.User is null)
+        var currentExecutor = ExecutorVm.User;
+
+        if (currentExecutor is null)
         {
             MessageBox.Show("Ошибка авторизации");
             Close();
         }
+
+        ThemeManager.InitTheme(currentExecutor.Theme);
 
         await _signalRExecutorClient.StartConnection();
     }

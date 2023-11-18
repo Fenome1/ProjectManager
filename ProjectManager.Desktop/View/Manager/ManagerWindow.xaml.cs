@@ -3,7 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ProjectManager.Desktop.Common.Config.Manager;
+using ProjectManager.Desktop.Common.Handlers;
 using ProjectManager.Desktop.Models;
+using ProjectManager.Desktop.View.General;
+using ProjectManager.Desktop.ViewModels.General;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
 namespace ProjectManager.Desktop.View.Manager;
@@ -21,13 +24,17 @@ public partial class ManagerWindow : Window
 
     private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        await ManagerVm.LoadTreeAsync();
+        var currentUser = ManagerVm.User;
 
-        if (ManagerVm.User is null)
+        if (currentUser is null)
         {
             MessageBox.Show("Ошибка авторизации");
             Close();
         }
+
+        ThemeManager.InitTheme(currentUser.Theme);
+
+        await ManagerVm.LoadTreeAsync();
 
         await _signalRManagerClient.StartConnection();
     }
@@ -89,5 +96,12 @@ public partial class ManagerWindow : Window
     private async void ManagerWindow_OnClosed(object? sender, EventArgs e)
     {
         await _signalRManagerClient.StopConnection();
+    }
+
+    private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        var profileEditWindow = new ProfileEditWindow();
+        profileEditWindow.ShowDialog();
+        ProfileEditViewModel.ProfileEditVM.EditingUser = ManagerVm.User;
     }
 }

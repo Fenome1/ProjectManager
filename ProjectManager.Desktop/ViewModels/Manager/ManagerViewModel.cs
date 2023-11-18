@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -8,9 +9,9 @@ using Autofac;
 using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
-using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.ViewModels.Base;
@@ -36,29 +37,45 @@ public partial class ManagerViewModel : ViewModelBase
     private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
 
     //commands
-    public ICommand ChangeThemeCommand => new RelayCommand(async () =>
+    public ICommand ChangeThemeCommand => new RelayCommand(async () => { });
+
+/*    var startTheme = (Themes)_user.Theme;
+    ThemeManager.SetTheme(_user, startTheme is Themes.Primary? Themes.Secondary : Themes.Primary);*/
+
+    //profile
+    public ICommand UploadProfilePhotoCommand => new RelayCommand(async () =>
     {
-        var path = "/View/Styles/Themes";
+        var openFileDialog = new OpenFileDialog();
 
-        if (_user.Theme is (int)Themes.Primary)
-        {
-            path += "/SecondaryThemeDictionary.xaml";
-            _user.Theme = 2;
-            await UserService.UpdateAsync(_user.IdUser, theme: _user.Theme);
-        }
-        else
-        {
-            path += "/PrimaryThemeDictionary.xaml";
-            _user.Theme = 1;
-            await UserService.UpdateAsync(_user.IdUser, theme: _user.Theme);
-        }
+        openFileDialog.DefaultExt = ".png";
+        openFileDialog.Filter =
+            "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|All files (*.*)|*.*";
 
-        var resourceDict = Application.LoadComponent(new Uri(path, UriKind.Relative)) as ResourceDictionary;
-        Application.Current.Resources.MergedDictionaries.Clear();
-        Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+        if (!(bool)openFileDialog.ShowDialog())
+            return;
+
+        var filename = openFileDialog.FileName;
+
+        try
+        {
+            var data = File.ReadAllBytes(filename);
+
+            if (data is null)
+                return;
+
+            await UserService.UpdateAsync(_user.IdUser, image: data);
+        }
+        catch (Exception)
+        {
+            //--
+        }
     });
 
-    //Agency notifications
+    public ICommand ClearProfilePhotoCommand => new RelayCommand(async () =>
+    {
+        await UserService.UpdateAsync(_user.IdUser, isImageReset: true);
+    });
+
     public ICommand CreateNewAgencyCommand => new RelayCommand(async () =>
     {
         var createAgencyDialogWindow = new CreateObjectDialogWindow("Создать агентство");
@@ -72,13 +89,13 @@ public partial class ManagerViewModel : ViewModelBase
             await AgencyService.CreateAsync(agencyName);
     });
 
-    //Column notifications
+    //Columns notifications
     public ICommand ColumnColorUpdateCommand => new RelayCommand<(int idColumn, int idColor)>(async columnColorUpdate =>
     {
         await ColumnService.UpdateAsync(columnColorUpdate.idColumn, columnColorUpdate.idColor);
     });
 
-    //Objective notifications
+    //Objectives notifications
     public ICommand ObjectivePriorityUpdateCommand =>
         new RelayCommand<(int idObjective, int idPriority)>(async updateCommand =>
         {
@@ -90,6 +107,7 @@ public partial class ManagerViewModel : ViewModelBase
 
             await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
         });
+
 
     //loadTree
     public async Task LoadTreeAsync()
@@ -259,7 +277,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(p => p.IdProject == idProject);
     }
 
-    //Columns notifications
     public async Task CreateColumnAsync(int idColumn)
     {
         var createdColumn = await ColumnService.GetAsync(idColumn);
@@ -321,7 +338,6 @@ public partial class ManagerViewModel : ViewModelBase
             .FirstOrDefault(b => b.IdBoard == idBoard);
     }
 
-    //Objectives notifications
     public async Task CreateObjectiveAsync(int idObjective)
     {
         var createdObjective = await ObjectiveService.GetAsync(idObjective);
@@ -388,8 +404,20 @@ public partial class ManagerViewModel : ViewModelBase
     {
         Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedProject = null; });
     }
+
     private static void ResetUiSelectedAgency()
     {
         Application.Current.Dispatcher.Invoke(() => { ManagerVm.SelectedAgency = null; });
+    }
+
+    public async Task UpdateUserAsync(int idUser)
+    {
+        var updatedUser = await UserService.GetAsync(idUser);
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Mapper.Map(updatedUser, _user);
+            OnPropertyChanged(nameof(User));
+        });
     }
 }

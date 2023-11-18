@@ -31,6 +31,7 @@
             <convertors:TreeViewHeightConverter x:Key="TreeViewHeightConverter" />
             <convertors:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
             <convertors:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <convertors:UserImageConverter x:Key="UserImageConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -65,7 +66,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/hide.png" />
+                        Style="{DynamicResource HideIconStyle}" />
 
                     <Image
                         Width="29"
@@ -73,7 +74,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/fullScreen.png" />
+                        Style="{DynamicResource MaxIconStyle}" />
 
                     <Image
                         Width="29"
@@ -81,7 +82,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/xCross.png" />
+                        Style="{DynamicResource CloseIconStyle}" />
 
                 </WrapPanel>
             </Border>
@@ -114,43 +115,52 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Border
                             Grid.Column="0"
                             Width="40"
                             Height="40"
-                            Margin="0,0,15,0"
+                            Margin="0,0,10,0"
                             BorderBrush="White"
                             BorderThickness="1"
                             CornerRadius="30"
                             RenderOptions.BitmapScalingMode="HighQuality">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Assets/Images/user.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                                <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                             </Border.Background>
+                            <Border.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding UploadProfilePhotoCommand}" Header="Загрузить фото" />
+                                    <MenuItem
+                                        Command="{Binding ClearProfilePhotoCommand}"
+                                        Header="Удалить фото"
+                                        Visibility="{Binding User.Image, Converter={StaticResource NullToVisibilityConverter}}" />
+                                </ContextMenu>
+                            </Border.ContextMenu>
                         </Border>
 
                         <TextBlock
+                            MouseLeftButtonUp="LoginTextBlock_OnMouseLeftButtonUp"
                             Grid.Column="1"
-                            Margin="0,0,10,0"
                             VerticalAlignment="Center"
+                            d:Text="Fenome1"
+                            Style="{DynamicResource ProfileNameStyle}"
                             Text="{Binding User.Login}"
                             TextWrapping="Wrap" />
 
                         <Button
                             Grid.Column="2"
-                            Width="21"
+                            Width="20"
                             Height="20"
-                            HorizontalAlignment="Center"
+                            Margin="5"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             BorderThickness="0"
                             Command="{Binding ChangeThemeCommand}"
-                            RenderOptions.BitmapScalingMode="HighQuality">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Assets/Images/exit.png" />
-                            </Button.Background>
-                        </Button>
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Style="{DynamicResource ExitIconStyle}" />
                     </Grid>
 
                     <!--  Вывод агенств и проектов  -->
@@ -174,8 +184,8 @@
                         </Border>
 
                         <Border
-                            MaxWidth="250"
                             Grid.Row="1"
+                            MaxWidth="250"
                             BorderBrush="White"
                             BorderThickness="1"
                             CornerRadius="0,0,25,25">
@@ -190,7 +200,8 @@
                                 <StackPanel>
                                     <StackPanel.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                            <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                      Header="Создать агенство" />
                                         </ContextMenu>
                                     </StackPanel.ContextMenu>
                                     <TextBlock
@@ -205,7 +216,8 @@
                                         MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                         <TreeView.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                          Header="Создать агенство" />
                                             </ContextMenu>
                                         </TreeView.ContextMenu>
 
@@ -223,9 +235,9 @@
                                         <TreeView.ItemTemplate>
                                             <HierarchicalDataTemplate ItemsSource="{Binding Projects}">
                                                 <TextBlock
+                                                    MaxWidth="150"
                                                     Text="{Binding Name}"
                                                     TextWrapping="Wrap"
-                                                    MaxWidth="150"
                                                     ToolTip="{Binding Description, Converter={StaticResource DescriptionConverter}}">
                                                     <TextBlock.ContextMenu>
                                                         <ContextMenu>
@@ -247,7 +259,10 @@
 
                                                 <HierarchicalDataTemplate.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Name}" MaxWidth="150" TextWrapping="Wrap" >
+                                                        <TextBlock
+                                                            MaxWidth="150"
+                                                            Text="{Binding Name}"
+                                                            TextWrapping="Wrap">
                                                             <TextBlock.ContextMenu>
                                                                 <ContextMenu>
                                                                     <MenuItem
@@ -325,6 +340,7 @@
                         BorderBrush="White"
                         BorderThickness="1"
                         DataContext="{Binding SelectedProject}"
+                        ItemContainerStyle="{DynamicResource TabItemStyle}"
                         TabStripPlacement="Top"
                         Visibility="Collapsed">
 
@@ -349,38 +365,7 @@
                             </DataTemplate>
                         </TabControl.ContentTemplate>
 
-                        <TabControl.ItemContainerStyle>
-                            <Style TargetType="TabItem">
-                                <Setter Property="ContextMenu">
-                                    <Setter.Value>
-                                        <ContextMenu>
-                                            <MenuItem
-                                                Command="{Binding CreateNewBoardCommand}"
-                                                CommandParameter="{Binding}"
-                                                Header="Создать доску" />
-                                            <Separator />
-                                            <MenuItem
-                                                Command="{Binding UpdateBoardCommand}"
-                                                CommandParameter="{Binding}"
-                                                Header="Изменить" />
-                                            <MenuItem Command="{Binding DeleteBoardCommand}" Header="Удалить" />
-                                        </ContextMenu>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TabItem">
-                                            <ContentPresenter
-                                                x:Name="ContentSite"
-                                                Margin="5,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                ContentSource="Header" />
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TabControl.ItemContainerStyle>
+
                     </TabControl>
 
                 </Grid>

@@ -35,10 +35,9 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(
-            "Name=ProjectManagerFree");
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(
+            "Server=localhost;User Id=sa;Password=Fenome1Password!;Initial Catalog=ProjectManager;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -189,7 +188,7 @@ public partial class ProjectManagerDbContext : DbContext
             entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(255);
-            entity.Property(e => e.Role).HasDefaultValueSql("((1))");
+            entity.Property(e => e.Role).HasDefaultValueSql("((4))");
             entity.Property(e => e.Theme).HasDefaultValueSql("((1))");
 
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)

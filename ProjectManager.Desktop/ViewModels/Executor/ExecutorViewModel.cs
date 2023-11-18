@@ -1,12 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Autofac;
 using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
+using ProjectManager.Desktop.View.General;
 using ProjectManager.Desktop.ViewModels.Base;
 
 namespace ProjectManager.Desktop.ViewModels.Executor;
@@ -22,6 +28,47 @@ public partial class ExecutorViewModel : ViewModelBase
 
     private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
     public static ExecutorViewModel ExecutorVm { get; private set; } = new();
+
+    //commands
+    public ICommand ChangeThemeCommand => new RelayCommand(async () =>
+    {
+        var profileEditWindow = new ProfileEditWindow();
+        profileEditWindow.ShowDialog();
+    });
+
+    //profile
+    public ICommand UploadProfilePhotoCommand => new RelayCommand(async () =>
+    {
+        var openFileDialog = new OpenFileDialog();
+
+        openFileDialog.DefaultExt = ".png";
+        openFileDialog.Filter =
+            "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|All files (*.*)|*.*";
+
+        if (!(bool)openFileDialog.ShowDialog())
+            return;
+
+        var filename = openFileDialog.FileName;
+
+        try
+        {
+            var data = File.ReadAllBytes(filename);
+
+            if (data is null)
+                return;
+
+            await UserService.UpdateAsync(_user.IdUser, image: data);
+        }
+        catch (Exception)
+        {
+            //--
+        }
+    });
+
+    public ICommand ClearProfilePhotoCommand => new RelayCommand(async () =>
+    {
+        await UserService.UpdateAsync(_user.IdUser, isImageReset: true);
+    });
 
     //Assign
     public async Task ObjectiveAddAssignAsync(int idObjective)
@@ -94,6 +141,17 @@ public partial class ExecutorViewModel : ViewModelBase
         {
             User.IdObjectives.Clear();
             User.IdObjectives = newObjectives;
+        });
+    }
+
+    public async Task UpdateUserAsync(int idUser)
+    {
+        var updatedUser = await UserService.GetAsync(idUser);
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Mapper.Map(updatedUser, _user);
+            OnPropertyChanged(nameof(User));
         });
     }
 }

@@ -39,6 +39,16 @@
 		<None Remove="Assets\fullScreen.png" />
 		<None Remove="Assets\hide.png" />
 		<None Remove="Assets\Images\exit.png" />
+		<None Remove="Assets\Images\PrimaryTheme\exit.png" />
+		<None Remove="Assets\Images\PrimaryTheme\fullScreen.png" />
+		<None Remove="Assets\Images\PrimaryTheme\hide.png" />
+		<None Remove="Assets\Images\PrimaryTheme\user.png" />
+		<None Remove="Assets\Images\PrimaryTheme\xCross.png" />
+		<None Remove="Assets\Images\SecondaryTheme\exit.png" />
+		<None Remove="Assets\Images\SecondaryTheme\fullScreen.png" />
+		<None Remove="Assets\Images\SecondaryTheme\hide.png" />
+		<None Remove="Assets\Images\SecondaryTheme\user.png" />
+		<None Remove="Assets\Images\SecondaryTheme\xCross.png" />
 		<None Remove="Assets\Images\user.png" />
 		<None Remove="Assets\WhitneyMedium.ttf" />
 		<None Remove="Assets\xCross.png" />
@@ -141,34 +151,44 @@
 		<Resource Include="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\Images\hide.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<Resource Include="Assets\Images\PrimaryTheme\exit.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\Images\xCross.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<Resource Include="Assets\Images\PrimaryTheme\fullScreen.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Resource Include="Assets\Images\fullScreen.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<Resource Include="Assets\Images\PrimaryTheme\hide.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Images\PrimaryTheme\user.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\Images\PrimaryTheme\xCross.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Common\Config\Modules\" />
+		<Folder Include="Common\Handlers\" />
 		<Folder Include="Models\Enums\" />
 		<Folder Include="ViewModels\Executor\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Assets\Images\exit.png">
+	  <Resource Include="Assets\Images\SecondaryTheme\exit.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Resource Include="Assets\Images\user.png">
+	  <Resource Include="Assets\Images\SecondaryTheme\fullScreen.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Images\SecondaryTheme\hide.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Images\SecondaryTheme\user.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Assets\Images\SecondaryTheme\xCross.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	</ItemGroup>

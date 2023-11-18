@@ -9,6 +9,7 @@ public class UpdateUserCommand : IRequest<User>
     public string? Login { get; set; }
     public string? Password { get; set; }
     public string? FullName { get; set; }
-    public string? Image { get; set; }
+    public byte[]? Image { get; set; }
     public int? Theme { get; set; }
+    public bool IsImageReset { get; set; }
 }

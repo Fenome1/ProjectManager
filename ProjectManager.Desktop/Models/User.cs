@@ -9,13 +9,14 @@ using ProjectManager.Desktop.Services;
 namespace ProjectManager.Desktop.Models;
 
 public partial class User : ObservableObject
+
 {
     [ObservableProperty] private string? _fullname;
 
     [ObservableProperty] private ObservableCollection<Objective>? _idObjectives;
     [ObservableProperty] private int _idUser;
 
-    [ObservableProperty] private string? _image;
+    [ObservableProperty] private byte[]? _image;
 
     [ObservableProperty] private string _login = null!;
 

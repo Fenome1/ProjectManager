@@ -45,16 +45,17 @@ public partial class Agency : ObservableObject
             agencyUpdateWindow.DescriptionTextBox.Text);
     });
 
-    public ICommand DeleteAgencyCommand => new RelayCommand(async () => { 
-
-        if(ManagerViewModel.ManagerVm.Agencies.Count <= 1)
+    public ICommand DeleteAgencyCommand => new RelayCommand(async () =>
+    {
+        if (ManagerViewModel.ManagerVm.Agencies.Count <= 1)
         {
-            MessageBox.Show("Невозможно удалить последнее агентство", 
-                "Ошибка", 
-                MessageBoxButton.OK, 
+            MessageBox.Show("Невозможно удалить последнее агентство",
+                "Ошибка",
+                MessageBoxButton.OK,
                 MessageBoxImage.Error);
             return;
         }
-        await AgencyService.DeleteAsync(IdAgency); 
+
+        await AgencyService.DeleteAsync(IdAgency);
     });
 }

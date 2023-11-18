@@ -31,7 +31,9 @@ public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
         if (!string.IsNullOrEmpty(request.Password))
             user.Password = request.Password;
 
-        if (!string.IsNullOrEmpty(request.Image))
+        if (request.IsImageReset)
+            user.Image = null;
+        else if (request.Image is not null)
             user.Image = request.Image;
 
         if (request.Theme is not null)
@@ -39,7 +41,8 @@ public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        await _hubContext.Clients.All.SendAsync("ReceiveUserUpdate", user.IdUser);
+        await _hubContext.Clients.Group(user.IdUser.ToString())
+            .SendAsync("ReceiveUserUpdate", user.IdUser);
 
         return user;
     }

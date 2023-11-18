@@ -7,13 +7,13 @@
     xmlns:executor="clr-namespace:ProjectManager.Desktop.ViewModels.Executor"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1280"
-    Height="720"
+    Height="730"
     MinWidth="955"
-    MinHeight="590"
+    MinHeight="730"
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance executor:ExecutorViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="ExecutorWindow_OnClosed"
@@ -27,6 +27,9 @@
     <Window.Resources>
         <ResourceDictionary>
             <convertors:IsNotNullConverter x:Key="IsNotNullConverter" />
+            <convertors:ObjectivesBorderHeightConverter x:Key="ObjectivesBorderHeightConverter" />
+            <convertors:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <convertors:UserImageConverter x:Key="UserImageConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -60,7 +63,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/hide.png" />
+                        Style="{DynamicResource HideIconStyle}" />
 
                     <Image
                         Width="29"
@@ -68,7 +71,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/fullScreen.png" />
+                        Style="{DynamicResource MaxIconStyle}" />
 
                     <Image
                         Width="29"
@@ -76,7 +79,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown"
-                        Source="/Assets/Images/xCross.png" />
+                        Style="{DynamicResource CloseIconStyle}" />
 
                 </WrapPanel>
             </Border>
@@ -95,65 +98,71 @@
                 <Grid
                     x:Name="UserAndAgenciesContentGrid"
                     Grid.Column="0"
+                    MinWidth="200"
                     Margin="0,10,10,10">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <!--  Вывод фото и имени пользователя  -->
-                    <Grid
-                        Grid.Row="0"
-                        MinWidth="150"
-                        Margin="0,10,0,0">
+                    <Grid Grid.Row="0" Margin="0,10,0,0">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Border
                             Grid.Column="0"
                             Width="40"
                             Height="40"
-                            Margin="0,0,15,0"
+                            Margin="0,0,10,0"
                             BorderBrush="White"
                             BorderThickness="1"
                             CornerRadius="30"
                             RenderOptions.BitmapScalingMode="HighQuality">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Assets/Images/user.png" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                                <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                             </Border.Background>
+                            <Border.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding UploadProfilePhotoCommand}" Header="Загрузить фото" />
+                                    <MenuItem
+                                        Command="{Binding ClearProfilePhotoCommand}"
+                                        Header="Удалить фото"
+                                        Visibility="{Binding User.Image, Converter={StaticResource NullToVisibilityConverter}}" />
+                                </ContextMenu>
+                            </Border.ContextMenu>
                         </Border>
 
                         <TextBlock
                             Grid.Column="1"
-                            Margin="0,0,10,0"
                             VerticalAlignment="Center"
+                            d:Text="Fenome1"
+                            Style="{DynamicResource ProfileNameStyle}"
                             Text="{Binding User.Login}"
                             TextWrapping="Wrap" />
 
                         <Button
                             Grid.Column="2"
-                            Width="21"
+                            Width="20"
                             Height="20"
-                            HorizontalAlignment="Center"
+                            Margin="5"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             BorderThickness="0"
                             Command="{Binding ChangeThemeCommand}"
-                            RenderOptions.BitmapScalingMode="HighQuality">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Assets/Images/exit.png" />
-                            </Button.Background>
-                        </Button>
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Style="{DynamicResource ExitIconStyle}" />
                     </Grid>
 
                 </Grid>
-
-                <Grid x:Name="UserObjectivesGrid" Grid.Column="1">
+                <Grid Grid.Column="1">
                     <Border
+                        x:Name="ObjectivesContent"
                         Margin="10"
                         VerticalAlignment="Stretch"
                         BorderBrush="White"
@@ -172,17 +181,19 @@
                                         <TextBlock Text="Выполняемые задачи" />
                                     </Border>
                                     <Border
+                                        x:Name="ContentBorder"
                                         Padding="5"
                                         BorderBrush="White"
                                         BorderThickness="1">
 
                                         <ScrollViewer
+                                            MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource ObjectivesBorderHeightConverter}}"
                                             Margin="0,0,0,5"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch"
                                             CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Auto"
-                                            VerticalScrollBarVisibility="Auto">
+                                            HorizontalScrollBarVisibility="Hidden"
+                                            VerticalScrollBarVisibility="Hidden">
                                             <ItemsControl ItemsSource="{Binding User.IdObjectives}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -197,15 +208,17 @@
                                                                 <Style TargetType="Border">
                                                                     <Setter Property="Visibility" Value="Visible" />
                                                                     <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                                        <DataTrigger Binding="{Binding Status}"
+                                                                            Value="True">
+                                                                            <Setter Property="Visibility"
+                                                                                Value="Collapsed" />
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </Border.Style>
                                                             <Grid>
                                                                 <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="Auto" />
+                                                                    <RowDefinition Height="*" />
                                                                     <RowDefinition Height="*" />
                                                                     <RowDefinition Height="*" />
                                                                 </Grid.RowDefinitions>
@@ -214,7 +227,7 @@
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto" />
                                                                         <ColumnDefinition Width="Auto" />
-                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="Auto" />
                                                                     </Grid.ColumnDefinitions>
 
                                                                     <!--  Чекбокс для статуса  -->
@@ -250,21 +263,31 @@
                                                                         CornerRadius="10">
                                                                         <Border.Style>
                                                                             <Style TargetType="Border">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Setter Property="Visibility"
+                                                                                    Value="Collapsed" />
                                                                                 <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    <DataTrigger
+                                                                                        Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                                                                        Value="True">
+                                                                                        <Setter Property="Visibility"
+                                                                                            Value="Visible" />
                                                                                     </DataTrigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
                                                                         </Border.Style>
-                                                                        <TextBlock Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
+                                                                        <TextBlock
+                                                                            Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
                                                                             <TextBlock.Style>
                                                                                 <Style TargetType="TextBlock">
-                                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    <Setter Property="Visibility"
+                                                                                        Value="Collapsed" />
                                                                                     <Style.Triggers>
-                                                                                        <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                                        <DataTrigger
+                                                                                            Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                                                                            Value="True">
+                                                                                            <Setter
+                                                                                                Property="Visibility"
+                                                                                                Value="Visible" />
                                                                                         </DataTrigger>
                                                                                     </Style.Triggers>
                                                                                 </Style>
@@ -284,10 +307,14 @@
                                                                         CornerRadius="10">
                                                                         <Border.Style>
                                                                             <Style TargetType="Border">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Setter Property="Visibility"
+                                                                                    Value="Collapsed" />
                                                                                 <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    <DataTrigger
+                                                                                        Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                                                                        Value="True">
+                                                                                        <Setter Property="Visibility"
+                                                                                            Value="Visible" />
                                                                                     </DataTrigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
@@ -295,10 +322,15 @@
                                                                         <TextBlock Text="{Binding Priority.Name}">
                                                                             <TextBlock.Style>
                                                                                 <Style TargetType="TextBlock">
-                                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    <Setter Property="Visibility"
+                                                                                        Value="Collapsed" />
                                                                                     <Style.Triggers>
-                                                                                        <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                                        <DataTrigger
+                                                                                            Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                                                                            Value="True">
+                                                                                            <Setter
+                                                                                                Property="Visibility"
+                                                                                                Value="Visible" />
                                                                                         </DataTrigger>
                                                                                     </Style.Triggers>
                                                                                 </Style>
@@ -308,12 +340,16 @@
 
                                                                 </StackPanel>
 
-                                                                <Border Grid.Row="3" HorizontalAlignment="Left" 
-                                                                        BorderThickness="3" 
-                                                                        BorderBrush="White" 
-                                                                        CornerRadius="10" 
-                                                                        Padding="10" Margin="5">
-                                                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                                <Border
+                                                                    Grid.Row="2"
+                                                                    MaxWidth="{Binding ElementName=ContentBorder, Path=ActualWidth}"
+                                                                    Padding="10"
+                                                                    HorizontalAlignment="Left"
+                                                                    BorderThickness="1"
+                                                                    CornerRadius="2"
+                                                                    Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
+                                                                    <TextBlock Text="{Binding Description}"
+                                                                               TextWrapping="WrapWithOverflow" />
                                                                 </Border>
                                                             </Grid>
                                                         </Border>
@@ -339,12 +375,13 @@
                                         BorderBrush="White"
                                         BorderThickness="1">
                                         <ScrollViewer
+                                            MaxHeight="250"
                                             Margin="0,0,0,5"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch"
                                             CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Auto"
-                                            VerticalScrollBarVisibility="Auto">
+                                            HorizontalScrollBarVisibility="Hidden"
+                                            VerticalScrollBarVisibility="Hidden">
                                             <ItemsControl ItemsSource="{Binding User.IdObjectives}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
@@ -359,8 +396,10 @@
                                                                 <Style TargetType="Border">
                                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                                     <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                        <DataTrigger Binding="{Binding Status}"
+                                                                            Value="True">
+                                                                            <Setter Property="Visibility"
+                                                                                Value="Visible" />
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>

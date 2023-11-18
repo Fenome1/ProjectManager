@@ -5,15 +5,13 @@ using System.Windows.Data;
 
 namespace ProjectManager.Desktop.View.Convertors;
 
-internal class NullToVisibilityConverter : IValueConverter
+public class ObjectivesBorderHeightConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value switch
-        {
-            null => Visibility.Collapsed,
-            _ => Visibility.Visible
-        };
+        if (value is double boardHeight) return boardHeight / 2 - 50;
+
+        return DependencyProperty.UnsetValue;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

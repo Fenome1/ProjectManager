@@ -11,7 +11,7 @@ using ProjectManager.Desktop.ViewModels.Base;
 using ProjectManager.Desktop.ViewModels.Executor;
 using ProjectManager.Desktop.ViewModels.Manager;
 
-namespace ProjectManager.Desktop.ViewModels;
+namespace ProjectManager.Desktop.ViewModels.General;
 
 public partial class AuthViewModel : ViewModelBase
 {
