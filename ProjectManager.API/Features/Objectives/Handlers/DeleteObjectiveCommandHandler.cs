@@ -21,10 +21,10 @@ public class DeleteObjectiveCommandHandler : BaseCommandHandler<ProjectManagerDb
         var objective = await _context.Objectives.FindAsync(request.IdObjective);
 
         if (objective is null)
-            throw new Exception("Çàäà÷à íå íàéäåíà");
+            throw new Exception("Ð—Ð°Ð´Ð°Ñ‡Ð° Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð°");
 
         if (objective.IsDeleted)
-            throw new Exception("Çàäà÷à óæå óäàëåíà");
+            throw new Exception("Ð—Ð°Ð´Ð°Ñ‡Ð° ÑƒÐ¶Ðµ ÑƒÐ´Ð°Ð»ÐµÐ½Ð°");
 
         objective.IsDeleted = true;
 

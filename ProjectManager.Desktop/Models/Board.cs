@@ -20,7 +20,7 @@ public partial class Board : ObservableObject
 
     public ICommand CreateNewBoardCommand => new RelayCommand(async () =>
     {
-        var createBoardDialogWindow = new CreateObjectDialogWindow("Создать доску");
+        var createBoardDialogWindow = new CreateObjectDialogWindow("РЎРѕР·РґР°С‚СЊ РґРѕСЃРєСѓ");
         createBoardDialogWindow.ShowDialog();
 
         if (!createBoardDialogWindow.DialogResult!.Value) return;
@@ -51,8 +51,8 @@ public partial class Board : ObservableObject
 
         if (boardCount <= 1)
         {
-            MessageBox.Show("Невозможно удалить последнюю доску",
-                "Ошибка",
+            MessageBox.Show("РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅСЋСЋ РґРѕСЃРєСѓ",
+                "РћС€РёР±РєР°",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
             return;

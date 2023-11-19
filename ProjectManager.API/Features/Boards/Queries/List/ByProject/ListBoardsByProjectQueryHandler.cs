@@ -17,7 +17,7 @@ public class ListBoardsByProjectQueryHandler : IRequestHandler<ListBoardsByProje
     public async Task<List<Board>> Handle(ListBoardsByProjectQuery request, CancellationToken cancellationToken)
     {
         if (await _context.Projects.FindAsync(request.IdProject) is null)
-            throw new Exception("Проект не найден");
+            throw new Exception("РџСЂРѕРµРєС‚ РЅРµ РЅР°Р№РґРµРЅ");
 
         var boards = await _context.Boards
             .Include(b => b.Columns)
@@ -32,7 +32,7 @@ public class ListBoardsByProjectQueryHandler : IRequestHandler<ListBoardsByProje
             .ToListAsync(cancellationToken);
 
         if (!boards.Any())
-            throw new Exception("Досок по заданному проекту не найдено");
+            throw new Exception("Р”РѕСЃРѕРє РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РїСЂРѕРµРєС‚Сѓ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         return boards;
     }

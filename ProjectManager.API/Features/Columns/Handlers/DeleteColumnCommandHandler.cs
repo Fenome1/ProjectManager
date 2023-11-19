@@ -24,10 +24,10 @@ public class DeleteColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
             .FirstOrDefaultAsync(c => c.IdColumn == request.IdColumn);
 
         if (column is null)
-            throw new Exception("Колонка не найдена");
+            throw new Exception("РљРѕР»РѕРЅРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         if (column.IsDeleted)
-            throw new Exception("Колонка уже удалена");
+            throw new Exception("РљРѕР»РѕРЅРєР° СѓР¶Рµ СѓРґР°Р»РµРЅР°");
 
         HierarchicalDeletion(column);
 

@@ -21,7 +21,7 @@ public class UpdateAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
         var agency = await _context.Agencies.FindAsync(request.IdAgency);
 
         if (agency is null)
-            throw new Exception("Агенство не найдено");
+            throw new Exception("РђРіРµРЅСЃС‚РІРѕ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         if (!string.IsNullOrWhiteSpace(request.Name))
             agency.Name = request.Name;

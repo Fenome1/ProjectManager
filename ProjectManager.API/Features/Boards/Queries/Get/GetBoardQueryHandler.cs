@@ -29,7 +29,7 @@ public class GetBoardQueryHandler : IRequestHandler<GetBoardQuery, Board>
             .FirstOrDefaultAsync(b => b.IdBoard == request.IdBoard);
 
         if (board is null)
-            throw new Exception("Доска не найден");
+            throw new Exception("Р”РѕСЃРєР° РЅРµ РЅР°Р№РґРµРЅ");
 
         return board;
     }

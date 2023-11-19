@@ -25,7 +25,7 @@ public class CreateObjectiveCommandHandler : BaseCommandHandler<ProjectManagerDb
         var column = await _context.Columns.FindAsync(request.IdColumn);
 
         if (column is null)
-            throw new Exception("Привязываемая колонка не найдена");
+            throw new Exception("РџСЂРёРІСЏР·С‹РІР°РµРјР°СЏ РєРѕР»РѕРЅРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         var objective = _mapper.Map<CreateObjectiveCommand, Objective>(request);
 

@@ -125,7 +125,8 @@
                                 CornerRadius="30"
                                 RenderOptions.BitmapScalingMode="HighQuality">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush
+                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -208,8 +209,10 @@
                                                                     <Style TargetType="Border">
                                                                         <Setter Property="Visibility" Value="Visible" />
                                                                         <Style.Triggers>
-                                                                            <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                            <DataTrigger Binding="{Binding Status}"
+                                                                                Value="True">
+                                                                                <Setter Property="Visibility"
+                                                                                    Value="Collapsed" />
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -261,21 +264,32 @@
                                                                             CornerRadius="10">
                                                                             <Border.Style>
                                                                                 <Style TargetType="Border">
-                                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    <Setter Property="Visibility"
+                                                                                        Value="Collapsed" />
                                                                                     <Style.Triggers>
-                                                                                        <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                                        <DataTrigger
+                                                                                            Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                                                                            Value="True">
+                                                                                            <Setter
+                                                                                                Property="Visibility"
+                                                                                                Value="Visible" />
                                                                                         </DataTrigger>
                                                                                     </Style.Triggers>
                                                                                 </Style>
                                                                             </Border.Style>
-                                                                            <TextBlock Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
+                                                                            <TextBlock
+                                                                                Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
                                                                                 <TextBlock.Style>
                                                                                     <Style TargetType="TextBlock">
-                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                        <Setter Property="Visibility"
+                                                                                            Value="Collapsed" />
                                                                                         <Style.Triggers>
-                                                                                            <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                                            <DataTrigger
+                                                                                                Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
+                                                                                                Value="True">
+                                                                                                <Setter
+                                                                                                    Property="Visibility"
+                                                                                                    Value="Visible" />
                                                                                             </DataTrigger>
                                                                                         </Style.Triggers>
                                                                                     </Style>
@@ -295,10 +309,15 @@
                                                                             CornerRadius="10">
                                                                             <Border.Style>
                                                                                 <Style TargetType="Border">
-                                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    <Setter Property="Visibility"
+                                                                                        Value="Collapsed" />
                                                                                     <Style.Triggers>
-                                                                                        <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                                        <DataTrigger
+                                                                                            Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                                                                            Value="True">
+                                                                                            <Setter
+                                                                                                Property="Visibility"
+                                                                                                Value="Visible" />
                                                                                         </DataTrigger>
                                                                                     </Style.Triggers>
                                                                                 </Style>
@@ -306,10 +325,15 @@
                                                                             <TextBlock Text="{Binding Priority.Name}">
                                                                                 <TextBlock.Style>
                                                                                     <Style TargetType="TextBlock">
-                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                        <Setter Property="Visibility"
+                                                                                            Value="Collapsed" />
                                                                                         <Style.Triggers>
-                                                                                            <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
-                                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                                            <DataTrigger
+                                                                                                Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
+                                                                                                Value="True">
+                                                                                                <Setter
+                                                                                                    Property="Visibility"
+                                                                                                    Value="Visible" />
                                                                                             </DataTrigger>
                                                                                         </Style.Triggers>
                                                                                     </Style>
@@ -327,7 +351,8 @@
                                                                         BorderThickness="1"
                                                                         CornerRadius="2"
                                                                         Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
-                                                                        <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
+                                                                        <TextBlock Text="{Binding Description}"
+                                                                            TextWrapping="WrapWithOverflow" />
                                                                     </Border>
                                                                 </Grid>
                                                             </Border>
@@ -374,8 +399,10 @@
                                                                     <Style TargetType="Border">
                                                                         <Setter Property="Visibility" Value="Collapsed" />
                                                                         <Style.Triggers>
-                                                                            <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                            <DataTrigger Binding="{Binding Status}"
+                                                                                Value="True">
+                                                                                <Setter Property="Visibility"
+                                                                                    Value="Visible" />
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>

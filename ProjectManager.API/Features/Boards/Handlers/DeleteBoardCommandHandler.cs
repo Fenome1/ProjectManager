@@ -25,10 +25,10 @@ public class DeleteBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
             .FirstOrDefaultAsync(b => b.IdBoard == request.IdBoard);
 
         if (board is null)
-            throw new Exception("Доска не найдена");
+            throw new Exception("Р”РѕСЃРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         if (board.IsDeleted)
-            throw new Exception("Доска уже удалена");
+            throw new Exception("Р”РѕСЃРєР° СѓР¶Рµ СѓРґР°Р»РµРЅР°");
 
         HierarchicalDeletion(board);
 

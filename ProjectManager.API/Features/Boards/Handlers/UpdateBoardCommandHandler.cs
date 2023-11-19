@@ -21,7 +21,7 @@ public class UpdateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
         var board = await _context.Boards.FindAsync(request.IdBoard);
 
         if (board is null)
-            throw new Exception("Доска не найдена");
+            throw new Exception("Р”РѕСЃРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         if (!string.IsNullOrWhiteSpace(request.Name))
             board.Name = request.Name;

@@ -25,7 +25,7 @@ public class ListColumnsQueryHandler : IRequestHandler<ListColumnsQuery, List<Co
             .ToListAsync(cancellationToken);
 
         if (!columns.Any())
-            throw new Exception("Колонки не найдены");
+            throw new Exception("РљРѕР»РѕРЅРєРё РЅРµ РЅР°Р№РґРµРЅС‹");
 
         return columns;
     }

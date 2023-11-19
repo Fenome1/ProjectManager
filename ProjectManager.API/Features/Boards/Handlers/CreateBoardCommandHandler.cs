@@ -24,7 +24,7 @@ public class CreateBoardCommandHandler : BaseCommandHandler<ProjectManagerDbCont
     public async Task<Board> Handle(CreateBoardCommand request, CancellationToken cancellationToken)
     {
         if (await _context.Projects.FindAsync(request.IdProject) is null)
-            throw new Exception("Привязываеммый проект не найден");
+            throw new Exception("РџСЂРёРІСЏР·С‹РІР°РµРјРјС‹Р№ РїСЂРѕРµРєС‚ РЅРµ РЅР°Р№РґРµРЅ");
 
         var board = _mapper.Map<CreateBoardCommand, Board>(request);
 

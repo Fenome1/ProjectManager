@@ -25,7 +25,6 @@ public class UserImageConverter : IValueConverter
             return LoadImageFromPath(user.Theme == (int)Themes.Primary ? PrimaryImagePath : SecondaryImagePath);
 
         return LoadImageFromBytes(user.Image);
-
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

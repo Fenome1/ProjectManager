@@ -31,7 +31,7 @@ public class ListProjectsQueryHandler : IRequestHandler<ListProjectsQuery, List<
             .ToListAsync();
 
         if (!projects.Any())
-            throw new Exception("Проекты не найдены");
+            throw new Exception("РџСЂРѕРµРєС‚С‹ РЅРµ РЅР°Р№РґРµРЅС‹");
 
         return projects;
     }

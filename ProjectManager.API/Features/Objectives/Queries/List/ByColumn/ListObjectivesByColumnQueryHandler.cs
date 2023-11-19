@@ -23,7 +23,7 @@ public class ListObjectivesByColumnQueryHandler : IRequestHandler<ListObjectives
             .ToListAsync();
 
         if (!objectives.Any())
-            throw new Exception("Заданий не найдено");
+            throw new Exception("Р—Р°РґР°РЅРёР№ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         return objectives;
     }

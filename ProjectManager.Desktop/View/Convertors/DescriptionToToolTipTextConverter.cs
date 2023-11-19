@@ -11,7 +11,7 @@ public class DescriptionToToolTipTextConverter : IValueConverter
         var description = (string)value;
 
         if (string.IsNullOrEmpty(description))
-            description = "Агетнство";
+            description = "РђРіРµС‚РЅСЃС‚РІРѕ";
 
         return description;
     }

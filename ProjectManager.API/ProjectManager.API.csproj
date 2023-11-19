@@ -1,47 +1,47 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.1.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="7.1.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0"/>
+        <PackageReference Include="AutoMapper" Version="12.0.1"/>
+        <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="7.2.0"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+        <PackageReference Include="MediatR" Version="12.1.1"/>
+        <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Boards\Commands\" />
-    <Folder Include="Features\Boards\Handlers\" />
-    <Folder Include="Features\Boards\Queries\List\ByProject\" />
-    <Folder Include="Features\Colors\List\" />
-    <Folder Include="Features\Columns\Handlers\" />
-    <Folder Include="Features\Columns\Queries\Get\" />
-    <Folder Include="Features\Objectives\Commands\" />
-    <Folder Include="Features\Objectives\Handlers\" />
-    <Folder Include="Features\Objectives\Queries\Get\" />
-    <Folder Include="Features\Roles\List\" />
-    <Folder Include="Features\Users\Handlers\" />
-    <Folder Include="Features\Users\Queries\Get\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Features\Boards\Commands\"/>
+        <Folder Include="Features\Boards\Handlers\"/>
+        <Folder Include="Features\Boards\Queries\List\ByProject\"/>
+        <Folder Include="Features\Colors\List\"/>
+        <Folder Include="Features\Columns\Handlers\"/>
+        <Folder Include="Features\Columns\Queries\Get\"/>
+        <Folder Include="Features\Objectives\Commands\"/>
+        <Folder Include="Features\Objectives\Handlers\"/>
+        <Folder Include="Features\Objectives\Queries\Get\"/>
+        <Folder Include="Features\Roles\List\"/>
+        <Folder Include="Features\Users\Handlers\"/>
+        <Folder Include="Features\Users\Queries\Get\"/>
+    </ItemGroup>
 
 </Project>

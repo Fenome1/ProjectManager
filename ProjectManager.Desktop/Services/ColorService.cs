@@ -20,7 +20,7 @@ public static class ColorService
         }
         catch (FlurlHttpException ex)
         {
-            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            Console.WriteLine($"РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё Р·Р°РїСЂРѕСЃР°: {ex.Message}");
             return null;
         }
     }

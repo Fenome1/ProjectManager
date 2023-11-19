@@ -62,6 +62,7 @@ public partial class ExecutorWindow : Window
     {
         await _signalRExecutorClient.StopConnection();
     }
+
     private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var profileEditWindow = new ProfileEditWindow();

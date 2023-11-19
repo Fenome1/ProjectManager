@@ -23,7 +23,7 @@ public class CreateColumnCommandHandler : BaseCommandHandler<ProjectManagerDbCon
     public async Task<Column> Handle(CreateColumnCommand request, CancellationToken cancellationToken)
     {
         if (await _context.Boards.FindAsync(request.IdBoard) is null)
-            throw new Exception("Привязываемая доска не найдена");
+            throw new Exception("РџСЂРёРІСЏР·С‹РІР°РµРјР°СЏ РґРѕСЃРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         var column = _mapper.Map<CreateColumnCommand, Column>(request);
 

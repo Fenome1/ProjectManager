@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
-using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
 using static ProjectManager.Desktop.ViewModels.General.ProfileEditViewModel;
 
@@ -36,6 +34,6 @@ public partial class ProfileEditWindow : Window
     {
         var checkBox = (CheckBox)sender;
 
-        checkBox.IsChecked = (Themes)ProfileEditVM.User.Theme != Themes.Primary ;
+        checkBox.IsChecked = (Themes)ProfileEditVM.User.Theme != Themes.Primary;
     }
 }

@@ -30,7 +30,7 @@ public class ListBoardsQueryHandler : IRequestHandler<ListBoardsQuery, List<Boar
                 .ToListAsync();
 
             if (!boards.Any())
-                throw new Exception("Проекты не найдены");
+                throw new Exception("РџСЂРѕРµРєС‚С‹ РЅРµ РЅР°Р№РґРµРЅС‹");
 
             return boards;
         }

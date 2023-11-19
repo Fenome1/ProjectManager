@@ -18,7 +18,7 @@ public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAg
     public async Task<List<Project>> Handle(ListProjectsByAgencyQuery request, CancellationToken cancellationToken)
     {
         if (await _context.Agencies.FindAsync(request.IdAgency) is null)
-            throw new Exception("Агенство не найдено");
+            throw new Exception("РђРіРµРЅСЃС‚РІРѕ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         var projects = await _context.Projects
             .Include(p => p.Boards)
@@ -35,7 +35,7 @@ public class ListProjectsByAgencyQueryHandler : IRequestHandler<ListProjectsByAg
             .ToListAsync(cancellationToken);
 
         if (!projects.Any())
-            throw new Exception("Проектов по заданному агенству не найдено");
+            throw new Exception("РџСЂРѕРµРєС‚РѕРІ РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ Р°РіРµРЅСЃС‚РІСѓ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         return projects;
     }

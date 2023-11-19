@@ -22,7 +22,7 @@ public class GetObjectiveQueryHandler : IRequestHandler<GetObjectiveQuery, Objec
             .FirstOrDefaultAsync(o => o.IdObjective == request.IdObjective);
 
         if (objective is null)
-            throw new Exception("Ηΰδΰχΰ νε νΰιδενΰ");
+            throw new Exception("Π—Π°Π΄Π°Ρ‡Π° Π½Πµ Π½Π°ΠΉΠ΄ΠµΠ½Π°");
 
         return objective;
     }

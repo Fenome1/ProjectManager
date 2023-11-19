@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjectManager.API.Models;
 
 namespace ProjectManager.API.Context;
@@ -37,7 +35,9 @@ public partial class ProjectManagerDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ProjectManagerLocal");
+    {
+        optionsBuilder.UseSqlServer("Name=ProjectManagerLocal");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

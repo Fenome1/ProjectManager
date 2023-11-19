@@ -139,9 +139,7 @@ public class UserService
         catch (FlurlHttpException ex)
         {
             if (ex.StatusCode == (int)FtpStatusCode.ServiceNotAvailable)
-            {
                 MessageBox.Show("Ошибка, подключения к серверу");
-            }
             Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 

@@ -17,7 +17,7 @@ public class ListColumnsByBoardsQueryHandler : IRequestHandler<ListColumnsByBoar
     public async Task<List<Column>> Handle(ListColumnsByBoardQuery request, CancellationToken cancellationToken)
     {
         if (await _context.Boards.FindAsync(request.IdBoard) is null)
-            throw new Exception("Доска не найдена");
+            throw new Exception("Р”РѕСЃРєР° РЅРµ РЅР°Р№РґРµРЅР°");
 
         var columns = await _context.Columns
             .Include(c => c.Objectives
@@ -29,7 +29,7 @@ public class ListColumnsByBoardsQueryHandler : IRequestHandler<ListColumnsByBoar
             .ToListAsync(cancellationToken);
 
         if (!columns.Any())
-            throw new Exception("Колонок по заданной доске не найдено");
+            throw new Exception("РљРѕР»РѕРЅРѕРє РїРѕ Р·Р°РґР°РЅРЅРѕР№ РґРѕСЃРєРµ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         return columns;
     }

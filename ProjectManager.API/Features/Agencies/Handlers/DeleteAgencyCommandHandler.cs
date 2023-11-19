@@ -27,7 +27,7 @@ public class DeleteAgencyCommandHandler : BaseCommandHandler<ProjectManagerDbCon
             .FirstOrDefaultAsync(a => a.IdAgency == request.IdAgency);
 
         if (agency == null)
-            throw new Exception("Агенство не найдено");
+            throw new Exception("РђРіРµРЅСЃС‚РІРѕ РЅРµ РЅР°Р№РґРµРЅРѕ");
 
         HierarchicalDeletion(agency);
 

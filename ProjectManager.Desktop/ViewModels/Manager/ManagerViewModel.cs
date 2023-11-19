@@ -13,7 +13,6 @@ using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
-using ProjectManager.Desktop.View.General;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.ViewModels.Base;
 

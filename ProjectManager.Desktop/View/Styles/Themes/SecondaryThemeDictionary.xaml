@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/View/Styles/Colors/ThemesColors.xaml" />
@@ -99,14 +100,20 @@
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -151,7 +158,8 @@
                             <Setter TargetName="Border" Property="Background" Value="White" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource FivefoldColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{DynamicResource FivefoldColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
