@@ -69,4 +69,11 @@ public partial class ExecutorWindow : Window
         ProfileEditViewModel.ProfileEditVM.User = (User)ExecutorVm.User.Clone();
         profileEditWindow.ShowDialog();
     }
+
+    private void ExitButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new AuthWindow().Show();
+        Close();
+        ExecutorVm.Dispose();
+    }
 }
