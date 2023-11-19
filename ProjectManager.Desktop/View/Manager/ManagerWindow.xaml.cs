@@ -104,4 +104,11 @@ public partial class ManagerWindow : Window
         ProfileEditViewModel.ProfileEditVM.User = (User)ManagerVm.User.Clone();
         profileEditWindow.ShowDialog();
     }
+
+    private void ExitButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        new AuthWindow().Show();
+        Close();
+        ManagerVm.Dispose();
+    }
 }

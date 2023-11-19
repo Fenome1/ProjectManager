@@ -14,7 +14,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance manager:ManagerViewModel,
-    IsDesignTimeCreatable=True}"
+                                     IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="ManagerWindow_OnClosed"
@@ -160,6 +160,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
+                                Click="ExitButton_OnClick"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource ExitIconStyle}" />
                         </Grid>

@@ -2,8 +2,6 @@
 
 public enum Roles
 {
-    Admin = 1,
-    Executor = 2,
-    Manager = 3,
-    DefaultUser = 4
+    Executor = 1,
+    Manager = 2
 }

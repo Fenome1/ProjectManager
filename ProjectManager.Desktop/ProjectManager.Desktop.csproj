@@ -8,62 +8,62 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Black.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-BlackItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Bold.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-BoldItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Book.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-BookItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Light.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-LightItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Medium.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-MediumItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-Semibold.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\Whitney-SemiboldItalic.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdBd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdCnLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdMd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqBd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqCnLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqLight.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqMd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdBd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdCnLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdMd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqBd.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqCnLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqLt.ttf"/>
-        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf"/>
-        <None Remove="Assets\fullScreen.png"/>
-        <None Remove="Assets\hide.png"/>
-        <None Remove="Assets\Images\exit.png"/>
-        <None Remove="Assets\Images\PrimaryTheme\exit.png"/>
-        <None Remove="Assets\Images\PrimaryTheme\fullScreen.png"/>
-        <None Remove="Assets\Images\PrimaryTheme\hide.png"/>
-        <None Remove="Assets\Images\PrimaryTheme\user.png"/>
-        <None Remove="Assets\Images\PrimaryTheme\xCross.png"/>
-        <None Remove="Assets\Images\SecondaryTheme\exit.png"/>
-        <None Remove="Assets\Images\SecondaryTheme\fullScreen.png"/>
-        <None Remove="Assets\Images\SecondaryTheme\hide.png"/>
-        <None Remove="Assets\Images\SecondaryTheme\user.png"/>
-        <None Remove="Assets\Images\SecondaryTheme\xCross.png"/>
-        <None Remove="Assets\Images\user.png"/>
-        <None Remove="Assets\WhitneyMedium.ttf"/>
-        <None Remove="Assets\xCross.png"/>
+        <None Remove="Assets\Fonts\Whitney\Whitney-Black.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-BlackItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-Bold.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-BoldItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-Book.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-BookItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-Light.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-LightItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-Medium.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-MediumItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-Semibold.ttf" />
+        <None Remove="Assets\Fonts\Whitney\Whitney-SemiboldItalic.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdBd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdCnLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-RdMd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqBd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqCnLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqLight.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexBlack-SqMd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdBd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdCnLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-RdMd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqBd.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqCnLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqLt.ttf" />
+        <None Remove="Assets\Fonts\Whitney\WhitneyIndexWhite-SqMd.ttf" />
+        <None Remove="Assets\fullScreen.png" />
+        <None Remove="Assets\hide.png" />
+        <None Remove="Assets\Images\exit.png" />
+        <None Remove="Assets\Images\PrimaryTheme\exit.png" />
+        <None Remove="Assets\Images\PrimaryTheme\fullScreen.png" />
+        <None Remove="Assets\Images\PrimaryTheme\hide.png" />
+        <None Remove="Assets\Images\PrimaryTheme\user.png" />
+        <None Remove="Assets\Images\PrimaryTheme\xCross.png" />
+        <None Remove="Assets\Images\SecondaryTheme\exit.png" />
+        <None Remove="Assets\Images\SecondaryTheme\fullScreen.png" />
+        <None Remove="Assets\Images\SecondaryTheme\hide.png" />
+        <None Remove="Assets\Images\SecondaryTheme\user.png" />
+        <None Remove="Assets\Images\SecondaryTheme\xCross.png" />
+        <None Remove="Assets\Images\user.png" />
+        <None Remove="Assets\WhitneyMedium.ttf" />
+        <None Remove="Assets\xCross.png" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="7.1.0"/>
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0"/>
-        <PackageReference Include="AutoMapper" Version="12.0.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
-        <PackageReference Include="Flurl.Http" Version="3.2.4"/>
-        <PackageReference Include="MaterialDesignThemes" Version="4.9.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Autofac" Version="7.1.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="Flurl.Http" Version="3.2.4" />
+        <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -169,10 +169,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Common\Config\Modules\"/>
-        <Folder Include="Common\Handlers\"/>
-        <Folder Include="Models\Enums\"/>
-        <Folder Include="ViewModels\Executor\"/>
+        <Folder Include="Common\Config\Modules\" />
+        <Folder Include="Common\Handlers\" />
+        <Folder Include="Models\Enums\" />
+        <Folder Include="ViewModels\Executor\" />
     </ItemGroup>
 
     <ItemGroup>

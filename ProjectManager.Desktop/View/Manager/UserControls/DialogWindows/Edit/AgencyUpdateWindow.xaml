@@ -5,30 +5,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Изменить агенство"
-    Width="420"
-    Height="340"
+    Width="600"
+    Height="500"
+    MinWidth="480"
+    MinHeight="470"
     Style="{DynamicResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid
+        Margin="10"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
         <Border
-            Padding="15"
+            Padding="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             BorderBrush="White"
             BorderThickness="2"
-            CornerRadius="25">
-            <StackPanel>
-
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            CornerRadius="10">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <Label
                         Margin="5"
-                        VerticalContentAlignment="Center"
+                        VerticalContentAlignment="Stretch"
                         Content="Название: " />
                     <TextBox
                         x:Name="NameTextBox"
-                        Width="200"
-                        MaxWidth="200"
+                        MinWidth="300"
+                        MaxWidth="500"
                         Margin="5"
+                        Padding="15"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Background="Transparent"
@@ -43,17 +50,18 @@
 
                 <StackPanel
                     Margin="0,0,0,20"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    VerticalAlignment="Stretch"
+                    Orientation="Vertical">
                     <Label
                         Margin="5"
                         VerticalContentAlignment="Center"
                         Content="Описание: " />
                     <TextBox
                         x:Name="DescriptionTextBox"
-                        Width="200"
-                        MaxWidth="200"
+                        MinWidth="400"
+                        MaxWidth="500"
                         Margin="5"
+                        Padding="15"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Background="Transparent"
@@ -61,6 +69,7 @@
                         BorderThickness="1"
                         FontSize="17"
                         KeyDown="TextBoxes_OnKeyDown"
+                        MaxLength="500"
                         TextWrapping="WrapWithOverflow" />
                 </StackPanel>
 

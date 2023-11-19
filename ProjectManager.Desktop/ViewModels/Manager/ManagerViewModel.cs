@@ -18,7 +18,7 @@ using ProjectManager.Desktop.ViewModels.Base;
 
 namespace ProjectManager.Desktop.ViewModels.Manager;
 
-public partial class ManagerViewModel : ViewModelBase
+public partial class ManagerViewModel : ViewModelBase, IDisposable
 {
     [ObservableProperty] private ObservableCollection<Agency> _agencies = new();
 
@@ -26,9 +26,9 @@ public partial class ManagerViewModel : ViewModelBase
 
     [ObservableProperty] private Project? _selectedProject;
 
-    [ObservableProperty] private User _user;
+    [ObservableProperty] private User? _user;
 
-    public ManagerViewModel()
+    private ManagerViewModel()
     {
         ManagerVm = this;
     }
@@ -101,6 +101,15 @@ public partial class ManagerViewModel : ViewModelBase
 
             await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
         });
+
+    public void Dispose()
+    {
+        Agencies.Clear();
+        SelectedAgency = null;
+        SelectedProject = null;
+        User = null;
+        GC.SuppressFinalize(this);
+    }
 
     //loadTree
     public async Task LoadTreeAsync()

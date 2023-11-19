@@ -1,28 +1,21 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ProjectManager.Desktop.ViewModels.General.AuthViewModel;
+using static ProjectManager.Desktop.ViewModels.General.RegViewModel;
 
 namespace ProjectManager.Desktop.View.General;
 
-public partial class AuthWindow : Window
+public partial class RegWindow : Window
 {
-    public AuthWindow()
+    public RegWindow()
     {
         InitializeComponent();
-        DataContext = AuthVm;
+        DataContext = RegVM;
     }
 
     private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         DragMove();
-    }
-
-    private void WindowSizeChange_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        WindowState = WindowState == WindowState.Maximized
-            ? WindowState.Normal
-            : WindowState.Maximized;
     }
 
     private void HideWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -37,13 +30,22 @@ public partial class AuthWindow : Window
 
     private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        AuthVm.Password = ((PasswordBox)sender).Password;
+        RegVM.Password = ((PasswordBox)sender).Password;
     }
 
-    private void ToRegButton_OnClick(object sender, RoutedEventArgs e)
+    private void ConfirmPasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        var regWindow = new RegWindow();
-        regWindow.Show();
+        RegVM.PasswordConfirm = ((PasswordBox)sender).Password;
+    }
+
+    private void ToAuthButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var authWindow = new AuthWindow();
+        authWindow.Show();
         Close();
+    }
+
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
     }
 }

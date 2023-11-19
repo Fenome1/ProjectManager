@@ -17,7 +17,7 @@ using ProjectManager.Desktop.ViewModels.Base;
 
 namespace ProjectManager.Desktop.ViewModels.Executor;
 
-public partial class ExecutorViewModel : ViewModelBase
+public partial class ExecutorViewModel : ViewModelBase, IDisposable
 {
     [ObservableProperty] private User _user;
 
@@ -69,6 +69,12 @@ public partial class ExecutorViewModel : ViewModelBase
     {
         await UserService.UpdateAsync(_user.IdUser, isImageReset: true);
     });
+
+    public void Dispose()
+    {
+        User = null;
+        GC.SuppressFinalize(true);
+    }
 
     //Assign
     public async Task ObjectiveAddAssignAsync(int idObjective)
