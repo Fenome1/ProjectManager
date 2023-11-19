@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public class Column
+public partial class Column
 {
     public int IdColumn { get; set; }
 

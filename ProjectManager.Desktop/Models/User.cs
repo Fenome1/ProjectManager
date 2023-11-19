@@ -9,20 +9,23 @@ using ProjectManager.Desktop.Services;
 namespace ProjectManager.Desktop.Models;
 
 public partial class User : ObservableObject
-
 {
-    [ObservableProperty] private string? _fullname;
-
-    [ObservableProperty] private ObservableCollection<Objective>? _idObjectives;
+ 
     [ObservableProperty] private int _idUser;
-
-    [ObservableProperty] private byte[]? _image;
 
     [ObservableProperty] private string _login = null!;
 
     [ObservableProperty] private int _role;
 
+    [ObservableProperty] private string? _firstName;
+
+    [ObservableProperty] private string? _lastName;
+
     [ObservableProperty] private int _theme;
+
+    [ObservableProperty] private byte[]? _image;
+
+    [ObservableProperty] private ObservableCollection<Objective>? _idObjectives;
 
     public ICommand AssignUserCommand => new RelayCommand<object>(async parameter =>
     {

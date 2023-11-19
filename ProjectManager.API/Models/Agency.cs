@@ -1,6 +1,10 @@
-﻿namespace ProjectManager.API.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-public class Agency
+namespace ProjectManager.API.Models;
+
+public partial class Agency
 {
     public int IdAgency { get; set; }
 

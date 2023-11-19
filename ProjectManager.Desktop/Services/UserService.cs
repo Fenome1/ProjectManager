@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 using Flurl;
 using Flurl.Http;
 using Newtonsoft.Json;
@@ -66,7 +68,8 @@ public class UserService
     public static async Task<bool> UpdateAsync(int idUser,
         string? login = null,
         string? password = null,
-        string? fullName = null,
+        string? firstName = null,
+        string? lastName = null,
         int? theme = null,
         byte[]? image = null,
         bool isImageReset = false)
@@ -76,7 +79,8 @@ public class UserService
             IdUser = idUser,
             Login = login,
             Password = password,
-            FullName = fullName,
+            FirstName = firstName,
+            LastName = lastName,
             Theme = theme,
             Image = image,
             IsImageReset = isImageReset
@@ -134,6 +138,10 @@ public class UserService
         }
         catch (FlurlHttpException ex)
         {
+            if (ex.StatusCode == (int)FtpStatusCode.ServiceNotAvailable)
+            {
+                MessageBox.Show("Ошибка, подключения к серверу");
+            }
             Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
         }
 

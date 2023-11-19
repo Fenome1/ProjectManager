@@ -22,8 +22,11 @@ public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
 
         if (user is null) throw new Exception("Пользователь не найден");
 
-        if (!string.IsNullOrWhiteSpace(request.FullName))
-            user.FullName = request.FullName;
+        if (!string.IsNullOrWhiteSpace(request.FirstName))
+            user.FirstName = request.FirstName;
+
+        if (!string.IsNullOrWhiteSpace(request.LastName))
+            user.LastName = request.LastName;
 
         if (!string.IsNullOrWhiteSpace(request.Login))
             user.Login = request.Login;

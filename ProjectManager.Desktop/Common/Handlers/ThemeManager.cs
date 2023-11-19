@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
@@ -10,7 +11,7 @@ public static class ThemeManager
 {
     private static readonly string _themePath = "/View/Styles/Themes";
 
-    public static async void SetTheme(User user, Themes theme)
+    public static async Task SetThemeAsync(User user, Themes theme)
     {
         var path = _themePath;
 

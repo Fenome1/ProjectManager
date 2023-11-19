@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using ProjectManager.Desktop.Common.Config.Executor;
 using ProjectManager.Desktop.Common.Handlers;
+using ProjectManager.Desktop.View.General;
+using ProjectManager.Desktop.ViewModels.General;
 using static ProjectManager.Desktop.ViewModels.Executor.ExecutorViewModel;
 
 namespace ProjectManager.Desktop.View.Executor;
@@ -58,5 +60,11 @@ public partial class ExecutorWindow : Window
     private async void ExecutorWindow_OnClosed(object? sender, EventArgs e)
     {
         await _signalRExecutorClient.StopConnection();
+    }
+    private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        var profileEditWindow = new ProfileEditWindow();
+        ProfileEditViewModel.ProfileEditVM.User = ExecutorVm.User;
+        profileEditWindow.ShowDialog();
     }
 }

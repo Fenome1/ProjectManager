@@ -32,421 +32,400 @@
             <convertors:UserImageConverter x:Key="UserImageConverter" />
         </ResourceDictionary>
     </Window.Resources>
+    <Border Style="{DynamicResource WindowBorderStyle}">
+        <Grid>
+            <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
+            <Grid x:Name="MainGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto"
+                        MinHeight="30"
+                        MaxHeight="30" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-    <Grid>
-        <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
-        <Grid x:Name="MainGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="Auto"
-                    MinHeight="30"
-                    MaxHeight="30" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+                <!--  Граница приложения с иконками  -->
+                <Border
+                    Grid.Row="0"
+                    Height="50"
+                    MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown"
+                    Style="{DynamicResource WindowBarStyle}">
 
-            <!--  Граница приложения с иконками  -->
-            <Border
-                Grid.Row="0"
-                Height="50"
-                MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown"
-                Style="{DynamicResource WindowBarStyle}">
-
-                <WrapPanel
-                    Margin="0,0,25,20"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-
-                    <Image
-                        Width="29"
-                        Margin="0,0,15,0"
-                        HorizontalAlignment="Center"
+                    <WrapPanel
+                        Margin="0,0,25,20"
+                        HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
-                        Style="{DynamicResource HideIconStyle}" />
+                        Orientation="Horizontal">
 
-                    <Image
-                        Width="29"
-                        Margin="0,0,15,0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
-                        Style="{DynamicResource MaxIconStyle}" />
+                        <Image
+                            Width="29"
+                            Margin="0,0,15,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            MouseLeftButtonDown="HideWindow_OnMouseLeftButtonDown"
+                            Style="{DynamicResource HideIconStyle}" />
 
-                    <Image
-                        Width="29"
-                        Height="23"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown"
-                        Style="{DynamicResource CloseIconStyle}" />
+                        <Image
+                            Width="29"
+                            Margin="0,0,15,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            MouseLeftButtonDown="WindowSizeChange_OnMouseLeftButtonDown"
+                            Style="{DynamicResource MaxIconStyle}" />
 
-                </WrapPanel>
-            </Border>
+                        <Image
+                            Width="29"
+                            Height="23"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            MouseLeftButtonDown="CloseWindow_OnMouseLeftButtonDown"
+                            Style="{DynamicResource CloseIconStyle}" />
 
-            <!--  Основной контент приложения  -->
-            <Grid
-                x:Name="ContentGrid"
-                Grid.Row="1"
-                Margin="10,0,10,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="4*" />
-                </Grid.ColumnDefinitions>
+                    </WrapPanel>
+                </Border>
 
-                <!--  Пользователь и агенства/проекты  -->
+                <!--  Основной контент приложения  -->
                 <Grid
-                    x:Name="UserAndAgenciesContentGrid"
-                    Grid.Column="0"
-                    MinWidth="200"
-                    Margin="0,10,10,10">
+                    x:Name="ContentGrid"
+                    Grid.Row="1"
+                    Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                    <!--  Пользователь и агенства/проекты  -->
+                    <Grid
+                        x:Name="UserAndAgenciesContentGrid"
+                        Grid.Column="0"
+                        MinWidth="200"
+                        Margin="0,10,10,10">
 
-                    <!--  Вывод фото и имени пользователя  -->
-                    <Grid Grid.Row="0" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        <!--  Вывод фото и имени пользователя  -->
+                        <Grid Grid.Row="0" Margin="0,10,0,0">
 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Grid.Column="0"
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,10,0"
+                                BorderBrush="White"
+                                BorderThickness="1"
+                                CornerRadius="30"
+                                RenderOptions.BitmapScalingMode="HighQuality">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                </Border.Background>
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Command="{Binding UploadProfilePhotoCommand}" Header="Загрузить фото" />
+                                        <MenuItem
+                                            Command="{Binding ClearProfilePhotoCommand}"
+                                            Header="Удалить фото"
+                                            Visibility="{Binding User.Image, Converter={StaticResource NullToVisibilityConverter}}" />
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                d:Text="Fenome1"
+                                MouseLeftButtonUp="LoginTextBlock_OnMouseLeftButtonUp"
+                                Style="{DynamicResource ProfileNameStyle}"
+                                Text="{Binding User.Login}"
+                                TextWrapping="Wrap" />
+
+                            <Button
+                                Grid.Column="2"
+                                Width="20"
+                                Height="20"
+                                Margin="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Command="{Binding ChangeThemeCommand}"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Style="{DynamicResource ExitIconStyle}" />
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Column="1">
                         <Border
-                            Grid.Column="0"
-                            Width="40"
-                            Height="40"
-                            Margin="0,0,10,0"
+                            x:Name="ObjectivesContent"
+                            Margin="10"
+                            VerticalAlignment="Stretch"
                             BorderBrush="White"
                             BorderThickness="1"
-                            CornerRadius="30"
-                            RenderOptions.BitmapScalingMode="HighQuality">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
-                            </Border.Background>
-                            <Border.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Command="{Binding UploadProfilePhotoCommand}" Header="Загрузить фото" />
-                                    <MenuItem
-                                        Command="{Binding ClearProfilePhotoCommand}"
-                                        Header="Удалить фото"
-                                        Visibility="{Binding User.Image, Converter={StaticResource NullToVisibilityConverter}}" />
-                                </ContextMenu>
-                            </Border.ContextMenu>
-                        </Border>
+                            CornerRadius="2">
+                            <StackPanel
+                                Margin="10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                                <Border Margin="10,10,10,0">
+                                    <StackPanel>
+                                        <Border
+                                            Padding="5"
+                                            BorderBrush="White"
+                                            BorderThickness="1,1,1,0">
+                                            <TextBlock Text="Выполняемые задачи" />
+                                        </Border>
+                                        <Border
+                                            x:Name="ContentBorder"
+                                            Padding="5"
+                                            BorderBrush="White"
+                                            BorderThickness="1">
 
-                        <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            d:Text="Fenome1"
-                            Style="{DynamicResource ProfileNameStyle}"
-                            Text="{Binding User.Login}"
-                            TextWrapping="Wrap" />
+                                            <ScrollViewer
+                                                MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource ObjectivesBorderHeightConverter}}"
+                                                Margin="0,0,0,5"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                CanContentScroll="True"
+                                                HorizontalScrollBarVisibility="Hidden"
+                                                VerticalScrollBarVisibility="Hidden">
+                                                <ItemsControl ItemsSource="{Binding User.IdObjectives}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border
+                                                                Margin="5"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"
+                                                                BorderBrush="White"
+                                                                BorderThickness="3"
+                                                                CornerRadius="10">
+                                                                <Border.Style>
+                                                                    <Style TargetType="Border">
+                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                    </Grid.RowDefinitions>
 
-                        <Button
-                            Grid.Column="2"
-                            Width="20"
-                            Height="20"
-                            Margin="5"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            BorderThickness="0"
-                            Command="{Binding ChangeThemeCommand}"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Style="{DynamicResource ExitIconStyle}" />
-                    </Grid>
+                                                                    <Grid Grid.Row="0">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                        </Grid.ColumnDefinitions>
 
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Border
-                        x:Name="ObjectivesContent"
-                        Margin="10"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        CornerRadius="2">
-                        <StackPanel
-                            Margin="10"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-                            <Border Margin="10,10,10,0">
-                                <StackPanel>
-                                    <Border
-                                        Padding="5"
-                                        BorderBrush="White"
-                                        BorderThickness="1,1,1,0">
-                                        <TextBlock Text="Выполняемые задачи" />
-                                    </Border>
-                                    <Border
-                                        x:Name="ContentBorder"
-                                        Padding="5"
-                                        BorderBrush="White"
-                                        BorderThickness="1">
+                                                                        <!--  Чекбокс для статуса  -->
+                                                                        <CheckBox
+                                                                            Margin="5"
+                                                                            VerticalAlignment="Center"
+                                                                            Command="{Binding UpdateStatusCommand}"
+                                                                            CommandParameter="{Binding}"
+                                                                            FontSize="25"
+                                                                            IsChecked="{Binding Status}" />
 
-                                        <ScrollViewer
-                                            MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource ObjectivesBorderHeightConverter}}"
-                                            Margin="0,0,0,5"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Hidden"
-                                            VerticalScrollBarVisibility="Hidden">
-                                            <ItemsControl ItemsSource="{Binding User.IdObjectives}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Border
-                                                            Margin="5"
-                                                            HorizontalAlignment="Stretch"
-                                                            VerticalAlignment="Stretch"
-                                                            BorderBrush="White"
-                                                            BorderThickness="3"
-                                                            CornerRadius="10">
-                                                            <Border.Style>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="Visibility" Value="Visible" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}"
-                                                                            Value="True">
-                                                                            <Setter Property="Visibility"
-                                                                                Value="Collapsed" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Border.Style>
-                                                            <Grid>
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*" />
-                                                                    <RowDefinition Height="*" />
-                                                                    <RowDefinition Height="*" />
-                                                                </Grid.RowDefinitions>
-
-                                                                <Grid Grid.Row="0">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="Auto" />
-                                                                        <ColumnDefinition Width="Auto" />
-                                                                        <ColumnDefinition Width="Auto" />
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <!--  Чекбокс для статуса  -->
-                                                                    <CheckBox
-                                                                        Margin="5"
-                                                                        VerticalAlignment="Center"
-                                                                        Command="{Binding UpdateStatusCommand}"
-                                                                        CommandParameter="{Binding}"
-                                                                        FontSize="25"
-                                                                        IsChecked="{Binding Status}" />
-
-                                                                    <!--  Имя задачи  -->
-                                                                    <TextBlock
-                                                                        Grid.Column="1"
-                                                                        MaxWidth="180"
-                                                                        Margin="5"
-                                                                        VerticalAlignment="Center"
-                                                                        Text="{Binding Name}"
-                                                                        TextWrapping="Wrap" />
-                                                                </Grid>
-
-                                                                <StackPanel Grid.Row="1" Orientation="Horizontal">
-
-                                                                    <!--  Если есть дедлайн, отображаем его  -->
-                                                                    <Border
-                                                                        Margin="5"
-                                                                        Padding="5"
-                                                                        HorizontalAlignment="Left"
-                                                                        VerticalAlignment="Center"
-                                                                        Background="White"
-                                                                        BorderBrush="White"
-                                                                        BorderThickness="2"
-                                                                        CornerRadius="10">
-                                                                        <Border.Style>
-                                                                            <Style TargetType="Border">
-                                                                                <Setter Property="Visibility"
-                                                                                    Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <DataTrigger
-                                                                                        Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                                                                        Value="True">
-                                                                                        <Setter Property="Visibility"
-                                                                                            Value="Visible" />
-                                                                                    </DataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Border.Style>
+                                                                        <!--  Имя задачи  -->
                                                                         <TextBlock
-                                                                            Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
-                                                                            <TextBlock.Style>
-                                                                                <Style TargetType="TextBlock">
-                                                                                    <Setter Property="Visibility"
-                                                                                        Value="Collapsed" />
+                                                                            Grid.Column="1"
+                                                                            MaxWidth="180"
+                                                                            Margin="5"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding Name}"
+                                                                            TextWrapping="Wrap" />
+                                                                    </Grid>
+
+                                                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                                                                        <!--  Если есть дедлайн, отображаем его  -->
+                                                                        <Border
+                                                                            Margin="5"
+                                                                            Padding="5"
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Center"
+                                                                            Background="White"
+                                                                            BorderBrush="White"
+                                                                            BorderThickness="2"
+                                                                            CornerRadius="10">
+                                                                            <Border.Style>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="Visibility" Value="Collapsed" />
                                                                                     <Style.Triggers>
-                                                                                        <DataTrigger
-                                                                                            Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                                                                            Value="True">
-                                                                                            <Setter
-                                                                                                Property="Visibility"
-                                                                                                Value="Visible" />
+                                                                                        <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                                                                            <Setter Property="Visibility" Value="Visible" />
                                                                                         </DataTrigger>
                                                                                     </Style.Triggers>
                                                                                 </Style>
-                                                                            </TextBlock.Style>
-                                                                        </TextBlock>
-                                                                    </Border>
+                                                                            </Border.Style>
+                                                                            <TextBlock Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
+                                                                                <TextBlock.Style>
+                                                                                    <Style TargetType="TextBlock">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                        <Style.Triggers>
+                                                                                            <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                                            </DataTrigger>
+                                                                                        </Style.Triggers>
+                                                                                    </Style>
+                                                                                </TextBlock.Style>
+                                                                            </TextBlock>
+                                                                        </Border>
 
-                                                                    <!--  Если есть приоритет, отображаем его  -->
+                                                                        <!--  Если есть приоритет, отображаем его  -->
+                                                                        <Border
+                                                                            Margin="5"
+                                                                            Padding="5"
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Center"
+                                                                            Background="{Binding Priority.HexCode}"
+                                                                            BorderBrush="White"
+                                                                            BorderThickness="2"
+                                                                            CornerRadius="10">
+                                                                            <Border.Style>
+                                                                                <Style TargetType="Border">
+                                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                                                                            <Setter Property="Visibility" Value="Visible" />
+                                                                                        </DataTrigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </Border.Style>
+                                                                            <TextBlock Text="{Binding Priority.Name}">
+                                                                                <TextBlock.Style>
+                                                                                    <Style TargetType="TextBlock">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                        <Style.Triggers>
+                                                                                            <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                                            </DataTrigger>
+                                                                                        </Style.Triggers>
+                                                                                    </Style>
+                                                                                </TextBlock.Style>
+                                                                            </TextBlock>
+                                                                        </Border>
+
+                                                                    </StackPanel>
+
                                                                     <Border
-                                                                        Margin="5"
-                                                                        Padding="5"
+                                                                        Grid.Row="2"
+                                                                        MaxWidth="{Binding ElementName=ContentBorder, Path=ActualWidth}"
+                                                                        Padding="10"
                                                                         HorizontalAlignment="Left"
-                                                                        VerticalAlignment="Center"
-                                                                        Background="{Binding Priority.HexCode}"
-                                                                        BorderBrush="White"
-                                                                        BorderThickness="2"
-                                                                        CornerRadius="10">
-                                                                        <Border.Style>
-                                                                            <Style TargetType="Border">
-                                                                                <Setter Property="Visibility"
-                                                                                    Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <DataTrigger
-                                                                                        Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                                                                        Value="True">
-                                                                                        <Setter Property="Visibility"
-                                                                                            Value="Visible" />
-                                                                                    </DataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Border.Style>
-                                                                        <TextBlock Text="{Binding Priority.Name}">
-                                                                            <TextBlock.Style>
-                                                                                <Style TargetType="TextBlock">
-                                                                                    <Setter Property="Visibility"
-                                                                                        Value="Collapsed" />
-                                                                                    <Style.Triggers>
-                                                                                        <DataTrigger
-                                                                                            Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                                                                            Value="True">
-                                                                                            <Setter
-                                                                                                Property="Visibility"
-                                                                                                Value="Visible" />
-                                                                                        </DataTrigger>
-                                                                                    </Style.Triggers>
-                                                                                </Style>
-                                                                            </TextBlock.Style>
-                                                                        </TextBlock>
+                                                                        BorderThickness="1"
+                                                                        CornerRadius="2"
+                                                                        Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
+                                                                        <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
                                                                     </Border>
-
-                                                                </StackPanel>
-
-                                                                <Border
-                                                                    Grid.Row="2"
-                                                                    MaxWidth="{Binding ElementName=ContentBorder, Path=ActualWidth}"
-                                                                    Padding="10"
-                                                                    HorizontalAlignment="Left"
-                                                                    BorderThickness="1"
-                                                                    CornerRadius="2"
-                                                                    Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
-                                                                    <TextBlock Text="{Binding Description}"
-                                                                               TextWrapping="WrapWithOverflow" />
-                                                                </Border>
-                                                            </Grid>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </ScrollViewer>
-
-                                    </Border>
-                                </StackPanel>
-                            </Border>
-
-                            <Border Margin="10,10,10,0">
-                                <StackPanel>
-                                    <Border
-                                        Padding="5"
-                                        BorderBrush="White"
-                                        BorderThickness="1,1,1,0">
-                                        <TextBlock Text="Завершенные" />
-                                    </Border>
-                                    <Border
-                                        Padding="5"
-                                        BorderBrush="White"
-                                        BorderThickness="1">
-                                        <ScrollViewer
-                                            MaxHeight="250"
-                                            Margin="0,0,0,5"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Hidden"
-                                            VerticalScrollBarVisibility="Hidden">
-                                            <ItemsControl ItemsSource="{Binding User.IdObjectives}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Border
-                                                            Margin="5"
-                                                            HorizontalAlignment="Stretch"
-                                                            VerticalAlignment="Stretch"
-                                                            BorderBrush="White"
-                                                            BorderThickness="3"
-                                                            CornerRadius="10">
-                                                            <Border.Style>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}"
-                                                                            Value="True">
-                                                                            <Setter Property="Visibility"
-                                                                                Value="Visible" />
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Border.Style>
-                                                            <Grid>
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="Auto" />
-                                                                    <RowDefinition Height="*" />
-                                                                </Grid.RowDefinitions>
-
-                                                                <Grid Grid.Row="0">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="Auto" />
-                                                                        <ColumnDefinition Width="Auto" />
-                                                                        <ColumnDefinition Width="*" />
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <CheckBox
-                                                                        Margin="5"
-                                                                        VerticalAlignment="Center"
-                                                                        Command="{Binding UpdateStatusCommand}"
-                                                                        CommandParameter="{Binding}"
-                                                                        FontSize="25"
-                                                                        IsChecked="{Binding Status}" />
-                                                                    <!--  Имя задачи  -->
-                                                                    <TextBlock
-                                                                        Grid.Column="1"
-                                                                        MaxWidth="180"
-                                                                        Margin="5"
-                                                                        VerticalAlignment="Center"
-                                                                        Text="{Binding Name}"
-                                                                        TextWrapping="Wrap" />
                                                                 </Grid>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
 
-                                                            </Grid>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </ScrollViewer>
-                                    </Border>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </Border>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Margin="10,10,10,0">
+                                    <StackPanel>
+                                        <Border
+                                            Padding="5"
+                                            BorderBrush="White"
+                                            BorderThickness="1,1,1,0">
+                                            <TextBlock Text="Завершенные" />
+                                        </Border>
+                                        <Border
+                                            Padding="5"
+                                            BorderBrush="White"
+                                            BorderThickness="1">
+                                            <ScrollViewer
+                                                MaxHeight="250"
+                                                Margin="0,0,0,5"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                CanContentScroll="True"
+                                                HorizontalScrollBarVisibility="Hidden"
+                                                VerticalScrollBarVisibility="Hidden">
+                                                <ItemsControl ItemsSource="{Binding User.IdObjectives}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border
+                                                                Margin="5"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"
+                                                                BorderBrush="White"
+                                                                BorderThickness="3"
+                                                                CornerRadius="10">
+                                                                <Border.Style>
+                                                                    <Style TargetType="Border">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="*" />
+                                                                    </Grid.RowDefinitions>
+
+                                                                    <Grid Grid.Row="0">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                            <ColumnDefinition Width="*" />
+                                                                        </Grid.ColumnDefinitions>
+
+                                                                        <CheckBox
+                                                                            Margin="5"
+                                                                            VerticalAlignment="Center"
+                                                                            Command="{Binding UpdateStatusCommand}"
+                                                                            CommandParameter="{Binding}"
+                                                                            FontSize="25"
+                                                                            IsChecked="{Binding Status}" />
+                                                                        <!--  Имя задачи  -->
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            MaxWidth="180"
+                                                                            Margin="5"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding Name}"
+                                                                            TextWrapping="Wrap" />
+                                                                    </Grid>
+
+                                                                </Grid>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
-    </Grid>
+    </Border>
+
 </Window>

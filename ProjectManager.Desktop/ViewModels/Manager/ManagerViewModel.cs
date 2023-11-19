@@ -47,7 +47,8 @@ public partial class ManagerViewModel : ViewModelBase
     {
         var openFileDialog = new OpenFileDialog();
 
-        openFileDialog.DefaultExt = ".png";
+        openFileDialog.DefaultExt = ".jpg";
+
         openFileDialog.Filter =
             "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|All files (*.*)|*.*";
 

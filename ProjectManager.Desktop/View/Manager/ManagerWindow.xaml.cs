@@ -101,7 +101,7 @@ public partial class ManagerWindow : Window
     private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var profileEditWindow = new ProfileEditWindow();
+        ProfileEditViewModel.ProfileEditVM.User = ManagerVm.User;
         profileEditWindow.ShowDialog();
-        ProfileEditViewModel.ProfileEditVM.EditingUser = ManagerVm.User;
     }
 }

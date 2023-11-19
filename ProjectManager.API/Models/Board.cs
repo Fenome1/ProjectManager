@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public class Board
+public partial class Board
 {
     public int IdBoard { get; set; }
 

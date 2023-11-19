@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ProjectManager.API.Models;
 
-public class Theme
+public partial class Theme
 {
     public int IdTheme { get; set; }
 
