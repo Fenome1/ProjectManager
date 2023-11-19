@@ -18,10 +18,14 @@ public class UserImageConverter : IValueConverter
     {
         var user = value as User;
 
+        if (user is null)
+            return null;
+
         if (user.Image is null)
             return LoadImageFromPath(user.Theme == (int)Themes.Primary ? PrimaryImagePath : SecondaryImagePath);
 
         return LoadImageFromBytes(user.Image);
+
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

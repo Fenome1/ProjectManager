@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -8,7 +9,7 @@ using ProjectManager.Desktop.Services;
 
 namespace ProjectManager.Desktop.Models;
 
-public partial class User : ObservableObject
+public partial class User : ObservableObject, ICloneable
 {
  
     [ObservableProperty] private int _idUser;
@@ -49,4 +50,9 @@ public partial class User : ObservableObject
 
         await UserService.UpdateAssignAsync(user.IdUser, idObjective, Operation.Delete);
     });
+
+    public object Clone()
+    {
+        return MemberwiseClone();
+    }
 }

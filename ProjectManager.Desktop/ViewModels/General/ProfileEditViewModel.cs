@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -30,4 +31,42 @@ public partial class ProfileEditViewModel : ViewModelBase
 
         await ThemeManager.SetThemeAsync(User, currentTheme);
     });
+    public ICommand SaveProfileDataCommand => new RelayCommand(async () =>
+    {
+        var newLogin = User.Login;
+        var newFirstName = User.FirstName;
+        var newLastName = User.LastName;
+
+        var sb = new StringBuilder();
+
+        if (!string.IsNullOrEmpty(newLogin))
+        {
+            if (!await UserService.UpdateAsync(User.IdUser, login: newLogin))
+                sb.AppendLine("Такой логин уже существует");
+        }
+        else
+            sb.AppendLine("Логин не может быть пустым");
+
+        if (!string.IsNullOrEmpty(newFirstName))
+            await UserService.UpdateAsync(User.IdUser, firstName: newFirstName);
+        else
+            sb.AppendLine("Имя не может быть пустым");
+
+        if (!string.IsNullOrEmpty(newLastName))
+            await UserService.UpdateAsync(User.IdUser, lastName: newLastName);
+        else
+            sb.AppendLine("Фамилия не может быть пустой");
+
+        if (sb.Length > 0)
+        {
+            MessageBox.Show(sb.ToString(), "Ошибка при сохранении данных", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        else
+        {
+            MessageBox.Show("Данные успешно сохранены", "Изменение профиля", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+    });
+
+    
 }

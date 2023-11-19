@@ -13,6 +13,7 @@ using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Services;
+using ProjectManager.Desktop.View.General;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.ViewModels.Base;
 
@@ -36,13 +37,6 @@ public partial class ManagerViewModel : ViewModelBase
     public static ManagerViewModel ManagerVm { get; private set; } = new();
     private IMapper Mapper => AppConfig.Container.Resolve<IMapper>();
 
-    //commands
-    public ICommand ChangeThemeCommand => new RelayCommand(async () => { });
-
-/*    var startTheme = (Themes)_user.Theme;
-    ThemeManager.SetTheme(_user, startTheme is Themes.Primary? Themes.Secondary : Themes.Primary);*/
-
-    //profile
     public ICommand UploadProfilePhotoCommand => new RelayCommand(async () =>
     {
         var openFileDialog = new OpenFileDialog();
@@ -108,7 +102,6 @@ public partial class ManagerViewModel : ViewModelBase
 
             await ObjectiveService.UpdateAsync(updateCommand.idObjective, updateCommand.idPriority);
         });
-
 
     //loadTree
     public async Task LoadTreeAsync()

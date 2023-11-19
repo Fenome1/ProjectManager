@@ -155,7 +155,6 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
-                                Command="{Binding ChangeThemeCommand}"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource ExitIconStyle}" />
                         </Grid>
