@@ -96,6 +96,7 @@ public partial class ManagerWindow : Window
     private async void ManagerWindow_OnClosed(object? sender, EventArgs e)
     {
         await _signalRManagerClient.StopConnection();
+        ManagerVm.Dispose();
     }
 
     private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -109,6 +110,5 @@ public partial class ManagerWindow : Window
     {
         new AuthWindow().Show();
         Close();
-        ManagerVm.Dispose();
     }
 }

@@ -65,6 +65,23 @@ public class UserService
         }
     }
 
+    public static async Task<bool> CreateAsync(string login, string password, int role)
+    {
+        try
+        {
+            var response = await $"{BaseApiUrl}/User"
+                .PostJsonAsync(new { Login = login, Password = password, Role = role });
+
+            if (response.ResponseMessage.IsSuccessStatusCode) return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
+    }
+
     public static async Task<bool> UpdateAsync(int idUser,
         string? login = null,
         string? password = null,
@@ -144,5 +161,23 @@ public class UserService
         }
 
         return null;
+    }
+
+    public async static Task<bool> DeleteAsync(int idUser)
+    {
+        try
+        {
+            var response = await $"{BaseApiUrl}/User/{idUser}"
+                .DeleteAsync();
+
+            if (response.ResponseMessage.IsSuccessStatusCode)
+                return true;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+        }
+
+        return false;
     }
 }

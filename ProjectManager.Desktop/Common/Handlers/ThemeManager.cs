@@ -33,6 +33,24 @@ public static class ThemeManager
         Application.Current.Resources.MergedDictionaries.Clear();
         Application.Current.Resources.MergedDictionaries.Add(resourceDict);
     }
+    public static void SetTheme(Themes theme)
+    {
+        var path = _themePath;
+
+        switch (theme)
+        {
+            case Themes.Primary:
+                path += "/PrimaryThemeDictionary.xaml";
+                break;
+            case Themes.Secondary:
+                path += "/SecondaryThemeDictionary.xaml";
+                break;
+        }
+
+        var resourceDict = Application.LoadComponent(new Uri(path, UriKind.Relative)) as ResourceDictionary;
+        Application.Current.Resources.MergedDictionaries.Clear();
+        Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+    }
 
     public static void InitTheme(int theme)
     {

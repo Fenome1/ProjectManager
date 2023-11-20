@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,7 +14,7 @@ using ProjectManager.Desktop.ViewModels.Manager;
 
 namespace ProjectManager.Desktop.ViewModels.General;
 
-public partial class AuthViewModel : ViewModelBase
+public partial class AuthViewModel : ViewModelBase, IDisposable
 {
     public static AuthViewModel AuthVm = new();
 
@@ -45,6 +46,14 @@ public partial class AuthViewModel : ViewModelBase
         OpenAppropriateWindow(user);
     });
 
+    public void Dispose()
+    {
+        Login = "";
+        Password = "";
+
+        GC.SuppressFinalize(true);
+    }
+
     private void OpenAppropriateWindow(User user)
     {
         Window newWindow = null;
@@ -62,6 +71,7 @@ public partial class AuthViewModel : ViewModelBase
         }
 
         newWindow.Show();
+
         Application.Current.MainWindow.Close();
     }
 }

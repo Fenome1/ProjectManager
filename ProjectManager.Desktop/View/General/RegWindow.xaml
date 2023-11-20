@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:general="clr-namespace:ProjectManager.Desktop.ViewModels.General"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     Title="AuthWindow"
     Width="480"
     Height="750"
@@ -18,7 +18,7 @@
     Background="Transparent"
     ResizeMode="CanResizeWithGrip"
     UseLayoutRounding="True"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -118,11 +118,15 @@
                                 <Label
                                     Margin="0,10,0,5"
                                     VerticalAlignment="Center"
-                                    Content="Пароль: " />
+                                    Content="Пароль: " 
+                                    />
                                 <PasswordBox
                                     VerticalAlignment="Center"
                                     MaxLength="20"
-                                    PasswordChanged="PasswordBox_OnPasswordChanged" />
+                                    PasswordChanged="PasswordBox_OnPasswordChanged"
+                                    x:Name="PasswordBox"
+                                    >
+                                </PasswordBox>
                                 <Label
                                     Margin="0,10,0,5"
                                     VerticalAlignment="Center"
@@ -130,7 +134,8 @@
                                 <PasswordBox
                                     VerticalAlignment="Center"
                                     MaxLength="30"
-                                    PasswordChanged="ConfirmPasswordBox_OnPasswordChanged" />
+                                    PasswordChanged="ConfirmPasswordBox_OnPasswordChanged" 
+                                    x:Name="ConfirmPasswordBox"/>
                             </StackPanel>
 
                             <StackPanel
@@ -141,19 +146,32 @@
                                 Orientation="Horizontal">
                                 <Label VerticalAlignment="Center" Content="Роль: " />
                                 <ComboBox
-                                    Height="25"
+                                    x:Name="RolesComboBox"
+                                    SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
                                     MinWidth="230"
                                     VerticalAlignment="Center"
                                     DisplayMemberPath="Name"
+                                    Loaded="ComboBox_Loaded"
                                     ItemsSource="{Binding Roles}"
-                                    SelectedIndex="0"
-                                    SelectionChanged="ComboBox_SelectionChanged" />
+                                    SelectedIndex="0">
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="ComboBoxItem">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IdRole}" Value="0">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                </ComboBox>
+
                             </StackPanel>
 
                             <Button
+                                Click="RegButton_Click"
                                 Grid.Row="4"
                                 Margin="10,10,10,0"
-                                Command="{Binding RegisterCommand}"
+                                Command="{Binding SignUpCommand}"
                                 Content="Зарегистрироваться" />
 
                             <Button

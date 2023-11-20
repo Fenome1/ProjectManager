@@ -10,7 +10,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
+using ProjectManager.Desktop.Common.Handlers;
 using ProjectManager.Desktop.Models;
+using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.General;
 using ProjectManager.Desktop.ViewModels.Base;
@@ -19,7 +21,7 @@ namespace ProjectManager.Desktop.ViewModels.Executor;
 
 public partial class ExecutorViewModel : ViewModelBase, IDisposable
 {
-    [ObservableProperty] private User _user;
+    [ObservableProperty] private User? _user;
 
     public ExecutorViewModel()
     {
@@ -73,6 +75,9 @@ public partial class ExecutorViewModel : ViewModelBase, IDisposable
     public void Dispose()
     {
         User = null;
+
+        ThemeManager.SetTheme(Themes.Primary);
+
         GC.SuppressFinalize(true);
     }
 

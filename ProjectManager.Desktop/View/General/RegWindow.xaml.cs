@@ -43,9 +43,23 @@ public partial class RegWindow : Window
         var authWindow = new AuthWindow();
         authWindow.Show();
         Close();
+        RegVM.Dispose();
     }
 
-    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void ComboBox_Loaded(object sender, RoutedEventArgs e)
     {
+        await RegVM.LoadRolesAsync();
+    }
+
+    private async void RegButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (await RegVM.RegisterAsync())
+        {
+            PasswordBox.Password = "";
+            ConfirmPasswordBox.Password = "";
+            RolesComboBox.SelectedIndex = 0;
+
+            MessageBox.Show("Успешная регистрация", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

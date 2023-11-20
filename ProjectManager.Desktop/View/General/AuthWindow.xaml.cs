@@ -11,6 +11,7 @@ public partial class AuthWindow : Window
     {
         InitializeComponent();
         DataContext = AuthVm;
+        Application.Current.MainWindow = this;
     }
 
     private void DragWindow_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -45,5 +46,10 @@ public partial class AuthWindow : Window
         var regWindow = new RegWindow();
         regWindow.Show();
         Close();
+    }
+
+    private void AuthWindow_Closed(object sender, System.EventArgs e)
+    {
+        AuthVm.Dispose();
     }
 }

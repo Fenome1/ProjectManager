@@ -19,7 +19,7 @@ public class ListRolesQueryHandler : IRequestHandler<ListRolesQuery, List<Role>>
         var roles = await _context.Roles.ToListAsync();
 
         if (!roles.Any())
-            throw new Exception("Цвета не найдены");
+            throw new Exception("Роли не найдены");
 
         return roles;
     }

@@ -12,13 +12,14 @@
     MinHeight="550"
     MaxWidth="680"
     MaxHeight="700"
+    Closed="AuthWindow_Closed"
     d:DataContext="{d:DesignInstance general:AuthViewModel,
                                      IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="CanResizeWithGrip"
     UseLayoutRounding="True"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
     <Border Style="{DynamicResource WindowBorderStyle}">

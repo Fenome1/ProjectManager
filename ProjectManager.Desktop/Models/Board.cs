@@ -47,6 +47,7 @@ public partial class Board : ObservableObject
         var boardCount = ManagerVm.Agencies
             .SelectMany(a => a.Projects)
             .SelectMany(p => p.Boards)
+            .Where(b => b.IdProject == IdProject)
             .Count();
 
         if (boardCount <= 1)

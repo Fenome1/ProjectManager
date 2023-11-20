@@ -61,6 +61,7 @@ public partial class ExecutorWindow : Window
     private async void ExecutorWindow_OnClosed(object? sender, EventArgs e)
     {
         await _signalRExecutorClient.StopConnection();
+        ExecutorVm.Dispose();
     }
 
     private void LoginTextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -74,6 +75,5 @@ public partial class ExecutorWindow : Window
     {
         new AuthWindow().Show();
         Close();
-        ExecutorVm.Dispose();
     }
 }

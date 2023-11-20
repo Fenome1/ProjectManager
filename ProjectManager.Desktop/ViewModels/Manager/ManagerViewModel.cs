@@ -11,7 +11,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using ProjectManager.Desktop.Common.Config;
+using ProjectManager.Desktop.Common.Handlers;
 using ProjectManager.Desktop.Models;
+using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.ViewModels.Base;
@@ -107,7 +109,11 @@ public partial class ManagerViewModel : ViewModelBase, IDisposable
         Agencies.Clear();
         SelectedAgency = null;
         SelectedProject = null;
+
         User = null;
+
+        ThemeManager.SetTheme(Themes.Primary);
+
         GC.SuppressFinalize(this);
     }
 
