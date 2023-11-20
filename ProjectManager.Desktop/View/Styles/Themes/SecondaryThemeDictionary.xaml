@@ -106,14 +106,20 @@
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill"
+                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill"
+                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -155,10 +161,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource QuaternaryColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{DynamicResource QuaternaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{DynamicResource TertiaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -263,8 +271,6 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-
 
 
 </ResourceDictionary>

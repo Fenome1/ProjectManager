@@ -163,7 +163,7 @@ public class UserService
         return null;
     }
 
-    public async static Task<bool> DeleteAsync(int idUser)
+    public static async Task<bool> DeleteAsync(int idUser)
     {
         try
         {

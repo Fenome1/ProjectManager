@@ -1,15 +1,15 @@
-﻿using Flurl.Http;
-using ProjectManager.Desktop.Common.Data;
-using ProjectManager.Desktop.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flurl.Http;
+using ProjectManager.Desktop.Common.Data;
+using ProjectManager.Desktop.Models;
 
 namespace ProjectManager.Desktop.Services;
 
 public class RoleService
 {
-    internal async static Task<List<Role>?> GetRolesAsync()
+    internal static async Task<List<Role>?> GetRolesAsync()
     {
         try
         {

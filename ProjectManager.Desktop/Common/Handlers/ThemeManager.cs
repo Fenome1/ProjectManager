@@ -33,6 +33,7 @@ public static class ThemeManager
         Application.Current.Resources.MergedDictionaries.Clear();
         Application.Current.Resources.MergedDictionaries.Add(resourceDict);
     }
+
     public static void SetTheme(Themes theme)
     {
         var path = _themePath;

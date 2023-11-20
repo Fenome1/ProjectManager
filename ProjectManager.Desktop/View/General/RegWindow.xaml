@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:general="clr-namespace:ProjectManager.Desktop.ViewModels.General"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="AuthWindow"
     Width="480"
     Height="750"
@@ -118,24 +118,21 @@
                                 <Label
                                     Margin="0,10,0,5"
                                     VerticalAlignment="Center"
-                                    Content="Пароль: " 
-                                    />
+                                    Content="Пароль: " />
                                 <PasswordBox
+                                    x:Name="PasswordBox"
                                     VerticalAlignment="Center"
                                     MaxLength="20"
-                                    PasswordChanged="PasswordBox_OnPasswordChanged"
-                                    x:Name="PasswordBox"
-                                    >
-                                </PasswordBox>
+                                    PasswordChanged="PasswordBox_OnPasswordChanged" />
                                 <Label
                                     Margin="0,10,0,5"
                                     VerticalAlignment="Center"
                                     Content="Подтверждение: " />
                                 <PasswordBox
+                                    x:Name="ConfirmPasswordBox"
                                     VerticalAlignment="Center"
                                     MaxLength="30"
-                                    PasswordChanged="ConfirmPasswordBox_OnPasswordChanged" 
-                                    x:Name="ConfirmPasswordBox"/>
+                                    PasswordChanged="ConfirmPasswordBox_OnPasswordChanged" />
                             </StackPanel>
 
                             <StackPanel
@@ -147,13 +144,13 @@
                                 <Label VerticalAlignment="Center" Content="Роль: " />
                                 <ComboBox
                                     x:Name="RolesComboBox"
-                                    SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
                                     MinWidth="230"
                                     VerticalAlignment="Center"
                                     DisplayMemberPath="Name"
-                                    Loaded="ComboBox_Loaded"
                                     ItemsSource="{Binding Roles}"
-                                    SelectedIndex="0">
+                                    Loaded="ComboBox_Loaded"
+                                    SelectedIndex="0"
+                                    SelectedItem="{Binding SelectedRole, Mode=TwoWay}">
                                     <ComboBox.ItemContainerStyle>
                                         <Style TargetType="ComboBoxItem">
                                             <Style.Triggers>
@@ -168,9 +165,9 @@
                             </StackPanel>
 
                             <Button
-                                Click="RegButton_Click"
                                 Grid.Row="4"
                                 Margin="10,10,10,0"
+                                Click="RegButton_Click"
                                 Command="{Binding SignUpCommand}"
                                 Content="Зарегистрироваться" />
 

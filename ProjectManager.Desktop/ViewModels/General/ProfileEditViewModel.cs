@@ -7,11 +7,8 @@ using ProjectManager.Desktop.Common.Handlers;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
-using ProjectManager.Desktop.View.Executor;
 using ProjectManager.Desktop.View.General;
 using ProjectManager.Desktop.ViewModels.Base;
-using ProjectManager.Desktop.ViewModels.Executor;
-using ProjectManager.Desktop.ViewModels.Manager;
 
 namespace ProjectManager.Desktop.ViewModels.General;
 
@@ -83,12 +80,7 @@ public partial class ProfileEditViewModel : ViewModelBase
 
             new AuthWindow().Show();
 
-            for (int i = 0; i < windows.Count; i++)
-            {
-                windows[i].Close();
-            }
-
+            for (var i = 0; i < windows.Count; i++) windows[i].Close();
         }
     });
-
 }

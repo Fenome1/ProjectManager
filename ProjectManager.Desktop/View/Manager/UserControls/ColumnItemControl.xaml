@@ -81,7 +81,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Style="{DynamicResource DefaultSeparatorStyle}"/>
+                Style="{DynamicResource DefaultSeparatorStyle}" />
 
             <Grid
                 Grid.Row="2"

@@ -1,5 +1,3 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-
 namespace ProjectManager.Desktop.Models;
 
 public class Priority

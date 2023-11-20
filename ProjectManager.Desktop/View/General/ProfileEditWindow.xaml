@@ -151,12 +151,14 @@
                                 Command="{Binding SaveProfileDataCommand}"
                                 Content="Сохранить" />
 
-                            <Button Grid.Row="5" Background="Transparent"
-                                    BorderThickness="0"
-                                    Padding="0"
-                                    Margin="10"
-                                    Command="{Binding DeleteUserProfileCommand}">
-                                <TextBlock Text="Удалить профиль" FontSize="14"/>
+                            <Button
+                                Grid.Row="5"
+                                Margin="10"
+                                Padding="0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding DeleteUserProfileCommand}">
+                                <TextBlock FontSize="14" Text="Удалить профиль" />
                             </Button>
 
                         </Grid>

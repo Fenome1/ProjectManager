@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static ProjectManager.Desktop.ViewModels.General.AuthViewModel;
@@ -48,7 +49,7 @@ public partial class AuthWindow : Window
         Close();
     }
 
-    private void AuthWindow_Closed(object sender, System.EventArgs e)
+    private void AuthWindow_Closed(object sender, EventArgs e)
     {
         AuthVm.Dispose();
     }

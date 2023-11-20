@@ -1,13 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using ProjectManager.Desktop.Models;
-using ProjectManager.Desktop.Services;
-using ProjectManager.Desktop.ViewModels.Base;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using ProjectManager.Desktop.Models;
+using ProjectManager.Desktop.Services;
+using ProjectManager.Desktop.ViewModels.Base;
 
 namespace ProjectManager.Desktop.ViewModels.General;
 
@@ -19,9 +17,9 @@ public partial class RegViewModel : ViewModelBase, IDisposable
 
     [ObservableProperty] private string _passwordConfirm;
 
-    [ObservableProperty] private Role? _selectedRole;
-
     [ObservableProperty] private ObservableCollection<Role> _roles = new();
+
+    [ObservableProperty] private Role? _selectedRole;
 
     public RegViewModel()
     {
@@ -30,9 +28,19 @@ public partial class RegViewModel : ViewModelBase, IDisposable
 
     public static RegViewModel RegVM { get; private set; } = new();
 
+    public void Dispose()
+    {
+        Login = "";
+        Password = "";
+        PasswordConfirm = "";
+        Roles.Clear();
+
+        GC.SuppressFinalize(this);
+    }
+
     public async Task LoadRolesAsync()
     {
-        var defaultRole = new Role()
+        var defaultRole = new Role
         {
             IdRole = 0,
             Name = "Не выбрано"
@@ -56,19 +64,14 @@ public partial class RegViewModel : ViewModelBase, IDisposable
     {
         try
         {
-            if (Password != PasswordConfirm)
-            {
-                throw new InvalidOperationException("Пароль и подтверждение не совпадают");
-            }
+            if (Password != PasswordConfirm) throw new InvalidOperationException("Пароль и подтверждение не совпадают");
 
             if (SelectedRole == null || SelectedRole.IdRole == 0)
-            {
                 throw new InvalidOperationException("Роль не выбрана");
-            }
 
             await UserService.CreateAsync(Login, Password, SelectedRole.IdRole);
 
-            Login = "";         
+            Login = "";
 
             return true;
         }
@@ -80,16 +83,7 @@ public partial class RegViewModel : ViewModelBase, IDisposable
         {
             MessageBox.Show("Произошла ошибка при регистрации", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
         return false;
-    }
-
-    public void Dispose()
-    {
-        Login = "";
-        Password = "";
-        PasswordConfirm = "";
-        Roles.Clear();
-
-        GC.SuppressFinalize(this);
     }
 }
