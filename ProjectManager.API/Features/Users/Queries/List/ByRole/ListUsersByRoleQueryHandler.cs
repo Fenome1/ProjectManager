@@ -19,6 +19,7 @@ public class ListUsersByRoleQueryHandler : IRequestHandler<ListUsersByRoleQuery,
         var users = await _context.Users
             .Include(u => u.IdObjectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(u => u.IsDeleted == request.IncludeDeleted)
             .Where(u => u.Role == request.Role)
             .ToListAsync();

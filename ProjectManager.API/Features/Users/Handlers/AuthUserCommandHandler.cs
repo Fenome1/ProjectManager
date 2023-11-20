@@ -20,6 +20,7 @@ public class AuthUserCommandHandler : IRequestHandler<AuthUserCommand, User>
         var user = await _context.Users
             .Include(u => u.IdObjectives
                 .Where(o => o.IsDeleted == false))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(u => u.IsDeleted == false)
             .FirstOrDefaultAsync(u => u.Login == request.Login &&
                                       u.Password == request.Password);

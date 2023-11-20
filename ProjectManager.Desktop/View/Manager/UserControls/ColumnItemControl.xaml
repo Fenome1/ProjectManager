@@ -23,9 +23,8 @@
         HorizontalAlignment="Left"
         VerticalAlignment="Top"
         Background="{Binding Color.HexCode}"
-        BorderBrush="White"
-        BorderThickness="2"
-        CornerRadius="5">
+        CornerRadius="5"
+        Style="{DynamicResource AgenciesBoardStyle}">
 
         <Grid
             MinWidth="200"
@@ -81,9 +80,8 @@
             <Separator
                 Grid.Row="1"
                 Grid.Column="0"
-                Grid.ColumnSpan="2">
-                <Separator.Background>White</Separator.Background>
-            </Separator>
+                Grid.ColumnSpan="2"
+                Style="{DynamicResource DefaultSeparatorStyle}"/>
 
             <Grid
                 Grid.Row="2"
@@ -105,7 +103,6 @@
                 Margin="0,0,0,5"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                CanContentScroll="True"
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding Objectives}">

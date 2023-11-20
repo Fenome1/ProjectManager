@@ -13,7 +13,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance executor:ExecutorViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="ExecutorWindow_OnClosed"
@@ -32,6 +32,7 @@
             <convertors:UserImageConverter x:Key="UserImageConverter" />
         </ResourceDictionary>
     </Window.Resources>
+
     <Border Style="{DynamicResource WindowBorderStyle}">
         <Grid>
             <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
@@ -120,13 +121,11 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,10,0"
-                                BorderBrush="White"
-                                BorderThickness="1"
                                 CornerRadius="30"
-                                RenderOptions.BitmapScalingMode="HighQuality">
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush
-                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -167,9 +166,8 @@
                             x:Name="ObjectivesContent"
                             Margin="10"
                             VerticalAlignment="Stretch"
-                            BorderBrush="White"
-                            BorderThickness="1"
-                            CornerRadius="2">
+                            CornerRadius="2"
+                            Style="{DynamicResource AgenciesBoardStyle}">
                             <StackPanel
                                 Margin="10"
                                 HorizontalAlignment="Stretch"
@@ -178,22 +176,20 @@
                                     <StackPanel>
                                         <Border
                                             Padding="5"
-                                            BorderBrush="White"
-                                            BorderThickness="1,1,1,0">
+                                            BorderThickness="1,1,1,0"
+                                            Style="{DynamicResource AgenciesBoardStyle}">
                                             <TextBlock Text="Выполняемые задачи" />
                                         </Border>
                                         <Border
                                             x:Name="ContentBorder"
                                             Padding="5"
-                                            BorderBrush="White"
-                                            BorderThickness="1">
+                                            Style="{DynamicResource AgenciesBoardStyle}">
 
                                             <ScrollViewer
                                                 MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource ObjectivesBorderHeightConverter}}"
                                                 Margin="0,0,0,5"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
-                                                CanContentScroll="True"
                                                 HorizontalScrollBarVisibility="Hidden"
                                                 VerticalScrollBarVisibility="Hidden">
                                                 <StackPanel>
@@ -204,22 +200,8 @@
                                                                     Margin="5"
                                                                     HorizontalAlignment="Stretch"
                                                                     VerticalAlignment="Stretch"
-                                                                    BorderBrush="White"
-                                                                    BorderThickness="3"
-                                                                    CornerRadius="10">
-                                                                    <Border.Style>
-                                                                        <Style TargetType="Border">
-                                                                            <Setter Property="Visibility"
-                                                                                Value="Visible" />
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding Status}"
-                                                                                    Value="True">
-                                                                                    <Setter Property="Visibility"
-                                                                                        Value="Collapsed" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Border.Style>
+                                                                    CornerRadius="10"
+                                                                    Style="{DynamicResource ObjectiveStatusTrueStyle}">
                                                                     <Grid>
                                                                         <Grid.RowDefinitions>
                                                                             <RowDefinition Height="*" />
@@ -253,8 +235,7 @@
                                                                                 TextWrapping="Wrap" />
                                                                         </Grid>
 
-                                                                        <StackPanel Grid.Row="1"
-                                                                            Orientation="Horizontal">
+                                                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
 
                                                                             <!--  Если есть дедлайн, отображаем его  -->
                                                                             <Border
@@ -262,44 +243,13 @@
                                                                                 Padding="5"
                                                                                 HorizontalAlignment="Left"
                                                                                 VerticalAlignment="Center"
-                                                                                Background="White"
-                                                                                BorderBrush="White"
                                                                                 BorderThickness="2"
-                                                                                CornerRadius="10">
-                                                                                <Border.Style>
-                                                                                    <Style TargetType="Border">
-                                                                                        <Setter Property="Visibility"
-                                                                                            Value="Collapsed" />
-                                                                                        <Style.Triggers>
-                                                                                            <DataTrigger
-                                                                                                Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                                                                                Value="True">
-                                                                                                <Setter
-                                                                                                    Property="Visibility"
-                                                                                                    Value="Visible" />
-                                                                                            </DataTrigger>
-                                                                                        </Style.Triggers>
-                                                                                    </Style>
-                                                                                </Border.Style>
+                                                                                CornerRadius="10"
+                                                                                Style="{DynamicResource DeadlineBorderStyle}">
                                                                                 <TextBlock
-                                                                                    Text="{Binding Deadline, StringFormat='dd.MM.yy'}">
-                                                                                    <TextBlock.Style>
-                                                                                        <Style TargetType="TextBlock">
-                                                                                            <Setter
-                                                                                                Property="Visibility"
-                                                                                                Value="Collapsed" />
-                                                                                            <Style.Triggers>
-                                                                                                <DataTrigger
-                                                                                                    Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}"
-                                                                                                    Value="True">
-                                                                                                    <Setter
-                                                                                                        Property="Visibility"
-                                                                                                        Value="Visible" />
-                                                                                                </DataTrigger>
-                                                                                            </Style.Triggers>
-                                                                                        </Style>
-                                                                                    </TextBlock.Style>
-                                                                                </TextBlock>
+                                                                                    FontSize="15"
+                                                                                    Style="{DynamicResource DeadlineTextBlockStyle}"
+                                                                                    Text="{Binding Deadline, StringFormat='dd.MM.yy'}" />
                                                                             </Border>
 
                                                                             <!--  Если есть приоритет, отображаем его  -->
@@ -309,43 +259,12 @@
                                                                                 HorizontalAlignment="Left"
                                                                                 VerticalAlignment="Center"
                                                                                 Background="{Binding Priority.HexCode}"
-                                                                                BorderBrush="White"
-                                                                                BorderThickness="2"
-                                                                                CornerRadius="10">
-                                                                                <Border.Style>
-                                                                                    <Style TargetType="Border">
-                                                                                        <Setter Property="Visibility"
-                                                                                            Value="Collapsed" />
-                                                                                        <Style.Triggers>
-                                                                                            <DataTrigger
-                                                                                                Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                                                                                Value="True">
-                                                                                                <Setter
-                                                                                                    Property="Visibility"
-                                                                                                    Value="Visible" />
-                                                                                            </DataTrigger>
-                                                                                        </Style.Triggers>
-                                                                                    </Style>
-                                                                                </Border.Style>
+                                                                                CornerRadius="10"
+                                                                                Style="{DynamicResource PriorityBorderStyle}">
                                                                                 <TextBlock
-                                                                                    Text="{Binding Priority.Name}">
-                                                                                    <TextBlock.Style>
-                                                                                        <Style TargetType="TextBlock">
-                                                                                            <Setter
-                                                                                                Property="Visibility"
-                                                                                                Value="Collapsed" />
-                                                                                            <Style.Triggers>
-                                                                                                <DataTrigger
-                                                                                                    Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}"
-                                                                                                    Value="True">
-                                                                                                    <Setter
-                                                                                                        Property="Visibility"
-                                                                                                        Value="Visible" />
-                                                                                                </DataTrigger>
-                                                                                            </Style.Triggers>
-                                                                                        </Style>
-                                                                                    </TextBlock.Style>
-                                                                                </TextBlock>
+                                                                                    FontSize="15"
+                                                                                    Style="{DynamicResource PriorityTextBlockStyle}"
+                                                                                    Text="{Binding Priority.Name}" />
                                                                             </Border>
 
                                                                         </StackPanel>
@@ -358,8 +277,7 @@
                                                                             BorderThickness="1"
                                                                             CornerRadius="2"
                                                                             Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
-                                                                            <TextBlock Text="{Binding Description}"
-                                                                                TextWrapping="WrapWithOverflow" />
+                                                                            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
                                                                         </Border>
                                                                     </Grid>
                                                                 </Border>
@@ -377,20 +295,16 @@
                                     <StackPanel>
                                         <Border
                                             Padding="5"
-                                            BorderBrush="White"
-                                            BorderThickness="1,1,1,0">
+                                            BorderThickness="1,1,1,0"
+                                            Style="{DynamicResource AgenciesBoardStyle}">
                                             <TextBlock Text="Завершенные" />
                                         </Border>
-                                        <Border
-                                            Padding="5"
-                                            BorderBrush="White"
-                                            BorderThickness="1">
+                                        <Border Padding="5" Style="{DynamicResource AgenciesBoardStyle}">
                                             <ScrollViewer
-                                                MaxHeight="250"
+                                                MaxHeight="220"
                                                 Margin="0,0,0,5"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
-                                                CanContentScroll="True"
                                                 HorizontalScrollBarVisibility="Hidden"
                                                 VerticalScrollBarVisibility="Hidden">
                                                 <StackPanel>
@@ -401,22 +315,8 @@
                                                                     Margin="5"
                                                                     HorizontalAlignment="Stretch"
                                                                     VerticalAlignment="Stretch"
-                                                                    BorderBrush="White"
-                                                                    BorderThickness="3"
-                                                                    CornerRadius="10">
-                                                                    <Border.Style>
-                                                                        <Style TargetType="Border">
-                                                                            <Setter Property="Visibility"
-                                                                                Value="Collapsed" />
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding Status}"
-                                                                                    Value="True">
-                                                                                    <Setter Property="Visibility"
-                                                                                        Value="Visible" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Border.Style>
+                                                                    CornerRadius="10"
+                                                                    Style="{DynamicResource ObjectiveStatusFalseStyle}">
                                                                     <Grid>
                                                                         <Grid.RowDefinitions>
                                                                             <RowDefinition Height="Auto" />

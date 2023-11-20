@@ -1,23 +1,23 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="PrimaryColorPrimaryTheme">#485935</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryColorPrimaryTheme">#CADBB7</SolidColorBrush>
-    <SolidColorBrush x:Key="TertiaryColorPrimaryTheme">#FBFBFB</SolidColorBrush>
-
-    <SolidColorBrush x:Key="QuaternaryColorPrimaryTheme">#93A267</SolidColorBrush>
-    <SolidColorBrush x:Key="FivefoldColorPrimaryTheme">#93A267</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryColorPrimaryTheme">#A7A7A7</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryColorPrimaryTheme">White</SolidColorBrush>
+    <SolidColorBrush x:Key="TertiaryColorPrimaryTheme">#f3f3f3</SolidColorBrush>
+    <SolidColorBrush x:Key="QuaternaryColorPrimaryTheme">#e8e8e8</SolidColorBrush>
+    <SolidColorBrush x:Key="FivefoldColorPrimaryTheme">#d9d9d9</SolidColorBrush>
+    <SolidColorBrush x:Key="SixfoldColorPrimaryTheme">#BABABA</SolidColorBrush>
 
     <SolidColorBrush x:Key="PrimaryTextColorPrimaryTheme">#000000</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryTextColorPrimaryTheme">#D3B0BD</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryTextColorPrimaryTheme">#515151</SolidColorBrush>
 
-    <SolidColorBrush x:Key="PrimaryColorSecondaryTheme">#17181C</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryColorSecondaryTheme">#232937</SolidColorBrush>
-    <SolidColorBrush x:Key="TertiaryColorSecondaryTheme">#4c566d</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryColorSecondaryTheme">#1E1E1E</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryColorSecondaryTheme">#2C2C2C</SolidColorBrush>
+    <SolidColorBrush x:Key="TertiaryColorSecondaryTheme">#404040</SolidColorBrush>
+    <SolidColorBrush x:Key="QuaternaryColorSecondaryTheme">#444444</SolidColorBrush>
+    <SolidColorBrush x:Key="FivefoldColorSecondaryTheme">#565656</SolidColorBrush>
+    <SolidColorBrush x:Key="SixfoldColorSecondaryTheme">#B4B4B4</SolidColorBrush>
 
-    <SolidColorBrush x:Key="QuaternaryColorSecondaryTheme">#FFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="FivefoldColorSecondaryTheme">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryTextColorSecondaryTheme">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryTextColorSecondaryTheme">#CCCCCC</SolidColorBrush>
 
-    <SolidColorBrush x:Key="PrimaryTextColorSecondaryTheme">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryTextColorSecondaryTheme">#7d818b</SolidColorBrush>
 </ResourceDictionary>

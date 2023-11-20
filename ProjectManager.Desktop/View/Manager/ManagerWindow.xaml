@@ -38,7 +38,6 @@
         <Grid>
             <Border MouseLeftButtonDown="DragWindow_OnMouseLeftButtonDown" Style="{DynamicResource MainWindowStyle}" />
 
-
             <Grid x:Name="MainGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition
@@ -124,13 +123,11 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,10,0"
-                                BorderBrush="White"
-                                BorderThickness="1"
                                 CornerRadius="30"
-                                RenderOptions.BitmapScalingMode="HighQuality">
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush
-                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -176,9 +173,9 @@
                             <Border
                                 Grid.Row="0"
                                 Padding="5"
-                                BorderBrush="AliceBlue"
                                 BorderThickness="1,1,1,0"
-                                CornerRadius="25,25,0,0">
+                                CornerRadius="25,25,0,0"
+                                Style="{DynamicResource AgenciesBoardStyle}">
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -188,22 +185,19 @@
                             <Border
                                 Grid.Row="1"
                                 MaxWidth="250"
-                                BorderBrush="White"
-                                BorderThickness="1"
-                                CornerRadius="0,0,25,25">
+                                CornerRadius="0,0,25,25"
+                                Style="{DynamicResource AgenciesBoardStyle}">
                                 <ScrollViewer
                                     MaxHeight="{Binding ElementName=UserAndAgenciesContentGrid, Path=ActualHeight, Converter={StaticResource TreeViewHeightConverter}}"
                                     Padding="5"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    CanContentScroll="True"
                                     HorizontalScrollBarVisibility="Auto"
                                     VerticalScrollBarVisibility="Auto">
                                     <StackPanel>
                                         <StackPanel.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                          Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                             </ContextMenu>
                                         </StackPanel.ContextMenu>
                                         <TextBlock
@@ -218,8 +212,7 @@
                                             MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                             <TreeView.ContextMenu>
                                                 <ContextMenu>
-                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                              Header="Создать агенство" />
+                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                                 </ContextMenu>
                                             </TreeView.ContextMenu>
 
@@ -300,8 +293,7 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
-                            BorderBrush="White"
-                            BorderThickness="1"
+                            Style="{DynamicResource AgenciesBoardStyle}"
                             Visibility="{Binding SelectedAgency, Converter={StaticResource NullToVisibilityConverter}}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -311,10 +303,9 @@
                                 <Border
                                     Margin="20"
                                     Padding="10"
-                                    BorderBrush="White"
-                                    BorderThickness="1"
                                     CornerRadius="5"
                                     DataContext="{Binding SelectedAgency}"
+                                    Style="{DynamicResource AgenciesBoardStyle}"
                                     Visibility="{Binding ., Converter={StaticResource NullToVisibilityConverter}}">
                                     <StackPanel>
                                         <TextBlock Margin="0,0,0,20" Text="Информация" />
@@ -338,11 +329,9 @@
                             Grid.Row="0"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"
-                            Background="Transparent"
-                            BorderBrush="White"
-                            BorderThickness="1"
                             DataContext="{Binding SelectedProject}"
                             ItemContainerStyle="{DynamicResource TabItemStyle}"
+                            Style="{DynamicResource TabControlDefaultStyle}"
                             TabStripPlacement="Top"
                             Visibility="Collapsed">
 

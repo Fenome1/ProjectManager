@@ -42,6 +42,12 @@ public partial class RegViewModel : ViewModelBase, IDisposable
 
         var roles = await RoleService.GetRolesAsync();
 
+        if (roles is null)
+        {
+            MessageBox.Show("Ошибка инициализации ролей");
+            return;
+        }
+
         foreach (var role in roles)
             Roles.Add(role);
     }

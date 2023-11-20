@@ -19,6 +19,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User>
         var user = await _context.Users
             .Include(u => u.IdObjectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(u => u.IsDeleted == request.IncludeDeleted)
             .FirstOrDefaultAsync(u => u.IdUser == request.IdUser);
 

@@ -72,14 +72,6 @@ public partial class ExecutorViewModel : ViewModelBase, IDisposable
         await UserService.UpdateAsync(_user.IdUser, isImageReset: true);
     });
 
-    public void Dispose()
-    {
-        User = null;
-
-        ThemeManager.SetTheme(Themes.Primary);
-
-        GC.SuppressFinalize(true);
-    }
 
     //Assign
     public async Task ObjectiveAddAssignAsync(int idObjective)
@@ -164,5 +156,13 @@ public partial class ExecutorViewModel : ViewModelBase, IDisposable
             Mapper.Map(updatedUser, _user);
             OnPropertyChanged(nameof(User));
         });
+    }
+    public void Dispose()
+    {
+        User = null;
+
+        ThemeManager.SetTheme(Themes.Primary);
+
+        GC.SuppressFinalize(true);
     }
 }

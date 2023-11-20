@@ -19,6 +19,7 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, List<User>>
         var users = await _context.Users
             .Include(u => u.IdObjectives
                 .Where(o => o.IsDeleted == request.IncludeDeleted))
+            .ThenInclude(o => o.IdPriorityNavigation)
             .Where(u => u.IsDeleted == request.IncludeDeleted)
             .ToListAsync();
 

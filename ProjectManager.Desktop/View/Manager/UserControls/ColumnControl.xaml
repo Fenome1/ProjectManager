@@ -14,7 +14,6 @@
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
         VerticalContentAlignment="Stretch"
-        CanContentScroll="True"
         HorizontalScrollBarVisibility="Auto"
         VerticalScrollBarVisibility="Hidden">
         <Grid>
@@ -53,9 +52,9 @@
                 Padding="5"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="White"
                 CornerRadius="20"
-                MouseLeftButtonDown="CreateNewColumn_OnMouseLeftButtonDown">
+                MouseLeftButtonDown="CreateNewColumn_OnMouseLeftButtonDown"
+                Style="{DynamicResource AgenciesBoardStyle}">
                 <StackPanel>
                     <TextBlock Text="+ Создать колонку" />
                 </StackPanel>

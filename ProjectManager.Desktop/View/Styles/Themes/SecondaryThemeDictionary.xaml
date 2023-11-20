@@ -1,9 +1,13 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convertors="clr-namespace:ProjectManager.Desktop.View.Convertors">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/View/Styles/Colors/ThemesColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <convertors:IsNotNullConverter x:Key="IsNotNullConverter" />
 
     <Style x:Key="WindowBorderStyle" TargetType="Border">
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
@@ -50,6 +54,7 @@
 
     <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="17" />
+        <Setter Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
         <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
         <Setter Property="Padding" Value="5" />
@@ -57,6 +62,7 @@
 
     <Style TargetType="PasswordBox">
         <Setter Property="FontSize" Value="17" />
+        <Setter Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
         <Setter Property="FontFamily" Value="{DynamicResource WhitneyMedium}" />
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextColorSecondaryTheme}" />
         <Setter Property="Padding" Value="5" />
@@ -84,36 +90,30 @@
                             Width="5"
                             Height="5"
                             Margin="0,2,0,2"
-                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                            Fill="{DynamicResource SixfoldColorSecondaryTheme}" />
                         <Ellipse
                             x:Name="Ellipse2"
                             Width="5"
                             Height="5"
                             Margin="0,0,0,2"
-                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                            Fill="{DynamicResource SixfoldColorSecondaryTheme}" />
                         <Ellipse
                             x:Name="Ellipse3"
                             Width="5"
                             Height="5"
                             Margin="0,0,0,0"
-                            Fill="{DynamicResource PrimaryTextColorSecondaryTheme}" />
+                            Fill="{DynamicResource SixfoldColorSecondaryTheme}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -155,11 +155,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="White" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource QuaternaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background"
-                                    Value="{DynamicResource FivefoldColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -177,6 +176,95 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="AgenciesBoardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="DefaultSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+    </Style>
+
+    <Style x:Key="TabControlDefaultStyle" TargetType="TabControl">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style
+        x:Key="DeadlineBorderStyle"
+        BasedOn="{StaticResource AgenciesBoardStyle}"
+        TargetType="Border">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="DeadlineTextBlockStyle"
+        BasedOn="{StaticResource {x:Type TextBlock}}"
+        TargetType="TextBlock">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Deadline, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="PriorityBorderStyle"
+        BasedOn="{StaticResource AgenciesBoardStyle}"
+        TargetType="Border">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="PriorityTextBlockStyle"
+        BasedOn="{StaticResource {x:Type TextBlock}}"
+        TargetType="TextBlock">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Priority, Converter={StaticResource IsNotNullConverter}}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="ObjectiveStatusFalseStyle"
+        BasedOn="{StaticResource AgenciesBoardStyle}"
+        TargetType="Border">
+        <Setter Property="Visibility" Value="Visible" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="ObjectiveStatusTrueStyle"
+        BasedOn="{StaticResource AgenciesBoardStyle}"
+        TargetType="Border">
+        <Setter Property="Visibility" Value="Visible" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="True">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
 
 
 </ResourceDictionary>
