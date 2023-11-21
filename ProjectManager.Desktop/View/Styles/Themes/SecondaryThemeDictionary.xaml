@@ -106,20 +106,14 @@
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill"
-                                    Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource SecondaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Ellipse1" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse2" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
-                            <Setter TargetName="Ellipse3" Property="Fill"
-                                    Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse1" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse2" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
+                            <Setter TargetName="Ellipse3" Property="Fill" Value="{DynamicResource PrimaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -161,12 +155,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background"
-                                    Value="{DynamicResource QuaternaryColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource QuaternaryColorSecondaryTheme}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background"
-                                    Value="{DynamicResource TertiaryColorSecondaryTheme}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource TertiaryColorSecondaryTheme}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -272,5 +264,23 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="{x:Type ContextMenu}" TargetType="{x:Type ContextMenu}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border Style="{DynamicResource AgenciesBoardStyle}">
+                        <StackPanel
+                            Margin="5"
+                            Background="Transparent"
+                            ClipToBounds="True"
+                            IsItemsHost="True"
+                            Orientation="Vertical" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

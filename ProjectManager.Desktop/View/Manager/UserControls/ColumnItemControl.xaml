@@ -68,7 +68,7 @@
                 Content=""
                 Style="{DynamicResource ThreeDotsButtonStyle}">
                 <Button.ContextMenu>
-                    <ContextMenu Loaded="SettingContextMenu_OnLoaded">
+                    <ContextMenu Loaded="SettingContextMenu_OnLoaded" Style="{DynamicResource {x:Type ContextMenu}}">
                         <MenuItem Command="{Binding UpdateColumnCommand}" Header="Изменить" />
                         <MenuItem Header="Цвет" />
                         <Separator />

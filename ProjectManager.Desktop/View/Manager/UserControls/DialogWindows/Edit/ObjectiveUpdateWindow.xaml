@@ -19,10 +19,7 @@
         <Border
             Padding="10"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="White"
-            BorderThickness="2"
-            CornerRadius="10">
+            VerticalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <Label

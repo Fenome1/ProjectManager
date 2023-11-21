@@ -65,6 +65,24 @@ public class UserService
         }
     }
 
+    public static async Task<bool> IsLoginExistAsync(string login, bool isDeleted = false)
+    {
+        try
+        {
+            var result = await $"{BaseApiUrl}/User/Login"
+                .SetQueryParam(nameof(login), login)
+                .SetQueryParam(nameof(isDeleted), isDeleted)
+                .GetJsonAsync<bool>();
+
+            return result;
+        }
+        catch (FlurlHttpException ex)
+        {
+            Console.WriteLine($"Произошла ошибка при выполнении запроса: {ex.Message}");
+            return false;
+        }
+    }
+
     public static async Task<bool> CreateAsync(string login, string password, int role)
     {
         try

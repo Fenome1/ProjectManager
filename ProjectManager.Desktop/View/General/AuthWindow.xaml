@@ -8,16 +8,12 @@
     Title="AuthWindow"
     Width="480"
     Height="550"
-    MinWidth="480"
-    MinHeight="550"
-    MaxWidth="680"
-    MaxHeight="700"
     d:DataContext="{d:DesignInstance general:AuthViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="AuthWindow_Closed"
-    ResizeMode="CanResizeWithGrip"
+    ResizeMode="NoResize"
     UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -85,8 +81,7 @@
                     <Border
                         Grid.Row="1"
                         Margin="10"
-                        Padding="20"
-                        Style="{DynamicResource AuthFormStyle}">
+                        Padding="20">
                         <Grid VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

@@ -2,6 +2,7 @@
 using ProjectManager.API.Features.Users.Commands;
 using ProjectManager.API.Features.Users.Commands.Objectives.Add;
 using ProjectManager.API.Features.Users.Commands.Objectives.Delete;
+using ProjectManager.API.Features.Users.Queries.Check;
 using ProjectManager.API.Features.Users.Queries.Get;
 using ProjectManager.API.Features.Users.Queries.List;
 using ProjectManager.API.Features.Users.Queries.List.ByRole;
@@ -32,6 +33,15 @@ public class UserController : BaseController
     public async Task<IActionResult> GetByRole(int id, bool isDeleted = false)
     {
         var query = new ListUsersByRoleQuery(id, isDeleted);
+        var result = await Mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    [HttpGet("Login")]
+    public async Task<IActionResult> IsLoginExist([FromQuery] string login, bool isDeleted = false)
+    {
+        var query = new IsLoginExistQuery(login, isDeleted);
         var result = await Mediator.Send(query);
 
         return Ok(result);

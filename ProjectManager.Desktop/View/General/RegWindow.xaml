@@ -8,15 +8,11 @@
     Title="AuthWindow"
     Width="480"
     Height="750"
-    MinWidth="480"
-    MinHeight="600"
-    MaxWidth="750"
-    MaxHeight="700"
     d:DataContext="{d:DesignInstance general:RegViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
-    ResizeMode="CanResizeWithGrip"
+    ResizeMode="NoResize"
     UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -85,10 +81,7 @@
                     <Border
                         Grid.Row="1"
                         Margin="10"
-                        Padding="20"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        CornerRadius="5">
+                        Padding="20">
                         <Grid VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

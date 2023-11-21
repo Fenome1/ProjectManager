@@ -14,7 +14,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance manager:ManagerViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="ManagerWindow_OnClosed"
@@ -123,12 +123,12 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,10,0"
+                                BorderThickness="2"
                                 CornerRadius="30"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush
-                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -198,8 +198,7 @@
                                     <StackPanel>
                                         <StackPanel.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                          Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                             </ContextMenu>
                                         </StackPanel.ContextMenu>
                                         <TextBlock
@@ -214,8 +213,7 @@
                                             MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                             <TreeView.ContextMenu>
                                                 <ContextMenu>
-                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}"
-                                                              Header="Создать агенство" />
+                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
                                                 </ContextMenu>
                                             </TreeView.ContextMenu>
 

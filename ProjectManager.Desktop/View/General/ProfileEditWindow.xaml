@@ -10,13 +10,13 @@
     Height="600"
     MinWidth="480"
     MinHeight="600"
-    MaxWidth="680"
-    MaxHeight="700"
+    MaxWidth="480"
+    MaxHeight="600"
     d:DataContext="{d:DesignInstance general:ProfileEditViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
-    ResizeMode="CanResizeWithGrip"
+    ResizeMode="NoResize"
     UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -85,10 +85,7 @@
                     <Border
                         Grid.Row="1"
                         Margin="10"
-                        Padding="20"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        CornerRadius="5">
+                        Padding="20">
                         <Grid VerticalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

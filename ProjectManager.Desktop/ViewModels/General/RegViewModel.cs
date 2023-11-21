@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ProjectManager.Desktop.Models;
+using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.ViewModels.Base;
 
@@ -62,14 +64,39 @@ public partial class RegViewModel : ViewModelBase, IDisposable
 
     public async Task<bool> RegisterAsync()
     {
+        var inputErrors = new StringBuilder();
+
+        if (string.IsNullOrWhiteSpace(Login) || Login.Length < 6)
+            inputErrors.AppendLine("Логин должен содержать не менее 6 символов");
+
+        if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
+            inputErrors.AppendLine("Пароль должен содержать не менее 6 символов");
+
+        if (Password != PasswordConfirm)
+            inputErrors.AppendLine("Пароль и подтверждение не совпадают");
+
+        if (SelectedRole == null || SelectedRole.IdRole == 0)
+            inputErrors.AppendLine("Роль не выбрана");
+
+        if (inputErrors.Length > 0)
+        {
+            ShowError(inputErrors.ToString(), "Ошибка ввода");
+            return false;
+        }
+
         try
         {
-            if (Password != PasswordConfirm) throw new InvalidOperationException("Пароль и подтверждение не совпадают");
+            if (await UserService.IsLoginExistAsync(Login))
+            {
+                ShowError("Логин уже занят", "Предупреждение");
+                return false;
+            }
 
-            if (SelectedRole == null || SelectedRole.IdRole == 0)
-                throw new InvalidOperationException("Роль не выбрана");
-
-            await UserService.CreateAsync(Login, Password, SelectedRole.IdRole);
+            if (await UserService.CreateAsync(Login, Password, SelectedRole.IdRole))
+            {
+                ShowError("Произошла ошибка при регистрации", "Ошибка");
+                return false;
+            }
 
             Login = "";
 
@@ -77,13 +104,20 @@ public partial class RegViewModel : ViewModelBase, IDisposable
         }
         catch (InvalidOperationException ex)
         {
-            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowError(ex.Message, "Ошибка");
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            MessageBox.Show("Произошла ошибка при регистрации", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowError($"Произошла ошибка при регистрации: {ex.Message}", "Ошибка");
         }
 
         return false;
     }
+
+    private void ShowError(string message, string caption)
+    {
+        MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+
 }

@@ -13,7 +13,7 @@
     MaxWidth="1920"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance executor:ExecutorViewModel,
-                                     IsDesignTimeCreatable=True}"
+    IsDesignTimeCreatable=True}"
     AllowsTransparency="True"
     Background="Transparent"
     Closed="ExecutorWindow_OnClosed"
@@ -120,12 +120,12 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,10,0"
+                                BorderThickness="2"
                                 CornerRadius="30"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush
-                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -235,8 +235,7 @@
                                                                                 TextWrapping="Wrap" />
                                                                         </Grid>
 
-                                                                        <StackPanel Grid.Row="1"
-                                                                            Orientation="Horizontal">
+                                                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
 
                                                                             <!--  Если есть дедлайн, отображаем его  -->
                                                                             <Border
@@ -244,7 +243,6 @@
                                                                                 Padding="5"
                                                                                 HorizontalAlignment="Left"
                                                                                 VerticalAlignment="Center"
-                                                                                BorderThickness="2"
                                                                                 CornerRadius="10"
                                                                                 Style="{DynamicResource DeadlineBorderStyle}">
                                                                                 <TextBlock
@@ -278,8 +276,7 @@
                                                                             BorderThickness="1"
                                                                             CornerRadius="2"
                                                                             Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
-                                                                            <TextBlock Text="{Binding Description}"
-                                                                                TextWrapping="WrapWithOverflow" />
+                                                                            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
                                                                         </Border>
                                                                     </Grid>
                                                                 </Border>
