@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -21,7 +22,12 @@ public partial class Column : ObservableObject
 
     [ObservableProperty] private ObservableCollection<Objective>? _objectives;
 
-    public ICommand DeleteColumnCommand => new RelayCommand(async () => { await ColumnService.DeleteAsync(IdColumn); });
+    public ICommand DeleteColumnCommand => new RelayCommand(async () => {
+        var isDeleteQuestion = MessageBox.Show("Удалить колонку?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (isDeleteQuestion == MessageBoxResult.Yes)
+            await ColumnService.DeleteAsync(IdColumn); 
+    });
 
     public ICommand UpdateColumnCommand => new RelayCommand(async () =>
     {

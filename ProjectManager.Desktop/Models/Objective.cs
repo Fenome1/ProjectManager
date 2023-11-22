@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -46,7 +47,10 @@ public partial class Objective : ObservableObject
 
     public ICommand DeleteObjectiveCommand => new RelayCommand(async () =>
     {
-        await ObjectiveService.DeleteAsync(IdObjective);
+        var isDeleteQuestion = MessageBox.Show("Удалить задачу?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (isDeleteQuestion == MessageBoxResult.Yes)
+            await ObjectiveService.DeleteAsync(IdObjective);
     });
 
     public ICommand DeadlineSelectCommand => new RelayCommand(async () =>

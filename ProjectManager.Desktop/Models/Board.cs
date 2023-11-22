@@ -59,6 +59,9 @@ public partial class Board : ObservableObject
             return;
         }
 
-        await BoardService.DeleteAsync(IdBoard);
+        var isDeleteQuestion = MessageBox.Show("Удалить доску?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (isDeleteQuestion == MessageBoxResult.Yes)
+            await BoardService.DeleteAsync(IdBoard);
     });
 }

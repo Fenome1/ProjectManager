@@ -36,7 +36,7 @@ public partial class ProjectManagerDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Name=ProjectManagerLocal");
+        optionsBuilder.UseSqlServer("Name=ProjectManagerServer");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

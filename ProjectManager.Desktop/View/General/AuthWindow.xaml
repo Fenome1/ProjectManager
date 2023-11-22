@@ -123,7 +123,7 @@
                                 BorderThickness="0"
                                 Click="ToRegButton_OnClick"
                                 FontSize="10">
-                                <TextBlock FontSize="14" Text="Еще нет аккаунта?" />
+                                <TextBlock FontSize="14" Text="Регистрация" />
                             </Button>
 
                         </Grid>

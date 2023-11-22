@@ -170,7 +170,7 @@
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Click="ToAuthButton_OnClick">
-                                <TextBlock FontSize="14" Text="Войти?" />
+                                <TextBlock FontSize="14" Text="Есть аккаунт?" />
                             </Button>
 
                         </Grid>

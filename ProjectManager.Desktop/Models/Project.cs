@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -28,7 +29,10 @@ public partial class Project : ObservableObject
         if (!(bool)projectUpdateWindow.DialogResult!)
             return;
 
-        await ProjectService.UpdateAsync(IdProject,
+        var isDeleteQuestion = MessageBox.Show("Удалить проект?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (isDeleteQuestion == MessageBoxResult.Yes)
+            await ProjectService.UpdateAsync(IdProject,
             projectUpdateWindow.NameTextBox.Text);
     });
 }

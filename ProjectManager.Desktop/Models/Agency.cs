@@ -56,6 +56,9 @@ public partial class Agency : ObservableObject
             return;
         }
 
-        await AgencyService.DeleteAsync(IdAgency);
+        var isDeleteQuestion = MessageBox.Show("Удалить агентство?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if(isDeleteQuestion == MessageBoxResult.Yes)
+            await AgencyService.DeleteAsync(IdAgency);
     });
 }
