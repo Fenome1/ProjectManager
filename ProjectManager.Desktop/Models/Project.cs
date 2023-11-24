@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,14 +17,6 @@ public partial class Project : ObservableObject
 
     public ICommand DeleteProjectCommand => new RelayCommand(async () =>
     {
-        var result = MessageBox.Show("Вы точно хотите удалить проект?",
-            "Удаление",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
-
-        if (result != MessageBoxResult.Yes)
-            return;
-
         await ProjectService.DeleteAsync(IdProject);
     });
 
