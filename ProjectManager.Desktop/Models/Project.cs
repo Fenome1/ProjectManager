@@ -18,7 +18,8 @@ public partial class Project : ObservableObject
 
     public ICommand DeleteProjectCommand => new RelayCommand(async () =>
     {
-        var isDeleteQuestion = MessageBox.Show("Удалить проект?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var isDeleteQuestion =
+            MessageBox.Show("Удалить проект?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (isDeleteQuestion != MessageBoxResult.Yes)
             return;
@@ -34,10 +35,11 @@ public partial class Project : ObservableObject
         if (!(bool)projectUpdateWindow.DialogResult!)
             return;
 
-        var isDeleteQuestion = MessageBox.Show("Удалить проект?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var isDeleteQuestion =
+            MessageBox.Show("Удалить проект?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (isDeleteQuestion == MessageBoxResult.Yes)
             await ProjectService.UpdateAsync(IdProject,
-            projectUpdateWindow.NameTextBox.Text);
+                projectUpdateWindow.NameTextBox.Text);
     });
 }

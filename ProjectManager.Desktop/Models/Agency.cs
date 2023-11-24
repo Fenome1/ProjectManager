@@ -56,7 +56,8 @@ public partial class Agency : ObservableObject
             return;
         }
 
-        var isDeleteQuestion = MessageBox.Show("Удалить агетнство?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var isDeleteQuestion = MessageBox.Show("Удалить агетнство?", "Удаление", MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
 
         if (isDeleteQuestion != MessageBoxResult.Yes)
             return;

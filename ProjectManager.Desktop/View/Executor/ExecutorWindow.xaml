@@ -125,7 +125,8 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush
+                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -235,7 +236,8 @@
                                                                                 TextWrapping="Wrap" />
                                                                         </Grid>
 
-                                                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                                        <StackPanel Grid.Row="1"
+                                                                            Orientation="Horizontal">
 
                                                                             <!--  Если есть дедлайн, отображаем его  -->
                                                                             <Border
@@ -276,7 +278,8 @@
                                                                             BorderThickness="1"
                                                                             CornerRadius="2"
                                                                             Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}">
-                                                                            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow" />
+                                                                            <TextBlock Text="{Binding Description}"
+                                                                                TextWrapping="WrapWithOverflow" />
                                                                         </Border>
                                                                     </Grid>
                                                                 </Border>

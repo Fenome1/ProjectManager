@@ -67,8 +67,7 @@
                                 MaxHeight="{Binding ElementName=ContentGrid, Path=ActualHeight, Converter={StaticResource BorderHeightToMaxHeight}}"
                                 HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Hidden">
-                                <ItemsControl x:Name="ExecutorsItemsControl"
-                                              ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl x:Name="ExecutorsItemsControl" ItemsSource="{Binding Executors, UpdateSourceTrigger=PropertyChanged}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
@@ -82,12 +81,9 @@
                                                         <Binding RelativeSource="{RelativeSource Self}" />
                                                     </CheckBox.CommandParameter>
                                                     <CheckBox.IsChecked>
-                                                        <MultiBinding
-                                                            Converter="{StaticResource UserObjectiveConverter}"
-                                                            Mode="OneWay">
+                                                        <MultiBinding Converter="{StaticResource UserObjectiveConverter}" Mode="OneWay">
                                                             <Binding Path="." />
-                                                            <Binding Path="IdObjective"
-                                                                     RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+                                                            <Binding Path="IdObjective" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
                                                         </MultiBinding>
                                                     </CheckBox.IsChecked>
                                                 </CheckBox>

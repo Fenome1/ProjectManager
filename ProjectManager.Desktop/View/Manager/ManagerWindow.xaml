@@ -128,7 +128,8 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Style="{DynamicResource AgenciesBoardStyle}">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
+                                    <ImageBrush
+                                        ImageSource="{Binding User, Converter={StaticResource UserImageConverter}}" />
                                 </Border.Background>
                                 <Border.ContextMenu>
                                     <ContextMenu>
@@ -198,7 +199,8 @@
                                     <StackPanel>
                                         <StackPanel.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                                <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                          Header="Создать агенство" />
                                             </ContextMenu>
                                         </StackPanel.ContextMenu>
                                         <TextBlock
@@ -213,7 +215,8 @@
                                             MouseLeftButtonUp="TreeViewItem_MouseLeftButtonUp">
                                             <TreeView.ContextMenu>
                                                 <ContextMenu>
-                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}" Header="Создать агенство" />
+                                                    <MenuItem Command="{Binding CreateNewAgencyCommand}"
+                                                              Header="Создать агенство" />
                                                 </ContextMenu>
                                             </TreeView.ContextMenu>
 

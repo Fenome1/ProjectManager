@@ -47,7 +47,8 @@ public partial class Objective : ObservableObject
 
     public ICommand DeleteObjectiveCommand => new RelayCommand(async () =>
     {
-        var isDeleteQuestion = MessageBox.Show("Удалить задачу?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var isDeleteQuestion =
+            MessageBox.Show("Удалить задачу?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (isDeleteQuestion == MessageBoxResult.Yes)
             await ObjectiveService.DeleteAsync(IdObjective);

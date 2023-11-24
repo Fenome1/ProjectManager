@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ProjectManager.Desktop.Models;
-using ProjectManager.Desktop.Models.Enums;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.ViewModels.Base;
 
@@ -118,6 +117,4 @@ public partial class RegViewModel : ViewModelBase, IDisposable
     {
         MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-
-
 }
