@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using ProjectManager.Desktop.Services;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Create;
 using ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
+using ProjectManager.Desktop.ViewModels.Manager;
 using static ProjectManager.Desktop.ViewModels.Manager.ManagerViewModel;
 
 namespace ProjectManager.Desktop.Models;
@@ -59,11 +60,9 @@ public partial class Board : ObservableObject
             return;
         }
 
-        var isDeleteQuestion = MessageBox.Show("Удалить агетнство?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var isDeleteQuestion = MessageBox.Show("Удалить доску?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-        if (isDeleteQuestion != MessageBoxResult.Yes)
-            return;
-
-        await BoardService.DeleteAsync(IdBoard);
+        if (isDeleteQuestion == MessageBoxResult.Yes)
+            await BoardService.DeleteAsync(IdBoard);
     });
 }
