@@ -18,6 +18,14 @@ public partial class Project : ObservableObject
 
     public ICommand DeleteProjectCommand => new RelayCommand(async () =>
     {
+        var result = MessageBox.Show("Вы точно хотите удалить проект?",
+            "Удаление",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (result != MessageBoxResult.Yes)
+            return;
+
         await ProjectService.DeleteAsync(IdProject);
     });
 
