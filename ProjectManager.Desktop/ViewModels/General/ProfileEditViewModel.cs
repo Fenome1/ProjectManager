@@ -29,7 +29,7 @@ public partial class ProfileEditViewModel : ViewModelBase
 
         currentTheme = currentTheme is Themes.Primary ? Themes.Secondary : Themes.Primary;
 
-        await ThemeManager.SetThemeAsync(User, currentTheme);
+        await ThemeHandler.SetThemeAsync(User, currentTheme);
     });
 
     public ICommand SaveProfileDataCommand => new RelayCommand(async () =>

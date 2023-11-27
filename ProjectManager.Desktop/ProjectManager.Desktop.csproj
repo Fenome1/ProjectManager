@@ -170,7 +170,6 @@
 
     <ItemGroup>
         <Folder Include="Common\Config\Modules\" />
-        <Folder Include="Common\Handlers\" />
         <Folder Include="Models\Enums\" />
         <Folder Include="ViewModels\Executor\" />
     </ItemGroup>

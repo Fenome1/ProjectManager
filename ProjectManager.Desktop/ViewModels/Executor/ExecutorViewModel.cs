@@ -76,7 +76,7 @@ public partial class ExecutorViewModel : ViewModelBase, IDisposable
     {
         User = null;
 
-        ThemeManager.SetTheme(Themes.Primary);
+        ThemeHandler.SetTheme(Themes.Primary);
 
         GC.SuppressFinalize(true);
     }

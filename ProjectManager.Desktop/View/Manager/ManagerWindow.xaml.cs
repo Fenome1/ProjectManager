@@ -32,7 +32,7 @@ public partial class ManagerWindow : Window
             Close();
         }
 
-        ThemeManager.InitTheme(currentUser.Theme);
+        ThemeHandler.InitTheme(currentUser.Theme);
 
         await ManagerVm.LoadTreeAsync();
 

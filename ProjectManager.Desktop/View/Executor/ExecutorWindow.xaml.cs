@@ -31,7 +31,7 @@ public partial class ExecutorWindow : Window
             Close();
         }
 
-        ThemeManager.InitTheme(currentExecutor.Theme);
+        ThemeHandler.InitTheme(currentExecutor.Theme);
 
         await _signalRExecutorClient.StartConnection();
     }

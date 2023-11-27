@@ -112,7 +112,7 @@ public partial class ManagerViewModel : ViewModelBase, IDisposable
 
         User = null;
 
-        ThemeManager.SetTheme(Themes.Primary);
+        ThemeHandler.SetTheme(Themes.Primary);
 
         GC.SuppressFinalize(this);
     }

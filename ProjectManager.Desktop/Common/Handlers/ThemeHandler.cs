@@ -7,9 +7,9 @@ using ProjectManager.Desktop.Services;
 
 namespace ProjectManager.Desktop.Common.Handlers;
 
-public static class ThemeManager
+public static class ThemeHandler
 {
-    private static readonly string _themePath = "/View/Styles/Themes";
+    private const string _themePath = "/View/Styles/Themes";
 
     public static async Task SetThemeAsync(User user, Themes theme)
     {
