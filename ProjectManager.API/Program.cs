@@ -5,6 +5,7 @@ using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection.Builder;
 using ProjectManager.API.Context;
 using ProjectManager.API.Hubs;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,7 +64,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapHub<NotifyHub>("/notifyHub");
+
+await using var scope = app.Services.CreateAsyncScope();
+await using var context = scope.ServiceProvider.GetRequiredService<ProjectManagerDbContext>();
+await context.Database.EnsureCreatedAsync();
 
 app.Run();

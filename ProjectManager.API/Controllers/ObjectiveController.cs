@@ -27,7 +27,7 @@ public class ObjectiveController : BaseController
     }
 
     [HttpGet("Column/{idColumn}")]
-    public async Task<IActionResult> GetByColumnId(int idColumn, bool isDeleted = false)
+    public async Task<IActionResult> GetByColumn(int idColumn, bool isDeleted = false)
     {
         var query = new ListObjectivesByColumnQuery(idColumn, isDeleted);
         var result = await Mediator.Send(query);

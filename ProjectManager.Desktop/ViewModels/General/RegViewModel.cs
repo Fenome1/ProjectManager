@@ -91,7 +91,7 @@ public partial class RegViewModel : ViewModelBase, IDisposable
                 return false;
             }
 
-            if (await UserService.CreateAsync(Login, Password, SelectedRole.IdRole))
+            if (!await UserService.CreateAsync(Login, Password, SelectedRole.IdRole))
             {
                 ShowError("Произошла ошибка при регистрации", "Ошибка");
                 return false;

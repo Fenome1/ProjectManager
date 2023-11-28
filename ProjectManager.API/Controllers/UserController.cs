@@ -64,7 +64,7 @@ public class UserController : BaseController
     }
 
     [HttpPut("Objectives/Add")]
-    public async Task<IActionResult> Create([FromBody] AddObjectiveToUserCommand command)
+    public async Task<IActionResult> AddAssignUserObjective([FromBody] AddObjectiveToUserCommand command)
     {
         var result = await Mediator.Send(command);
 
@@ -72,7 +72,7 @@ public class UserController : BaseController
     }
 
     [HttpPut("Objectives/Delete")]
-    public async Task<IActionResult> Create([FromBody] DeleteObjectiveToUserCommand command)
+    public async Task<IActionResult> DeleteAssignUserObjective([FromBody] DeleteObjectiveToUserCommand command)
     {
         await Mediator.Send(command);
         return NoContent();
