@@ -1,0 +1,21 @@
+﻿services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sql_db
+    environment:
+      SA_PASSWORD: Fenome1Password!
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+  projectmanager.api:
+    image: projectmanager.api
+    build:
+      context: .
+      dockerfile: ProjectManager.API/Dockerfile
+    ports:
+      - "8080:80"
+volumes:
+  sql_data:

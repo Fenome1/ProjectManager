@@ -53,9 +53,8 @@ public partial class ProjectManagerDbContext : DbContext
             {
                 IdAgency = 1,
                 Name = "Агентство",
-                Description = "Создано по умолчанию",
+                Description = "Создано по умолчанию"
             });
-
         });
 
         modelBuilder.Entity<Board>(entity =>
@@ -82,36 +81,36 @@ public partial class ProjectManagerDbContext : DbContext
             entity.Property(e => e.HexCode).HasMaxLength(9);
             entity.Property(e => e.Name).HasMaxLength(50);
 
-            entity.HasData(new Color()
+            entity.HasData(new Color
             {
                 IdColor = 1,
                 Name = "Стандарт",
-                HexCode = "#30f3f3f3",
+                HexCode = "#30f3f3f3"
             }, new Color
             {
                 IdColor = 2,
                 Name = "Желтый",
-                HexCode = "#30FEFF66",
+                HexCode = "#30FEFF66"
             }, new Color
             {
                 IdColor = 3,
                 Name = "Зеленый",
-                HexCode = "#3069FF18",
+                HexCode = "#3069FF18"
             }, new Color
             {
                 IdColor = 4,
                 Name = "Красный",
-                HexCode = "#30FF0000",
+                HexCode = "#30FF0000"
             }, new Color
             {
                 IdColor = 5,
                 Name = "Синий",
-                HexCode = "#300000FF",
+                HexCode = "#300000FF"
             }, new Color
             {
                 IdColor = 6,
                 Name = "Фиалетовый",
-                HexCode = "#30800080",
+                HexCode = "#30800080"
             });
         });
 
@@ -181,21 +180,21 @@ public partial class ProjectManagerDbContext : DbContext
             entity.Property(e => e.HexCode).HasMaxLength(9);
             entity.Property(e => e.Name).HasMaxLength(50);
 
-            entity.HasData(new Priority()
+            entity.HasData(new Priority
             {
                 IdPriority = 1,
                 Name = "Не важно",
-                HexCode = "#50FFFFFF",
+                HexCode = "#50FFFFFF"
             }, new Priority
             {
                 IdPriority = 2,
                 Name = "Нормально",
-                HexCode = "#75FFF943",
+                HexCode = "#75FFF943"
             }, new Priority
             {
                 IdPriority = 3,
                 Name = "Важно",
-                HexCode = "#FF4643",
+                HexCode = "#FF4643"
             });
         });
 
@@ -246,15 +245,15 @@ public partial class ProjectManagerDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(50);
 
             entity.HasData(new Theme
-            {
-                IdTheme = 1,
-                Name = "Основная"
-            },
-            new Theme
-            {
-                IdTheme = 2,
-                Name = "Дополнительная"
-            });
+                {
+                    IdTheme = 1,
+                    Name = "Основная"
+                },
+                new Theme
+                {
+                    IdTheme = 2,
+                    Name = "Дополнительная"
+                });
         });
 
         modelBuilder.Entity<User>(entity =>

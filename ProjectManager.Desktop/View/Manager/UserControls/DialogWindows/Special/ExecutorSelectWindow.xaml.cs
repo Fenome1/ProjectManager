@@ -71,6 +71,9 @@ public partial class ExecutorSelectWindow : Window, INotifyPropertyChanged
             return;
         }
 
+        if (_tempUsers is null || !_tempUsers.Any())
+            return;
+
         var filteredUsers =
             _tempUsers.Where(u => u.Login.Contains(filterText,
                 StringComparison.CurrentCultureIgnoreCase)).ToList();
