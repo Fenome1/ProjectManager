@@ -41,4 +41,5 @@ public class AddObjectiveToUserCommandHandler : BaseCommandHandler<ProjectManage
 
         return user;
     }
+
 }

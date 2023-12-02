@@ -10,7 +10,7 @@ public class User
 
     public string Login { get; set; } = null!;
 
-    public string Password { get; set; } = null!;
+    [JsonIgnore] public string HashedPassword { get; set; } = null!;
 
     public string? FirstName { get; set; }
 

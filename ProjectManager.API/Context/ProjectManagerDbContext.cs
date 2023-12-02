@@ -265,7 +265,7 @@ public partial class ProjectManagerDbContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Login).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.HashedPassword).HasMaxLength(255);
             entity.Property(e => e.Role).HasDefaultValueSql("((4))");
             entity.Property(e => e.Theme).HasDefaultValueSql("((1))");
 

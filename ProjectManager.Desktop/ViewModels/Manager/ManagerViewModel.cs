@@ -63,7 +63,10 @@ public partial class ManagerViewModel : ViewModelBase, IDisposable
         }
         catch (Exception)
         {
-            //--
+            MessageBox.Show("Ошибка загрузки изображения", 
+                "Ошибка", 
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
         }
     });
 

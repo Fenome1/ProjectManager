@@ -32,7 +32,7 @@ public class UpdateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
             user.Login = request.Login;
 
         if (!string.IsNullOrEmpty(request.Password))
-            user.Password = request.Password;
+            user.HashedPassword = request.Password;
 
         if (request.IsImageReset)
             user.Image = null;

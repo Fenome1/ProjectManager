@@ -18,8 +18,8 @@ public partial class AuthViewModel : ViewModelBase, IDisposable
 {
     public static AuthViewModel AuthVm = new();
 
-    [ObservableProperty] private string _login = "Fenome1";
-    [ObservableProperty] private string _password = "pass";
+    [ObservableProperty] private string _login;
+    [ObservableProperty] private string _password;
 
     public AuthViewModel()
     {
@@ -46,14 +46,6 @@ public partial class AuthViewModel : ViewModelBase, IDisposable
         OpenAppropriateWindow(user);
     });
 
-    public void Dispose()
-    {
-        Login = "";
-        Password = "";
-
-        GC.SuppressFinalize(true);
-    }
-
     private void OpenAppropriateWindow(User user)
     {
         Window newWindow = null;
@@ -73,5 +65,12 @@ public partial class AuthViewModel : ViewModelBase, IDisposable
         newWindow.Show();
 
         Application.Current.MainWindow.Close();
+    }
+    public void Dispose()
+    {
+        Login = "";
+        Password = "";
+
+        GC.SuppressFinalize(true);
     }
 }

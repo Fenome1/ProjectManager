@@ -6,6 +6,7 @@ using ProjectManager.API.Features.Base;
 using ProjectManager.API.Features.Users.Commands;
 using ProjectManager.API.Hubs;
 using ProjectManager.API.Models;
+using ProjectManager.API.Services;
 
 namespace ProjectManager.API.Features.Users.Handlers;
 
@@ -23,6 +24,8 @@ public class CreateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
     public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = _mapper.Map<User>(request);
+
+        user.HashedPassword = HashService.HashPassword(request.Password);
 
         _context.Users.Add(user);
 
