@@ -63,54 +63,51 @@ public partial class RegViewModel : ViewModelBase, IDisposable
 
     public async Task<bool> RegisterAsync()
     {
-        var inputErrors = new StringBuilder();
-
-        if (string.IsNullOrWhiteSpace(Login) || Login.Length < 6)
-            inputErrors.AppendLine("Логин должен содержать не менее 6 символов");
-
-        if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
-            inputErrors.AppendLine("Пароль должен содержать не менее 6 символов");
-
-        if (Password != PasswordConfirm)
-            inputErrors.AppendLine("Пароль и подтверждение не совпадают");
-
-        if (SelectedRole == null || SelectedRole.IdRole == 0)
-            inputErrors.AppendLine("Роль не выбрана");
-
-        if (inputErrors.Length > 0)
+        if (string.IsNullOrEmpty(Login) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrEmpty(PasswordConfirm))
         {
-            ShowError(inputErrors.ToString(), "Ошибка ввода");
+            ShowError("Не все поля заполнены", "Предупреждение");
             return false;
         }
 
-        try
+        if (SelectedRole == null || SelectedRole.IdRole == 0)
         {
-            if (await UserService.IsLoginExistAsync(Login))
-            {
-                ShowError("Логин уже занят", "Предупреждение");
-                return false;
-            }
-
-            if (!await UserService.CreateAsync(Login, Password, SelectedRole.IdRole))
-            {
-                ShowError("Произошла ошибка при регистрации", "Ошибка");
-                return false;
-            }
-
-            Login = "";
-
-            return true;
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowError(ex.Message, "Ошибка");
-        }
-        catch (Exception ex)
-        {
-            ShowError($"Произошла ошибка при регистрации: {ex.Message}", "Ошибка");
+            ShowError("Пожалуйста, выберите роль", "Предупреждение");
+            return false;
         }
 
-        return false;
+        if (string.IsNullOrWhiteSpace(Login) || Login.Length < 6)
+        {
+            ShowError("Логин должен состоять минимум из 6 символов", "Предупреждение");
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
+        {
+            ShowError("Пароль должен состоять минимум из 6 символов", "Предупреждение");
+            return false;
+        }
+
+        if (Password != PasswordConfirm)
+        {
+            ShowError("Неверное подтверждение пароля", "Предупреждение");
+            return false;
+        }
+
+        if (await UserService.IsLoginExistAsync(Login))
+        {
+            ShowError("Пользователь с таким логином уже существует", "Ошибка");
+            return false;
+        }
+
+        if (!await UserService.CreateAsync(Login, Password, SelectedRole.IdRole))
+        {
+            ShowError("Произошла ошибка при регистрации", "Ошибка");
+            return false;
+        }
+
+        Login = "";
+
+        return true;
     }
 
     private void ShowError(string message, string caption)

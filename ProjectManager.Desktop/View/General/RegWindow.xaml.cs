@@ -53,13 +53,19 @@ public partial class RegWindow : Window
 
     private async void RegButton_Click(object sender, RoutedEventArgs e)
     {
+        var button = (Button) sender;
+
+        button.IsEnabled = !button.IsEnabled;
+
         if (await RegVM.RegisterAsync())
         {
             PasswordBox.Password = "";
             ConfirmPasswordBox.Password = "";
             RolesComboBox.SelectedIndex = 0;
 
-            MessageBox.Show("Успешная регистрация", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Вы успешно зарегистрированы", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        button.IsEnabled = !button.IsEnabled;
     }
 }
