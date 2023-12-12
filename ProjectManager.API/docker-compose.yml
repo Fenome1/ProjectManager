@@ -10,8 +10,8 @@
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-    logging:
-      driver: none
+    #logging:
+      #driver: none
 
   projectmanager.api:   
     image: projectmanager.api
@@ -22,8 +22,9 @@
       - mssql
     ports:
       - "8080:80"
-    logging:
-      driver: none
+    restart: unless-stopped
+    #logging:
+      #driver: none
 
 volumes:
   sql_data:
