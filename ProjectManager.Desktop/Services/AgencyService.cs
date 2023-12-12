@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using ProjectManager.Desktop.Models;
-using static ProjectManager.Desktop.Common.Data.URL;
+using static ProjectManager.Desktop.Common.Data.Url;
 
 namespace ProjectManager.Desktop.Services;
 

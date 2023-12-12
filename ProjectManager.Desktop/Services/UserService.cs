@@ -8,7 +8,7 @@ using Flurl.Http;
 using Newtonsoft.Json;
 using ProjectManager.Desktop.Models;
 using ProjectManager.Desktop.Models.Enums;
-using static ProjectManager.Desktop.Common.Data.URL;
+using static ProjectManager.Desktop.Common.Data.Url;
 
 namespace ProjectManager.Desktop.Services;
 

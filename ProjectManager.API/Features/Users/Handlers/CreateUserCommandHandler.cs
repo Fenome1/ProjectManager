@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using ProjectManager.API.Context;
 using ProjectManager.API.Features.Base;
 using ProjectManager.API.Features.Users.Commands;
+using ProjectManager.API.Features.Users.Queries.Check;
 using ProjectManager.API.Hubs;
 using ProjectManager.API.Models;
 using ProjectManager.API.Services;
@@ -23,6 +24,7 @@ public class CreateUserCommandHandler : BaseCommandHandler<ProjectManagerDbConte
 
     public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+
         var user = _mapper.Map<User>(request);
 
         user.HashedPassword = HashService.HashPassword(request.Password);

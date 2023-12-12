@@ -13,7 +13,7 @@ public class RoleService
     {
         try
         {
-            var response = await $"{URL.BaseApiUrl}/Role"
+            var response = await $"{Url.BaseApiUrl}/Role"
                 .GetJsonAsync<List<Role>?>();
 
             return response;
