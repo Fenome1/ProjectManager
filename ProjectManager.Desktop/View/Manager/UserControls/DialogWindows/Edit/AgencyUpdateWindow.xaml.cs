@@ -4,9 +4,6 @@ using ProjectManager.Desktop.Models;
 
 namespace ProjectManager.Desktop.View.Manager.UserControls.DialogWindows.Edit;
 
-/// <summary>
-///     Логика взаимодействия для AgencyUpdateWindow.xaml
-/// </summary>
 public partial class AgencyUpdateWindow : Window
 {
     public AgencyUpdateWindow(Agency agency)
