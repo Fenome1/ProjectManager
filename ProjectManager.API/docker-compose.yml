@@ -3,15 +3,15 @@
     image: mcr.microsoft.com/mssql/server:latest
     container_name: sql_db
     environment:
-      SA_PASSWORD: Fenome1Password!
+      SA_PASSWORD: P@ssw0rd
       ACCEPT_EULA: Y
       MSSQL_PID: Developer
     ports:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-    #logging:
-      #driver: none
+    logging:
+      driver: none
 
   projectmanager.api:   
     image: projectmanager.api
@@ -23,8 +23,8 @@
     ports:
       - "8080:80"
     restart: unless-stopped
-    #logging:
-      #driver: none
+    logging:
+      driver: none
 
 volumes:
   sql_data:

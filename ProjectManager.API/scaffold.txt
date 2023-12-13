@@ -1,1 +1,0 @@
-scaffold-dbcontext 'Server=localhost;User Id=sa;Password=Fenome1Password!;Initial Catalog=ProjectManager;TrustServerCertificate=True' Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context ProjectManagerDbContext -ContextDir Context -force
